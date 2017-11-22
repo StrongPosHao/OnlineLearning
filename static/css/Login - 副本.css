@@ -1,7 +1,6 @@
 body{
     background: url("../image/aliis-sinisalu-70581.jpg") no-repeat fixed center;
     background-size: cover;
-    font-size:4px;
 }
 
 body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
@@ -16,6 +15,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 
 .login-panel h1{
     padding-top: 1.5em;
+    padding-bottom: 0.5em;
     font-size: 10em;
     text-align: center;
     color: rgba(126,135,142, 0.9);
@@ -44,9 +44,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-login{
-    margin-top: 1em;
+    margin-top: 10%;
     margin-left: 10%;
-    margin-bottom:1em;
     width: 80%;
     height:2.1em;
     font-size: 5em;
@@ -56,6 +55,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 .small_link{
     text-align: right;
     width:90%;
+    padding-top: 5%;
     color: rgba(175,139,127,0.6);
 }
 
@@ -68,15 +68,12 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 
 a{
     color: rgba(15,16,18, 0.7);
-    font-size: 1em;
+    font-size: 40px;
 }
 
-@media screen and (max-width: 1080px) {
-    a{
-        color: rgba(220, 220, 220, 0.7);
-        font-size:4em;
+@media screen and (max-width: 768px) {
+    .small_link{
+        color: rgba(220,220,220,0.6);
     }
-    body{
-        font-size: 12px;
-    }
+
 }
