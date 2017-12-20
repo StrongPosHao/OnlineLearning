@@ -1,0 +1,141 @@
+body{
+    background: url("../image/damian-zaleski-843.jpg") no-repeat fixed center;
+    background-size: cover;
+    font-size:1em;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+a{
+    color: rgba(15,16,18, 0.7);
+    font-size: 1.7em;
+    text-decoration: none;
+}
+
+.login-panel{
+    /*background-color: rgba(52,51,47, 0.3);*/
+    background-color: rgba(138, 127, 124, 0.1);
+    margin-top:9em;
+    border-radius: 1em;
+}
+
+.login-panel h1{
+    padding-top: 1em;
+    font-size: 3.3em;
+    text-align: center;
+    color: rgba(126,135,142, 0.9);
+}
+
+.login-form{
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 1.5em;
+}
+
+.input-box{
+    width:80%;
+    margin-left:10%;
+}
+
+.input-box label{
+    font-size: 2em;
+    padding-top: 1em;
+    color: rgba(78, 47, 13, 0.7);
+    font-weight: normal;
+}
+
+.input-box input{
+    height: 14%;
+    border-radius: 0.5em;
+}
+
+.input-box .form-control{
+    position: relative;
+    height: 2.5em;
+    font-size: 1.7em;
+}
+
+.btn-login{
+    margin-top: 0em;
+    margin-left: 10%;
+    margin-bottom:1em;
+    width: 80%;
+    font-size: 2em;
+    border-radius: 0.5em;
+    background-color:rgba(221,130,98, 0.8);
+    color: whitesmoke;
+}
+
+.btn-login:hover{
+    color: whitesmoke;
+    background-color:rgba(177, 96, 81, 0.8);
+    border-color: rgba(177, 96, 81, 0.8);
+}
+
+/*.btn-info {*/
+    /*background-image: linear-gradient(to bottom,rgba(221, 130, 98, 0.88) 0,rgba(221, 130, 98, 0.88) 100%);*/
+    /*!* background-repeat: repeat-x; *!*/
+    /*border-color: rgba(221, 130, 98, 0.88);*/
+/*}*/
+
+/*.btn-info:hover {*/
+    /*color: #fff;*/
+    /*background-color: #31b0d5;*/
+    /*border-color: rgba(177, 96, 81, 0.8);*/
+/*}*/
+
+.small_link{
+    float: right;
+    margin-right: 11%;
+    color: rgba(175,139,127,0.6);
+    font-size: 0.85em;
+    text-decoration: none;
+}
+
+.small_link a{
+    color: rgba(15,16,18, 0.7);
+    font-size: 1.7em;
+    text-decoration: none;
+}
+
+.small_link a:hover{
+    text-decoration: none;
+    color: #00A000;
+}
+
+.visit-style{
+    margin-left: 27em;
+    padding-top: 2em;
+    padding-bottom: 3%;
+    font-size: 15pt;
+}
+
+
+
+.tip_div{
+    padding-top: 2.2em;
+    text-align: center;
+    margin-bottom: 0.5em;
+    width:90%;
+    color: rgba(175,139,127,0.6);
+    font-size: 1em;
+}
+
+.tip{
+    text-align: center;
+    font-size:1.7em;
+}
+
+/*@media screen and (max-width: 1080px) {*/
+    /*a{*/
+        /*font-size:4em;*/
+    /*}*/
+    /*.tip{*/
+        /*font-size:3.5em;*/
+    /*}*/
+    /*body{*/
+        /*font-size: 12px;*/
+    /*}*/
+/*}*/

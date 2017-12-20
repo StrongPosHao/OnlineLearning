@@ -1,0 +1,372 @@
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+body{
+    background-color: #eee;
+}
+
+.nav_bar{
+    background-color: rgba(36,41,46,0.85);
+    width: 100%;
+}
+
+.course-navbar{
+    width: 17%;
+    height: 48em;
+    margin-top: 1.4em;
+    border-radius: 0.5em;
+    background-color: rgba(221,221,221,1);
+    position: absolute;
+}
+
+.navbar-form{
+    width: 28%;
+}
+
+.index_title{
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.3);
+}
+
+.back-index{
+    font-size: 1.43em;
+    padding-left: 3em;
+    padding-top: 0.6em;
+}
+
+.back-index a{
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+}
+
+.back-index a:hover{
+    color: rgba(255,255,255,0.2);
+}
+
+.search{
+    position: relative;
+    left: 15%;
+    width: 100%;
+    /*float:right;*/
+}
+
+.search input{
+    background-color: #3f4448;
+    color: #ffffff;
+    border-style: none;
+}
+
+.search input::placeholder{
+    color: rgba(255,255,255,0.55);
+}
+
+.search_btn{
+    width: 11%;
+    height: 32px;
+}
+
+.drop_down{
+    padding-right: 2.6em;
+}
+
+.drop_down a{
+    color:#ffffff;
+}
+
+.drop_down a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #333;
+    border-color: #333;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #333;
+}
+
+.category{
+    color: rgba(255,255,255,0.7);
+    font-size: 1.4em;
+    text-align: center;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.category a{
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    word-break: keep-all;
+}
+
+.category span{
+    border:1px solid #ffffff;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-right:20px;
+}
+.category a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.course-navbar{
+    width: 17%;
+    height: 45em;
+    background-color: rgba(221,221,221,1);
+    position: absolute;
+    margin-top: 0;
+}
+
+.course-content-box{
+    width: 83%;
+    left: 17%;
+    height: auto;
+    position: relative;
+}
+
+.item-box{
+    left: 2.5%;
+    top: 1.5em;
+    height: auto;
+    width: 95%;
+    /*height: 15em;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+
+.course-item-box-img{
+    width: 100%;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 1em;
+}
+
+.course-item-box-img img{
+    width: 17.5em;
+}
+
+.course-item-box-title{
+    left: 1.5%;
+    top: 9.5em;
+    width: 97%;
+    /*height: 22px;*/
+    z-index: 0;
+    color: rgba(0, 0, 50,0.9);
+    font-size: 1.4em;
+    position: absolute;
+    /*line-height: 22px;*/
+}
+
+.course-tab-list{
+    left: 2.5%;
+    top: 20em;
+    height: auto;
+    width: 95%;
+    /*height: 15em;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    background-color: rgba(221,221,221,0.8);
+    float: left;
+    list-style-type: none;
+    text-align: center;
+}
+
+.course-tab-list li{
+    left: -9.2%;
+    top: 0.5em;
+    height: auto;
+    width: auto;
+    font-size: 1.6em;
+    position: relative;
+    line-height: 3.5em;
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.13);
+    border-width: 0 0 0.05em;
+}
+
+.course-tab-list a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.course-tab-list a:hover{
+    color: #00A000;
+    text-decoration: none;
+}
+
+.current{
+    color: whitesmoke;
+    background-color: #55b929;
+}
+
+.current a{
+    color: #fff;
+}
+
+.resource-content-box{
+    width: 83%;
+    left: 17%;
+    height: auto;
+    position: relative;
+    font-size: 1em;
+    background-color: rgba(255,255,255,0.5);
+    padding-bottom: 7em;
+}
+
+.resource-content{
+    width: 90%;
+    height: auto;
+    margin-left: 1%;
+    border-radius: 0.5em;
+
+}
+
+.resource-content h3{
+    padding-left: 1%;
+    margin-top: 0;
+    padding-top: 0.5em;
+    font-size: 1.4em;
+    line-height: 2em;
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.5);
+    border-width: 0 0 0.03em;
+}
+
+.video-list{
+    /*border-bottom: 1px solid #ddd;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    height: 30px;
+    width: 80%;
+    list-style-type: none;
+    margin-left: 4.1%;
+}
+
+.resource-content-box ul{
+    margin-bottom: 0;
+    margin-top: 3em;
+}
+
+.video-list li{
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    float: left;
+    width: 32.7%;
+    list-style: none;
+}
+
+.video-list li:hover{
+    color: whitesmoke;
+    background-color: #55b92947;
+}
+
+.video-list a{
+    color: black;
+}
+
+.video-list a:hover{
+    color: whitesmoke;
+    background-color: #55b92947;
+}
+
+.l-icon{
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.resource-video-box{
+    width: 96%;
+    margin-left: 2%;
+    height: auto;
+
+}
+
+.video-box{
+    width: 85%;
+    margin-left: 7.5%;
+    margin-top: 0.1em;
+    height: auto;
+    width: 75%;
+    margin-left: 7.5%;
+    /*max-width: 78%;*/
+    height: auto;
+    margin-bottom: 1.5em;
+}
+
+video {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+@media screen and (max-width: 1080px) {
+    .search_btn{
+        width: 16%;
+    }
+
+    .course-navbar{
+        margin-top:0;
+        height: 32.3em;
+    }
+
+    .course-item-box-img img {
+        width: 15em;
+    }
+
+    .item-box {
+        left: 5%;
+        width: 90%;
+    }
+
+    .course-item-box-title{
+        top:8em;
+        font-size: 1.3em;
+    }
+
+    .course-tab-list {
+        left: -4%;
+        top: 18em;
+    }
+
+    .course-tab-list li {
+        font-size: 1.3em;
+        line-height: 2.5em;
+    }
+
+    .resource-content-box{
+        padding-bottom: 4.5em;
+    }
+
+    .resource-content-box ul{
+        margin-left: 7%;
+    }
+
+    .video-box{
+        margin-left: 12%;
+        margin-top: 0.05em;
+    }
+
+}

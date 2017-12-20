@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/personal_center.css" type="text/css">
+    <title>个人中心|Online Learning</title>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="{{ url_for('course') }}">课程</a>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="self-content" class="top-box">
+    <div class="userInfo-container">
+        <div class="userImg">
+            <span class="userIcon glyphicon glyphicon-user"></span>
+        </div>
+        <div class="hi">Hi,</div>
+
+        <div class="userName">
+            <span class="userName-data" id="name"> {{ user.userName }} </span> <!--从数据库获取用户名-->
+        </div>
+
+        <div class="userComment">
+            <span class="comment-tip" title="评论数、回复数之和">评论/回复</span>
+        </div>
+
+        <!--从数据库获取该用户评论数-->
+        <div>
+            <span class="comment-data" id="comment">10</span><!--从数据库获取该用户评论数-->
+        </div>
+
+        <div class="commentImg">
+            <span class="commentIcon glyphicon glyphicon-edit"></span>
+        </div>
+        <div class="comment-spin"></div>
+
+        <div class="userTime">
+            <span class="time-tip" title="累计学习时间">学习时长</span>
+        </div>
+
+        <!--从数据库获取该用户学习时长-->
+        <div>
+            <span class="time-data" id="time">{{ user.studyDuration }}</span> <!--从数据库获取该用户学习时长-->
+        </div>
+
+        <div class="timeImg">
+            <span class="timeIcon glyphicon glyphicon-time"></span>
+        </div>
+    </div>
+</div>
+
+<div class="home-content">
+    <div class="content-tab" align="center">
+        <ul>
+            <li class="current">
+                <a id="course-title" > 课程</a>
+            </li>
+            <li>
+                <a href="personal_center-discuss.html" id="comment-title">评论</a>
+            </li>
+        </ul>
+    </div>
+    <div class="course-container-item">
+        <div class="course-items">
+            <div class="course-item-box">
+                <div class="item-box">
+                    <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                        <div class="course-item-box-img">
+                            <img alt="C#"
+                                 src="../static/image/courtney-corlew-190987.jpg">
+                        </div>
+                        <div class="course-item-box-title">
+                            <span class="">C#</span>
+                        </div>
+                        <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                    </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="course-item-box">
+                <div class="item-box">
+                    <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                        <div class="course-item-box-img">
+                            <img alt="C++"
+                                 src="../static/image/marius-masalar-132751.jpg">
+                        </div>
+                        <div class="course-item-box-title">
+                            <span class="">C语言</span>
+                        </div>
+                        <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

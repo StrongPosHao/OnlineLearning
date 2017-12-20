@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/forget.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+    <script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+    <title>修改密码|OnlineLearning</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4">
+            <div class="forget-panel">
+                <h1>找回密码</h1>
+                <form id="forgetForm" method="post">
+                    <div class="form-group input-box">
+                        <label for="email">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱" autofocus="autofocus">
+                        <div class="tip_div">
+                            <div id="emailTip" class="tip"></div>
+                        </div>
+
+                        <label for="phone">手机号</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机号">
+                        <div class="tip_div">
+                            <div id="phoneTip" class="tip"></div>
+                        </div>
+
+                        <label for="password1">密 码</label>
+                        <input type="password" class="form-control" id="password1" name="phone1"
+                               placeholder="7-30个字符，不包含-和_以外的特殊字符和空格" >
+                        <div class="tip_div">
+                            <div id="passwordTip" class="tip"></div>
+                        </div>
+
+                        <label for="password2">确认密码</label>
+                        <input type="password" class="form-control" id="password2" name="password2"
+                               placeholder="请再次输入密码"
+                               onchange="resure_password()">
+                        <div class="tip_div">
+                            <div id="password2Tip" class="tip"></div>
+                        </div>
+                    </div>
+                    <div  class="tip_div" align="center">
+                        <div id="submitTip" class="tip"></div>
+                    </div>
+                    <input class="btn btn-primary btn-large btn-shadow btn-forget" type="submit"
+                           id="submit" value="确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定"/>
+
+                    <div style="padding-bottom: 5%;">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var email_patten = new RegExp(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,})+/);
+    var phone_patten = new RegExp(/^1[345678]\d{9}$/);
+    var email_ok = false;
+    var phone_ok = false;
+    var email_null = true;
+    var phone_null = true;
+    var pwd_null = true;
+    var pwd2_null = true;
+    $(function(){
+        $("#email").on('input',function(e){
+            var email = $("input[id='email']").val();
+            var patten=true;
+            var num=true;
+            if(!email_patten.test(email)){
+                patten=false;
+                $("#email").css("border-color","red");
+                $("#emailTip").css({"color":"red"}).text("该邮箱格式有误！");
+            }
+            if(email.length<1){
+                $("#email").css("border-color","red");
+                $("#emailTip").css({"color":"red"}).text("请输入邮箱");
+                num=false;
+                email_null=true;
+            }
+            if(email.length>0){
+                email_null=false;
+            }
+            if(patten&&num){
+                //alert(md5(username.val()));
+                //同时从数据库返回手机号
+                $.post("http://119.29.203.44/tg/php/db_test.php",
+                    {
+                        userEmail:email
+                    },
+                    function(data,status){
+                        if(data==='Already existed.'){
+                            $("#email").css("border-color","red");
+                            $("#emailTip").css({"color":"red"}).text("该邮箱已被占用!");
+                        }
+                        else{
+                            $("#email").css("border-color","green");
+                            $("#emailTip").css({"color":"green"}).text("");
+                            email_ok=true;
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function(){
+        $("#phone").on('input',function(e){
+            var phone = $("input[id='phone']").val();
+            var patten=true;
+            var num=true;
+            if(!phone_patten.test(phone)){
+                patten=false;
+                $("#phone").css("border-color","red");
+                $("#phoneTip").css({"color":"red"}).text("该手机号格式有误！");
+            }
+            if(phone.length<1){
+                $("#phone").css("border-color","red");
+                $("#phoneTip").css({"color":"red"}).text("请输入手机号(11位)");
+                num=false;
+                phone_null=true;
+            }
+            if(patten&&num){
+                //alert(md5(username.val()));
+                //同时从数据库返回邮箱号
+                phone_null=false;
+                $.post("http://119.29.203.44/tg/php/db_test.php",
+                    {
+                        userPhone:phone
+                    },
+                    function(data,status){
+                        if(data==='Already existed.'){
+                            $("#phone").css("border-color","red");
+                            $("#phoneTip").css({"color":"red"}).text("该手机号已被占用!");
+                        }
+                        else{
+                            $("#phone").css("border-color","green");
+                            $("#phoneTip").css({"color":"green"}).text("");
+                            phone_ok=true;
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function () {
+        $("#password1").on('input',function(e){
+            var password = $("input[id='password1']").val();
+            var num=true;
+            var patten=true;
+            if(!pwd_patten.test(password)){
+                patten=false;
+            }
+            if(password.length<1||password.length>30||password.length<7){
+                num=false;
+            }
+            if(password.length<1){
+                pwd_null=true;
+            }
+            if(patten&&num){
+                $("#password1").css("border-color","green");
+                $("#passwordTip").css({"color":"green"}).text("");
+                pwd_ok=true;
+                pwd_null=false;
+            }
+            else{
+                $("#password1").css("border-color","red");
+                $("#passwordTip").css({"color":"red"}).text("7-30个字符，不包含-和_以外的特殊字符和空格");
+                pwd_ok=false;
+            }
+        });
+
+        $("#password2").blur('input',function (e) {
+            var password2 = $("input[id='password2']").val();
+            var password1 = $("input[id='password1']").val();
+            if(password2.length<1){
+                pwd2_null=true;
+                $("#password2").css("border-color","red").text("请再次输入密码！");
+            }
+            if(!(password1===""||password1===null)&&password1===password2&&pwd_ok){
+                $("#password2").css("border-color","green");
+                $("#password2Tip").css({"color":"green"}).text("");
+                pwd2_ok=true;
+                pwd2_null=false;
+            }
+            if(!(password1===""||password1===null)&&!(password1===password2)&&pwd_ok){
+                pwd2_ok=false;
+                $("#password2").css("border-color","red");
+                $("#password2Tip").css({"color":"red"}).text("密码不一致！");
+            }
+            if(password1===""||password1===null){
+                $("#password1").css("border-color","red");
+                $("#password2").css("border-color","red").text("请先确保上一栏的密码格式正确！");
+                pwd2_ok=false;
+            }
+        });
+    });
+
+    var forgetForm = document.getElementById('forgetForm');
+    var submit = document.getElementById('submit');
+    submit.onclick=function () {
+        if(email_ok&&phone_ok&&pwd_ok&&pwd2_ok){
+            alert("密码修改成功！\n点击确定，进入登录页面。");
+            forgetForm.submit();
+            window.location.href="test.html";
+        }
+        else{
+            if(email_null){
+                $("#emailTip").css("color","red").text("请输入邮箱");
+            }
+            if(!(email_ok||email_null)){
+                $("#email").css("border-color","red");
+            }
+            if(phone_null){
+                $("#phoneTip").css("color","red").text("请输入手机号(11位)");
+            }
+            if(!(phone_ok||phone_null)){
+                $("#phone").css("border-color","red");
+            }
+            if(pwd_null){
+                $("#passwordTip").css("color","red").text("7-30个字符，不包含-和_以外的特殊字符");
+            }
+            if(!(pwd_ok||pwd_null)){
+                $("#password1").css("border-color","red");
+            }
+            if(pwd2_null){
+                $("#password2Tip").css("color","red").text("请输入确认密码！");
+            }
+            if(!(pwd2_ok||pwd2_null)){
+                $("#password2").css("border-color","red");
+            }
+            $("#submitTip").css({"color":"red","padding-left":"4.8em"}).text("新密码设置失败！");
+            return false;
+        }
+    };
+//    $("#submit").click(function () {
+//        if(email_ok&&phone_ok&&pwd_ok&&pwd2_ok){
+//            alert("密码修改成功！\n点击确定，进入登录页面。");
+//            forgetForm.submit();
+//            window.location.href="test.html";
+//        }
+//        else{
+//            if(email_null){
+//                $("#emailTip").css("color","red").text("请输入邮箱");
+//            }
+//            if(!(email_ok||email_null)){
+//                $("#email").css("border-color","red");
+//            }
+//            if(phone_null){
+//                $("#phoneTip").css("color","red").text("请输入手机号(11位)");
+//            }
+//            if(!(phone_ok||phone_null)){
+//                $("#phone").css("border-color","red");
+//            }
+//            if(pwd_null){
+//                $("#passwordTip").css("color","red").text("7-30个字符，不包含-和_以外的特殊字符");
+//            }
+//            if(!(pwd_ok||pwd_null)){
+//                $("#password1").css("border-color","red");
+//            }
+//            if(pwd2_null){
+//                $("#password2Tip").css("color","red").text("请输入确认密码！");
+//            }
+//            if(!(pwd2_ok||pwd2_null)){
+//                $("#password2").css("border-color","red");
+//            }
+//            $("#submitTip").css({"color":"red","padding-left":"4.8em"}).text("新密码设置失败！");
+//            return false;
+//        }
+//    });
+
+</script>
+</html>

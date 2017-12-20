@@ -1,0 +1,16 @@
+.searchInput input {
+    position: relative;
+    top: 13px;
+    left: 20px;
+}
+
+.searchInput button {
+    position: absolute;
+    left: 16em;
+    top: -0.2em;
+}
+
+.newClass {
+    position: relative;
+    left: 37em;
+}

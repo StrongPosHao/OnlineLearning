@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/index.css" type="text/css">
+    <title>Online Learning|在线学习</title>
+    <script>
+        $(document).ready(function () {
+            $('#myCarousel').carousel({interval:4000});
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar nav_bar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+            </div>
+                <form class="navbar-form navbar-left" action="{{ url_for('search') }}">
+                    <div class="form-group search">
+                        <input type="text" class="form-control" placeholder="搜索感兴趣的课程" name="course" style="width: 300px">
+                        <button type="submit" class="btn search_btn" value="">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="drop_down" style="padding-right: 1em">
+                        <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                    </li>
+                    <li class="dropdown drop_down">
+                        <a href="#" class="dropdown-toggle" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('logout') }}">退出</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('help') }}">帮助</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="slide-container" id="slide-container">
+        <div class="slide-cate">
+            <div class="slide-cate-f" align="center">
+                <!--从数据库选前六个分类-->
+                <!--用户点击时，跳转到对应的页面-->
+                <div class="cateItem-container">
+                    <a href="category/computer.html">
+                        <div class="cateItem-txt">计算机</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a>
+                        <div class="cateItem-txt">经济管理</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a href="#">
+                        <div class="cateItem-txt">外语</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a href="#">
+                        <div class="cateItem-txt">艺术设计</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a href="#">
+                        <div class="cateItem-txt">文学历史</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a href="#">
+                        <div class="cateItem-txt">心理学</div>
+                    </a>
+                </div>
+                <div class="cateItem-container" style="margin-top: 0.5em">
+                    <a href="category/course.html">
+                        <div class="cateItem-txt">更多</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="myCarousel" class="carousel slide slide-box">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active" id="s0"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+            </ol>
+            <div class="carousel-inner slider-carousel-items">
+                <div class="item active slide-carousel-item">
+                    <img src="../static/image/joanna-kosinska-129039.jpg" alt="First slide" >
+                </div>
+                <div class="item slide-carousel-item">
+                    <img src="../static/image/shane-rounce-405329.jpg" alt="Second slide">
+                </div>
+                <div class="item slide-carousel-item">
+                    <img src="../static/image/courtney-corlew-190987.jpg" alt="Third slide">
+                </div>
+                <div class="item slide-carousel-item">
+                    <img src="../static/image/chuttersnap-397987-1.jpg" alt="Fourth slide">
+                </div>
+                <div class="item slide-carousel-item">
+                    <img src="../static/image/src.jpg" alt="Fifth slide">
+                </div>
+            </div>
+            <a class="carousel-control left" href="#myCarousel"
+               data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#myCarousel"
+               data-slide="next">&rsaquo;</a>
+        </div>
+        <div class="slide-person">
+            <div class="person-container">
+                <div class="person-title" align="center">
+                    <span>
+                        {% if user %}
+                            {{ user.userName }}
+                        {% else %}
+                            游客
+                        {% endif %}
+                    </span><!--当前的用户名-->
+                </div>
+                <div class="person-img" align="center">
+                    <span class="userIcon glyphicon glyphicon-user"></span>
+                </div>
+                <div class="person-center" align="center">
+                    <a href="{{ url_for('personalCenter') }}">
+                        <span>个 人 中 心</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blank"></div>
+    <div class="course-index">
+        <div class="course-container">
+            <div class="course-container-item">
+                <div class="course-item-cateName">
+                    <a href="#" target="_blank">
+                        <span class="cateName-span">计算机</span>
+                    </a>
+                </div>
+                <div class="course-item-subCate">
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">计算机基础</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">编程语言</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">数据库与数据结构</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">软件工程</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="course-items">
+                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="C#"
+                                         src="../static/image/courtney-corlew-190987.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">C#</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="C++"
+                                         src="../static/image/marius-masalar-132751.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">C语言</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="C++"
+                                         src="../static/image/benjamin-dada-323461.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">精通Python</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="C++"
+                                         src="../static/image/猎户座星云.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">Java从入门到放弃</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-container-item">
+                <div class="course-item-cateName">
+                    <a href="#" target="_blank">
+                        <span class="cateName-span">经济管理</span>
+                    </a>
+                </div>
+                <div class="course-item-subCate">
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">工商管理</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">电子商务</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">经济学</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">创业</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="course-items">
+                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="统计学"
+                                         src="../static/image/courtney-corlew-190987.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">统计学</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="创新创业"
+                                         src="../static/image/marius-masalar-132751.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">创新创业</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="国际金融"
+                                         src="../static/image/benjamin-dada-323461.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">国际金融</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="人力资源管理"
+                                         src="../static/image/猎户座星云.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">人力资源管理</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="course-container-item">
+                <div class="course-item-cateName">
+                    <a href="#" target="_blank">
+                        <span class="cateName-span">艺术设计</span>
+                    </a>
+                </div>
+                <div class="course-item-subCate">
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">艺术</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">建筑</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">设计</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="course-items">
+                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="中国古代建筑艺术"
+                                         src="../static/image/courtney-corlew-190987.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">中国古代建筑艺术</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="艺术导论"
+                                         src="../static/image/marius-masalar-132751.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">艺术导论</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="电影鉴赏"
+                                         src="../static/image/benjamin-dada-323461.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">电影鉴赏</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="摄影基础"
+                                         src="../static/image/猎户座星云.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">摄影基础</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="course-container-item">
+                <div class="course-item-cateName">
+                    <a href="#" target="_blank">
+                        <span class="cateName-span">生命科学</span>
+                    </a>
+                </div>
+                <div class="course-item-subCate">
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">健康</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">医学</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">环境</span>
+                        </a>
+                    </div>
+                    <div class="subCate-div">
+                        <a href="#" target="_blank">
+                            <span class="subCate-span">生物</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="course-items">
+                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="AIDS and I --艾滋病与我"
+                                         src="../static/image/courtney-corlew-190987.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">AIDS and I --艾滋病与我</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="植物学"
+                                         src="../static/image/marius-masalar-132751.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">植物学</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="急救常识"
+                                         src="../static/image/benjamin-dada-323461.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">急救常识</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="course-item-box">
+                        <div class="item-box">
+                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                                <div class="course-item-box-img">
+                                    <img alt="运动与健康"
+                                         src="../static/image/猎户座星云.jpg">
+                                </div>
+                                <div class="course-item-box-title">
+                                    <span class="">运动与健康</span>
+                                </div>
+                                <div class="course-item-box-visit">
+                                    <span class="course-item-box-visit-num">
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#myCarousel').on('slide.bs.carousel', function (event) {
+            var $hoder = $('#myCarousel').find('.item'),
+                $items = $(event.relatedTarget);
+            //getIndex就是轮播到当前位置的索引
+            var getIndex= $hoder.index($items);
+            if(getIndex=='0'){
+                $('.slide-container').css("background-color","rgba(244,186,1,0.5)")
+            }
+            if(getIndex=='1'){
+                $('.slide-container').css("background-color","rgba(80,62,44,0.6)")
+            }
+            if(getIndex=="2"){
+                $('.slide-container').css("background-color","rgba(25,22,22,0.9)")
+            }
+            if(getIndex=="3"){
+                $('.slide-container').css("background-color","rgba(131,139,144,0.5)")
+            }
+            if(getIndex=="4"){
+                $('.slide-container').css("background-color","rgba(0,0,0,0.8)")
+            }
+        });
+    });
+</script>
+</html>

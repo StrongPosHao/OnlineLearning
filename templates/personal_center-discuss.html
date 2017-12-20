@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <link rel="stylesheet" href="../static/css/personal_center-discuss.css" type="text/css">
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>个人中心|Online Learning</title>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="index.html">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="course.html">课程</a>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="personal_center.html" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="setting.html">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="self-content" class="top-box">
+    <div class="userInfo-container">
+        <div class="userImg">
+            <span class="userIcon glyphicon glyphicon-user"></span>
+        </div>
+        <div class="hi">Hi,</div>
+
+        <div class="userName">
+            <span class="userName-data" id="name"> GrinXu </span> <!--从数据库获取用户名-->
+        </div>
+
+        <div class="userComment">
+            <span class="comment-tip" title="评论数、回复数之和">评论/回复</span>
+        </div>
+
+        <!--从数据库获取该用户评论数-->
+        <div>
+            <span class="comment-data" id="comment">10</span><!--从数据库获取该用户评论数-->
+        </div>
+
+        <div class="commentImg">
+            <span class="commentIcon glyphicon glyphicon-edit"></span>
+        </div>
+        <div class="comment-spin"></div>
+
+        <div class="userTime">
+            <span class="time-tip" title="累计学习时间">学习时长</span>
+        </div>
+
+        <!--从数据库获取该用户学习时长-->
+        <div>
+            <span class="time-data" id="time">100</span> <!--从数据库获取该用户学习时长-->
+        </div>
+
+        <div class="timeImg">
+            <span class="timeIcon glyphicon glyphicon-time"></span>
+        </div>
+    </div>
+</div>
+
+<div class="home-content">
+    <div class="content-tab" align="center">
+        <ul>
+            <li>
+                <a href="personal_center.html" id="course-title" > 课程</a>
+            </li>
+            <li class="current">
+                <a id="comment-title">评论</a>
+            </li>
+        </ul>
+    </div>
+    <div class="sub-comment-nav">
+            <span>
+                <a style="color: #00aa00" href="personal_center-discuss.html">发表的评论</a>
+            </span>
+            <span style="margin-left: 1%;margin-right: 1%"> | </span>
+            <span class="sub">
+                <a href="personal_center-reply.html">发表的回复</a>
+            </span>
+    </div>
+</div>
+<div class="all-comment-content">
+    <div class="comment-content-box">
+        <!--从数据库中获取该课程的所有评论-->
+        <ul class="comment-list">
+            <li class="comment-list-item">
+                <!--评论时间-->
+                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
+                <span> | </span>
+                <!--评论的回复数-->
+                <span class="reply">回复</span><span class="reply-num">0</span>
+                <span> | </span>
+                <!--评论的课程名称(链接)-->
+                <a href="study-discuss.html" target="_blank">
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
+                </a>
+                <!--课程内容-->
+                <div class="comment-item">
+                    <a href="study-discuss-details.html" target="_blank">python好简单呐！</a>
+                </div>
+            </li>
+            <li class="comment-list-item">
+                <!--评论时间-->
+                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
+                <span> | </span>
+                <!--评论的回复数-->
+                <span class="reply">回复</span><span class="reply-num">0</span>
+                <span> | </span>
+                <!--评论的课程名称(链接)-->
+                <a href="study-discuss.html">
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
+                </a>
+                <!--课程内容-->
+                <div class="comment-item">
+                    <a href="study-discuss-details.html">python好简单呐！</a>
+                </div>
+            </li>
+            <li class="comment-list-item">
+                <!--评论时间-->
+                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
+                <span> | </span>
+                <!--评论的回复数-->
+                <span class="reply">回复</span><span class="reply-num">0</span>
+                <span> | </span>
+                <!--评论的课程名称(链接)-->
+                <a href="study-discuss.html">
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
+                </a>
+                <!--课程内容-->
+                <div class="comment-item">
+                    <a href="study-discuss-details.html">python好简单呐！</a>
+                </div>
+            </li>
+            <li class="comment-list-item">
+                <!--评论时间-->
+                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
+                <span> | </span>
+                <!--评论的回复数-->
+                <span class="reply">回复</span><span class="reply-num">0</span>
+                <span> | </span>
+                <!--评论的课程名称(链接)-->
+                <a href="study-discuss.html">
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
+                </a>
+                <!--课程内容-->
+                <div class="comment-item">
+                    <a href="study-discuss-details.html">python好简单呐！</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

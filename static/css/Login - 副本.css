@@ -1,0 +1,79 @@
+body{
+    background: url("../image/aliis-sinisalu-70581.jpg") no-repeat fixed center;
+    background-size: cover;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+.login-panel{
+    background-color: rgba(52,51,47, 0.3);
+    margin-top:7.9em;
+    border-radius: 1em;
+}
+
+.login-panel h1{
+    padding-top: 1.5em;
+    padding-bottom: 0.5em;
+    font-size: 10em;
+    text-align: center;
+    color: rgba(126,135,142, 0.9);
+}
+
+.input-box{
+    width:90%;
+    padding-left:10%;
+}
+
+.input-box label{
+    font-size: 5em;
+    padding-top: 0.5em;
+    color: rgba(255,255,255,0.3);
+}
+
+.input-box input{
+    height: 14%;
+    border-radius: 0.5em;
+}
+
+.input-box .form-control{
+    position: relative;
+    height: 2.5em;
+    font-size: 3em;
+}
+
+.btn-login{
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    height:2.1em;
+    font-size: 5em;
+    border-radius: 0.5em;
+}
+
+.small_link{
+    text-align: right;
+    width:90%;
+    padding-top: 5%;
+    color: rgba(175,139,127,0.6);
+}
+
+.visit-style{
+    margin-left: 27em;
+    padding-top: 2em;
+    padding-bottom: 3%;
+    font-size: 15pt;
+}
+
+a{
+    color: rgba(15,16,18, 0.7);
+    font-size: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .small_link{
+        color: rgba(220,220,220,0.6);
+    }
+
+}

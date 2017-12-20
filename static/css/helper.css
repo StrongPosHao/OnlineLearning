@@ -1,0 +1,285 @@
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+
+}
+
+body{
+    background-color: #eee;
+
+}
+
+.nav_bar{
+    background-color: rgba(36,41,46,0.85);
+    width: 100%;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.navbar-form{
+    width: 28%;
+}
+
+.index_title{
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.3);
+}
+
+.back-index{
+    font-size: 1.43em;
+    padding-left: 3em;
+    padding-top: 0.6em;
+}
+
+.back-index a{
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+}
+
+.back-index a:hover{
+    color: rgba(255,255,255,0.2);
+}
+
+.search{
+    position: relative;
+    left: 15%;
+    width: 100%;
+    /*float:right;*/
+}
+
+.search input{
+    background-color: #3f4448;
+    color: #ffffff;
+    border-style: none;
+}
+
+.search input::placeholder{
+    color: rgba(255,255,255,0.55);
+}
+
+.search_btn{
+    width: 11%;
+    height: 32px;
+}
+
+.drop_down{
+    padding-right: 2.6em;
+}
+
+.drop_down a{
+    color:#ffffff;
+}
+
+.drop_down a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #333;
+    border-color: #333;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #333;
+}
+
+.help-panel{
+    background-color: rgba(138, 127, 124, 0.1);
+    margin-top:2.3em;
+    border-radius: 1.2em;
+}
+
+.help-title{
+    width: 58%;
+    height: auto;
+    margin-left: 21.5%;
+    font-size: 2em;
+    margin-top: 1.5em;
+    line-height: 2.5em;
+    text-align: center;
+    position: absolute;
+    list-style-type: none;
+    overflow: hidden;
+    color: rgb(51, 51, 51);
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.3);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0.05em;
+    border-left-width: 0;
+}
+
+.glyphicon{
+    top: 3.5px;
+}
+
+.help-content-box{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.help-tab{
+    width: 15%;
+    font-size: 1.4em;
+    left: 23.5%;
+    top: 10.7em;
+    background: rgba(138, 127, 124, 0.1);
+    position: absolute;
+    height: 12em;
+}
+
+.help-tab-list{
+    top: 1em;
+    height: auto;
+    width: 95%;
+    /*height: 15em;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    float: left;
+    list-style-type: none;
+    text-align: center;
+}
+
+.help-tab-list li{
+    top: 0.5em;
+    height: auto;
+    left: -11%;
+    width: auto;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+    position: relative;
+    line-height: 2em;
+    /*border-style: solid;*/
+    /*border-color: rgba(51, 51, 51,0.13);*/
+    /*border-width: 0 0 0.05em;*/
+}
+
+.help-tab-list a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.help-tab-list a:hover{
+    color: #00A000;
+    text-decoration: none;
+}
+
+.current{
+
+    background-color: #55b929;
+}
+
+.current a{
+    color: #fff;
+}
+
+.help-content{
+    width: 40.6%;
+    top: 15em;
+    height: auto;
+    /*background: rgba(222, 184, 135, 0.1);*/
+    background: rgba(138, 127, 124, 0.1);
+    overflow: hidden;
+    position: absolute;
+    left: 38.8%;
+}
+
+.question-list{
+    font-size: 1.3em;
+    margin-left: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.question-list ul li{
+    /*list-style-type: none;*/
+    margin-bottom: 0.2em;
+}
+
+.question-list li{
+    height: auto;
+    width: 100%;
+    position: relative;
+    line-height: 2.2em;
+    /*border-style: solid;*/
+    /*border-color: rgba(51, 51, 51,0.13);*/
+    /*border-width: 0 0 0.04em;*/
+    border-radius: 0.3em;
+}
+
+.li-back{
+    width: 95%;
+    border-radius: 0.3em;
+}
+
+.list-icon{
+    font-size: 0.7em;
+    margin-left: 2.5%;
+    margin-right: 0.5%;
+}
+
+.question-list a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.question-list a:hover{
+    color: #00A000;
+    text-decoration: none;
+}
+
+.glyphicon{
+    top:0;
+}
+
+.sub{
+    margin-top: 0.5em;
+    margin-left: 3.1%;
+    width: 94%;
+    font-size: 0.91em;
+}
+
+.sub li{
+    height: auto;
+    width: 98%;
+    position: relative;
+    line-height: 2.5em;
+    border-radius: 0.3em;
+    margin-bottom: 0.5em;
+    list-style-type: none;
+}
+
+.sub span:hover{
+    color: #00A000;
+}
+
+.a-icon{
+    font-size: 0.7em;
+    margin-top: 1.5em;
+    color: rgba(67,71,75,1);
+    margin-right: 3%;
+    float: right;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+

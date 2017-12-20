@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-video.css') }}" type="text/css">
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Online Learning|在线学习</title>
+</head>
+<body>
+    <nav class="navbar nav_bar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+            </div>
+            <div class="nav navbar-left back-index">
+                <a href="{{ url_for('index') }}">首页</a>
+                <span style="margin-left: 1em;margin-right: 1em"></span>
+                <a href="{{ url_for('course') }}">课程</a>
+            </div>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group search">
+                        <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                        <button type="submit" class="btn search_btn" value="">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="drop_down" style="padding-right: 1em">
+                        <a href="personal_center.html" >个人中心</a>
+                    </li>
+                    <li class="dropdown drop_down">
+                        <a href="#" class="dropdown-toggle" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('logout') }}">退出</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('help') }}">帮助</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="course-navbar">
+        <div class="item-box">
+                <div class="course-item-box-img">
+                    <img alt="AIDS and I --艾滋病与我"
+                         src="{{ url_for('static', filename = course.courseImage) }}">
+                </div>
+                <div class="course-item-box-title">
+                    <span class="">AIDS and I --艾滋病与我</span>
+                </div>
+        </div>
+        <ul class="course-tab-list">
+            <li class="course-tab-list-item">
+                <a href="{{ url_for('courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
+            </li>
+            <li class="course-tab-list-item current">
+                <a href="{{ url_for('resourceInfo',  _external = True, courseId = course.courseId) }}">学习区</a>
+            </li>
+            <li class="course-tab-list-item">
+                <a href="{{ url_for('discuss',  _external = True, courseId = course.courseId) }}">讨论区</a>
+            </li>
+        </ul>
+    </div>
+    <div class="resource-content-box">
+        <div class="resource-content">
+            <h3 style="width: 100%">AIDS and I --艾滋病与我</h3>
+        </div>
+        <div class="resource-video-box">
+            <ul class="video-list">
+                <li title="视频" class="current">
+                    <a href="{{ url_for('video', _external = True, courseId = course.courseId, chapId = video.chapId) }}">  <!--刷新当前播放界面-->
+                        <span class="glyphicon glyphicon-play-circle l-icon"></span>
+                    </a>
+                </li>
+                <li title="课件">   <!--点击下载课件-->
+                    <a href="{{ url_for('static', filename = pdf.filePath)}}", download="{{ pdf.filename }}">
+                        <span class="glyphicon glyphicon-file l-icon"></span>
+                    </a>
+                </li>
+                <li title="讨论">  <!--点击跳转到改章节的讨论区-->
+                    <a href="#">
+                        <span class="glyphicon glyphicon-pencil l-icon"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="video-box" align="center">
+                <video controls="controls" autoplay="autoplay">
+                    <source src="{{ url_for('static', filename = video.filePath) }}" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

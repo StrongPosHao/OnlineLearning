@@ -1,0 +1,152 @@
+body{
+    background: url("../image/damian-zaleski-843.jpg") no-repeat fixed center;
+    background-size: cover;
+    font-size:1em;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+.register-panel{
+    /*background-color: rgba(224,227,234,0.8);*/
+    background-color: rgba(138, 127, 124, 0.2);
+    margin-top:3.5em;
+    border-radius: 2em;
+}
+
+.userInfo{
+    font-size: 1em;
+}
+
+.register-panel h1{
+    padding-top: 1em;
+    font-size: 3em;
+    text-align: center;
+    color: rgba(126,135,142, 0.99);
+    /*color: rgba(255,255,255,0.9);*/
+}
+
+.setting-label{
+    font-size: 1.5em;
+    margin-top: 2.2em;
+}
+
+.label-span{
+    font-size: 1.2em;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    /* margin-bottom: 5px; */
+    font-weight: normal;
+}
+
+.input-box3{
+    width: 55%;
+    margin-left: 1%;
+    font-size: 1.7em;
+    border-color: rgba(85,107,47,0.4);
+    height: 2em;
+    border-radius: 0.5em;
+    background-color: rgba(250,250,250,0.95);
+    border-width: thin;
+}
+
+.content-spin{
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.13);
+    border-width: 0 0 0.1em;
+    width: 100%;
+}
+
+.register-spin{
+    margin-top: 1.3em;
+}
+
+.input-box .form-control{
+    position: relative;
+    height: 2.5em;
+    font-size: 3em;
+}
+
+.check_patten{
+    padding-left: 2.3em;
+    color: rgba(255,255,255,0.3);
+    font-size: 3.7em;
+}
+
+.btn-register{
+    width: 20%;
+    height:2.1em;
+    font-size: 2em;
+    border-radius: 0.5em;
+}
+
+.btn-register{
+    margin-top: 0.5em;
+    width: 65%;
+    font-size: 2em;
+    border-radius: 0.5em;
+    background-color:rgba(221,130,98, 1);
+    border-color: rgba(177, 96, 81, 0.9);
+    color: whitesmoke;
+}
+
+.btn-register:hover{
+    color: whitesmoke;
+    background-color:rgba(177, 96, 81, 1);
+    border-color: rgba(177, 96, 81, 1);
+}
+
+.small_link{
+    text-align: center;
+    width:100%;
+    color: rgba(51,51,51,0.8);
+    font-size: 1.2em;
+}
+
+.visit-style{
+    margin-left: 27em;
+    padding-top: 2em;
+    padding-bottom: 3%;
+    font-size: 15pt;
+}
+
+.small_link a{
+    color: rgba(51,51,51,0.8);
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.small_link a:hover{
+    color: #00A000;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.tip_div{
+    padding-top: 0.6em;
+    width:50%;
+    padding-left: 4%;
+    color: rgba(175,139,127,0.6);
+    font-size: 1em;
+}
+
+.tip{
+    font-size:1.5em;
+}
+
+/*@media screen and (max-width: 1080px) {*/
+    /*a{*/
+        /*color: rgba(220, 220, 220, 0.7);*/
+        /*font-size:4em;*/
+    /*}*/
+    /*.tip{*/
+        /*font-size:3.5em;*/
+    /*}*/
+    /*body{*/
+        /*font-size: 12px;*/
+    /*}*/
+/*}*/

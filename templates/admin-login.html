@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="../static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../static/css/AdminLogin.css" type="text/css">
+    <script type="text/javascript" src="../static/js/login.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <title>会员登录|OnlineLearning</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4">
+            <div class="login-panel">
+                <h1>管理员登录</h1>
+                <form class="login-form" action="" method="post" name="loginForm">
+
+                    <div class="form-group input-box">
+                    <label for="username">账 号</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入账号"
+                        maxlength="26" autofocus="autofocus">
+                        <!--<input type="text" class="form-control" aria-label="...">-->
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" id="actype" name="actype">请选择账户
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="type-item"><a href="#">课程资料管理员</a></li>
+                                <li class="type-item"><a href="#">系统管理员</a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
+                    </div>
+                    <div class="form-group input-box">
+                        <label for="password">密 码</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"
+                        maxlength="26">
+                    </div>
+                    <!--<input type="hidden" id="password_md5" name="password_md5">-->
+                    <div class="small_link">
+                        <a  href="{{ url_for('forgetPassword') }}">忘记密码</a>
+                    </div>
+                    <div  class="tip_div" align="center">
+                        <div id="loginTip" class="tip" align="center"></div>
+                    </div>
+                    <input class="btn btn-large btn-login" type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"
+                           id="login"/>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script language="JavaScript">
+    var name_patten = new RegExp(/^[\u4E00-\u9FA5\uF900-\uFA2D\w-]{3,19}$/);
+    var email_patten = new RegExp(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,})+/);
+    var phone_patten = new RegExp(/^1[345678]\d{9}$/);
+    var pwd_patten = new RegExp(/^[_\w-]{6,29}$/);
+    var name_ok = false;
+    var email_ok = false;
+    var phone_ok = false;
+    var pwd_ok = true;
+    $(function(){
+        $("#username").on('input',function(e){
+            var username = $("input[id='username']").val();
+            var num=true;
+            var patten=true;
+            if((username.length>20||username.length<4)&&username.length>0){
+                num=false;
+            }
+            if(!name_patten.test(username)){
+                patten=false;
+            }
+            if(username.length<1){
+                num=false;
+            }
+            if(patten&&num){
+                $.post("http://119.29.203.44/tg/db_check/username.php",
+                    {
+                        username:username
+                    },
+                    function(data,status){
+                        if(data==='Already existed.'){
+                            name_ok=true;
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function(){
+        $("#email").on('input',function(e){
+            var email = $("input[id='email']").val();
+            var patten=true;
+            var num=true;
+            if(!email_patten.test(email)){
+                patten=false;
+            }
+            if(email.length<1){
+                num=false;
+            }
+            if(patten&&num){
+                //alert(md5(username.val()));
+                $.post("http://119.29.203.44/tg/db_check/email.php",
+                    {
+                        email:email
+                    },
+                    function(data,status){
+                        if(data==='Already existed.'){
+                            email_ok=true;
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function(){
+        $("#phone").on('input',function(e){
+            var phone = $("input[id='phone']").val();
+            var patten=true;
+            var num=true;
+            if(!phone_patten.test(phone)){
+                patten=false;
+            }
+            if(phone.length<1){
+                num=false;
+            }
+            if(patten&&num){
+                //alert(md5(username.val()));
+                $.post("http://119.29.203.44/tg/db_check/phone.php",
+                    {
+                        phone:phone
+                    },
+                    function(data,status){
+                        if(data==='Already existed.'){
+                            phone_ok=true;
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function(){
+        $("#password").on('input',function(e){
+            var password = $("input[id='password']").val();
+            var num=true;
+            var patten=true;
+            if(!pwd_patten.test(password)){
+                patten=false;
+            }
+            if(password.length<1||password.length>30||password.length<7){
+                num=false;
+            }
+            if(patten&&num){
+                pwd_ok=true;
+                pwd_null=false;
+            }
+            else{
+                pwd_ok=false;
+            }
+        });
+    });
+
+    var loginForm = document.getElementById('loginForm');
+    $("#login").click(function () {
+
+        if((name_ok||email_ok||phone_ok)&&pwd_ok){
+            loginForm.submit();
+            window.location.href="index.html";
+        }
+        else{
+            $("#loginTip").css({"color":"red","padding-left":"4em"}).text("用户名或密码错误！");
+            return false;
+        }
+    })
+</script>
+</html>

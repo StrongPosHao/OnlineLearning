@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/Login.css" type="text/css">
+    <script type="text/javascript" src="../static/js/login.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <title>会员登录|OnlineLearning</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4">
+            <div class="login-panel">
+                <h1>会员登录</h1>
+                <form action="" method="post" name="loginForm">
+                    <div class="form-group input-box">
+                        <label for="username">账 号</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入邮箱账号/手机号/用户名"
+                         maxlength="26" autofocus="autofocus">
+                    </div>
+                    <div class="form-group input-box">
+                        <label for="password">密 码</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"
+                        maxlength="26">
+                    </div>
+                    <!--<input type="hidden" id="password_md5" name="password_md5">-->
+                    <div class="small_link">
+                        <a  href="{{ url_for('forgetPassword') }}">忘记密码</a>
+                        <a> &nbsp;|&nbsp;</a>
+                        <a href="{{ url_for('register') }}">注册</a>
+                    </div>
+                    <div  class="tip_div" align="center">
+                        <div id="loginTip" class="tip" align="center"></div>
+                    </div>
+                    <input class="btn btn-primary btn-large btn-shadow btn-login" type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"
+                           id="login"/>
+                    <div class="small_link">
+                        <a href="#">游客身份进入</a>
+                    </div>
+                    <div style="padding-bottom: 4.3%;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--
+<script language="JavaScript">
+
+    var loginForm = document.getElementById('loginForm');
+    $("#login").click(function () {
+        document.getElementById("password").value=md5(document.getElementById("password").value);
+        loginForm.submit();
+    })
+</script>
+-->
+</html>

@@ -1,0 +1,115 @@
+body{
+    background: url("../image/damian-zaleski-843.jpg") no-repeat fixed center;
+    background-size: cover;
+    font-size:1em;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+.forget-panel{
+    background-color: rgba(138, 127, 124, 0.22);
+    margin-top:5em;
+    border-radius: 1em;
+}
+
+.forget-panel label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.forget-panel h1{
+    padding-top: 1em;
+    font-size: 3.2em;
+    text-align: center;
+    color: rgba(38, 37, 43, 0.6);
+}
+
+.input-box{
+    width:83%;
+   margin-left:2.5%;
+}
+
+.input-box label{
+    font-size: 2em;
+    padding-top: 0.5em;
+    margin-left: 8.5%;
+    color: rgb(141, 118, 113);
+}
+
+.input-box input{
+    height: 14%;
+    border-radius: 0.5em;
+}
+
+.input-box .form-control{
+    position: relative;
+    height: 2.5em;
+    margin-left: 7.5%;
+    font-size: 1.5em;
+}
+
+.btn-forget{
+    margin-top: 1em;
+    margin-left: 10%;
+    margin-bottom:1em;
+    width: 80%;
+    font-size: 2em;
+    border-radius: 0.5em;
+    background-color:rgba(221,130,98, 1);
+    border-color: rgba(177, 96, 81, 0.9);
+    color: whitesmoke;
+}
+
+.btn-forget:hover{
+    color: whitesmoke;
+    background-color:rgba(177, 96, 81, 0.9);
+    border-color: rgba(177, 96, 81, 0.9);
+}
+
+.small_link{
+    text-align: right;
+    width:90%;
+    color: rgba(175,139,127,0.6);
+    font-size: 2em;
+}
+
+.tip_div{
+    padding-top: 0.7em;
+    margin-left: 9%;
+    width:90%;
+    color: rgba(175,139,127,0.6);
+    font-size: 1em;
+}
+
+.tip{
+    font-size:1.5em;
+}
+
+.visit-style{
+    margin-left: 27em;
+    padding-top: 2em;
+    padding-bottom: 3%;
+    font-size: 15pt;
+}
+
+a{
+    color: rgba(220, 220, 220, 0.7);
+    font-size: 2em;
+}
+
+@media screen and (max-width: 1080px) {
+    a{
+        color: rgba(220, 220, 220, 0.7);
+        font-size:4em;
+    }
+    .tip{
+        font-size:3.5em;
+    }
+    body{
+        font-size: 12px;
+    }
+}

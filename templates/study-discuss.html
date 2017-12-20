@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap-theme.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap-theme.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-discuss.css') }}" type="text/css">
+    <title>Online Learning|在线学习</title>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="{{ url_for('course') }}">课程</a>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="course-navbar">
+        <div class="item-box">
+                <div class="course-item-box-img">
+                    <img alt="AIDS and I --艾滋病与我"
+                         src="../static/image/courtney-corlew-190987.jpg">
+                </div>
+                <div class="course-item-box-title">
+                    <span class="">AIDS and I --艾滋病与我</span>
+                </div>
+        </div>
+        <ul class="course-tab-list">
+            <li class="course-tab-list-item">
+                <a href="study-abstract.html">授课大纲</a>
+            </li>
+
+            <!--当用户点击学习区时，跳转到study-index.html来让学生参加该课程的学习-->
+            <li class="course-tab-list-item">
+                <a href="study-index.html">学习区</a>
+            </li>
+            <li class="course-tab-list-item current">
+                <a href="study-discuss.html">讨论区</a>
+            </li>
+        </ul>
+    </div>
+    <div class="course-content-container">
+        <div class="course-content-box">
+            <div class="discuss-title">
+                <a href="study-discuss.html">讨论区</a>
+            </div>
+            <div class="add-comment-box input-box">
+                <textarea form="add-comment-form" title="发表评论" placeholder="发表评论" name="commentArea" class="comment-text"></textarea>
+                <form id="add-comment-form" class="comment-form" method="post">
+                    <input class="btn btn-large btn-comment" type="submit" value="发&nbsp;&nbsp;&nbsp;&nbsp;表"
+                           id="submit"/>
+                </form>
+            </div>
+            <div class="all-comment-content">
+                <div class="comment-title">
+                    <span>全部讨论</span>
+                </div>
+                <div class="comment-content-box">
+                    <!--从数据库中获取该课程的所有评论-->
+                    <ul class="comment-list">
+                        {% for comment in comments %}
+                            <li class="comment-list-item">
+                                <!--课程内容-->
+                                <div class="comment-item">
+                                    <a>{{ comment.cmtContent }}</a>
+                                </div>
+                                <!--评论人-->
+                                <span class="comment-user">{{ comment.userName }}</span>
+                                <!--评论时间-->
+                                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">{{ comment.submitTime }}</span>发表</span>
+                                <!--评论的回复数-->
+                                <span class="reply-num">0</span><span class="reply">回复: </span>
+                            </li>
+                        {% endfor %}
+{#                        <li class="comment-list-item">#}
+{#                            <!--课程内容-->#}
+{#                            <div class="comment-item">#}
+{#                                <a>python好简单</a>#}
+{#                            </div>#}
+{#                            <!--评论人-->#}
+{#                            <span class="comment-user">许娅男</span>#}
+{#                            <!--评论时间-->#}
+{#                            <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                            <!--评论的回复数-->#}
+{#                            <span class="reply-num">0</span><span class="reply">回复: </span>#}
+{#                        </li>#}
+{#                        <li class="comment-list-item">#}
+{#                            <!--课程内容-->#}
+{#                            <div class="comment-item">#}
+{#                                <a>python好简单</a>#}
+{#                            </div>#}
+{#                            <!--评论人-->#}
+{#                            <span class="comment-user">许娅男</span>#}
+{#                            <!--评论时间-->#}
+{#                            <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                            <!--评论的回复数-->#}
+{#                            <span class="reply-num">0</span><span class="reply">回复: </span>#}
+{#                        </li>#}
+{#                        <li class="comment-list-item">#}
+{#                            <!--课程内容-->#}
+{#                            <div class="comment-item">#}
+{#                                <a>python好简单</a>#}
+{#                            </div>#}
+{#                            <!--评论人-->#}
+{#                            <span class="comment-user">许娅男</span>#}
+{#                            <!--评论时间-->#}
+{#                            <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                            <!--评论的回复数-->#}
+{#                            <span class="reply-num">0</span><span class="reply">回复: </span>#}
+{#                        </li>#}
+{#                        <li class="comment-list-item">#}
+{#                            <!--课程内容-->#}
+{#                            <div class="comment-item">#}
+{#                                <a>python好简单</a>#}
+{#                            </div>#}
+{#                            <!--评论人-->#}
+{#                            <span class="comment-user">许娅男</span>#}
+{#                            <!--评论时间-->#}
+{#                            <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                            <!--评论的回复数-->#}
+{#                            <span class="reply-num">0</span><span class="reply">回复: </span>#}
+{#                        </li>#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

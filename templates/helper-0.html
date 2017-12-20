@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/helper.css" type="text/css">
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>帮助中心|Online Learning</title>
+    <script>
+        jQuery(function($){
+            $("ul>li>a").click(function(){
+                $(this).next("ul").toggle().closest("li").siblings("li").children("ul").hide();
+            }).next("ul").hide();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 300px">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="../personal_center.html" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="../setting-id.html">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="helper-0.html">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="help-title" align="center">
+        <span class="glyphicon glyphicon-bell"></span>
+        Sometimes you just need a little help!
+    </div>
+    <div class="help-tab">
+                        <ul class="help-tab-list">
+                            <li class="help-tab-list-item current">
+                                <a href="helper-0.html">常见问题</a>
+                            </li>
+                            <li class="help-tab-list-item">
+                                <a href="helper-1.html">学习区</a>
+                            </li>
+                            <li class="help-tab-list-item">
+                                <a href="helper-2.html">讨论区</a>
+                            </li>
+                        </ul>
+                    </div>
+    <div class="help-content">
+                        <div class="question-list">
+                            <ul style="list-style-type: none;">
+                                <li>
+                                    <a>
+                                        <div class="li-back">
+                                            <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                                            <span style="letter-spacing: 3px">课程免费吗？</span>
+                                        </div>
+                                    </a>
+                                    <ul class="sub">
+                                        <li>
+                                            是的，Online Learning在线学习平台上的所有课程都是免费的。
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>
+                                        <div class="li-back">
+                                            <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                                            <span style="letter-spacing: 3px">可以同时选择多门课程吗？</span>
+                                        </div>
+                                    </a>
+                                    <ul class="sub">
+                                        <li>
+                                            可以。每名学员可注册的课程数不受限制。
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>
+                                        <div class="li-back">
+                                            <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                                            <span style="letter-spacing: 3px">无法正常观看视频？</span>
+                                        </div>
+                                    </a>
+                                    <ul class="sub">
+                                        <li>
+                                            如果无法正常观看视频，可以尝试进行如下操作：<br>
+                                            1.确认你使用了支持视频播放的浏览器。<br>
+                                            2.清除浏览器的浏览数据及缓存。<br>
+                                            4.检查你的网速。你可以尝试在其他视频网站播放视频（如优酷、土豆等），如果你在其他网站仍无法观看视频，那么你的网络连接很可能有问题。
+                                            你需要重新连接你的网络或者切换至网速更快的网络以实现流畅的视频播放。
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+</body>
+</html>

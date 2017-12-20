@@ -1,0 +1,254 @@
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+body{
+    background-color: #eee;
+}
+
+.nav_bar{
+    background-color: rgba(36,41,46,0.85);
+    width: 100%;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.navbar-form{
+    width: 28%;
+}
+
+.index_title{
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.3);
+}
+
+.back-index{
+    font-size: 1.43em;
+    padding-left: 3em;
+    padding-top: 0.6em;
+}
+
+.back-index a{
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+}
+
+.back-index a:hover{
+    color: rgba(255,255,255,0.2);
+}
+
+.search{
+    position: relative;
+    left: 15%;
+    width: 100%;
+    /*float:right;*/
+}
+
+.search input{
+    background-color: #3f4448;
+    color: #ffffff;
+    border-style: none;
+}
+
+.search input::placeholder{
+    color: rgba(255,255,255,0.55);
+}
+
+.search_btn{
+    width: 11%;
+    height: 32px;
+}
+
+.drop_down{
+    padding-right: 2.6em;
+}
+
+.drop_down a{
+    color:#ffffff;
+}
+
+.drop_down a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #333;
+    border-color: #333;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #333;
+}
+
+.category{
+    color: rgba(255,255,255,0.7);
+    font-size: 1.4em;
+    text-align: center;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.category a{
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    word-break: keep-all;
+}
+
+.category span{
+    border:1px solid #ffffff;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-right:20px;
+}
+
+.category a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.course-navbar{
+    width: 17%;
+    height: 49.6em;
+    background-color: rgba(221,221,221,1);
+    position: absolute;
+}
+
+.course-content-box{
+    width: 83%;
+    left: 17%;
+    height: auto;
+    position: relative;
+}
+
+.item-box{
+    left: 2.5%;
+    top: 1.5em;
+    height: auto;
+    width: 95%;
+    /*height: 15em;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+
+.course-item-box-img{
+    width: 100%;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 1em;
+}
+
+.course-item-box-img img{
+    width: 17.5em;
+}
+
+.course-item-box-title{
+    left: 1.5%;
+    top: 9.5em;
+    width: 97%;
+    /*height: 22px;*/
+    z-index: 0;
+    color: rgba(0, 0, 50,0.9);
+    font-size: 1.4em;
+    position: absolute;
+    /*line-height: 22px;*/
+}
+
+.course-tab-list{
+    left: 2.5%;
+    top: 20em;
+    height: auto;
+    width: 95%;
+    /*height: 15em;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    background-color: rgba(221,221,221,0.8);
+    float: left;
+    list-style-type: none;
+    text-align: center;
+}
+
+.course-tab-list li{
+    left: -9.2%;
+    top: 0.5em;
+    height: auto;
+    width: auto;
+    font-size: 1.6em;
+    position: relative;
+    line-height: 3.5em;
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.13);
+    border-width: 0 0 0.05em;
+}
+
+.course-tab-list a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.course-tab-list a:hover{
+    color: #00A000;
+    text-decoration: none;
+}
+
+.current{
+    background-color: #55b929;
+}
+
+.current a{
+    color: #fff;
+}
+
+.resource-content-box{
+    width: 83%;
+    left: 17%;
+    top:22em;
+    height: auto;
+    position: relative;
+    font-size: 1em;
+}
+
+.resource-content{
+    width: 20%;
+    height: auto;
+    text-align: center;
+    margin-left: 1%;
+    margin-top:1em;
+    border-radius: 0.5em;
+    background-color: rgba(255,255,255,0.85);
+}
+
+.resource-content h3{
+    padding-left: 2%;
+    padding-top: 1em;
+    font-size: 1.8em;
+    line-height: 2em;
+    padding-bottom: 0.3em;
+    border-style: solid;
+    border-color: rgba(51, 51, 51,0.13);
+    border-width: 0 0 0.05em;
+}
+
+.join{
+    font-size: 2em;
+    line-height: 2em;
+}

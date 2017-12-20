@@ -1,0 +1,51 @@
+{% macro showChap(chapters, course, pdf) %}
+    {% for bigChapter in chapters %}
+        {% for oneChapter in bigChapter %}
+            {% if oneChapter.chapLayer == 1 %}
+                <li>
+                    <a>
+                        <div class="li-back">
+                            <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                            <span style="letter-spacing: 3px">
+                                {{ oneChapter.chapName }}
+                            </span>
+                        </div>
+                    </a>
+                    <ul class="sub">
+                        {% for oneChapter1 in bigChapter %}
+                            {% if oneChapter1.chapLayer == 2 %}
+                                <li>
+                                    <a>
+                                        <div class="li-back2">
+                                            <span style="padding-left: 1.5%;margin-right: 1%"> > </span>
+                                            <span style="letter-spacing: 3px">
+                                                {{ oneChapter1.chapName }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <ul class="sub2">
+                                        {% for oneChapter2 in bigChapter %}
+                                            {% if oneChapter2.chapLayer == 3 and oneChapter2.chapId[5:11] == oneChapter1.chapId[5:11]%}
+                                                <li>
+                                                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = oneChapter2.chapId)}}">
+                                                        {{ oneChapter2.chapName }}
+                                                    </a>
+                                                    <a href="{{ url_for('static', filename = pdf.filePath) }}">
+                                                        <span class="glyphicon glyphicon-file a-icon" title="教学课件/文档"></span>
+                                                    </a>
+                                                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = oneChapter2.chapId)}}">
+                                                        <span class="glyphicon glyphicon-film a-icon" title="教学视频"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endmacro %}

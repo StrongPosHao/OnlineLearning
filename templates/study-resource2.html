@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/study-resource.css" type="text/css">
+    <title>Online Learning|在线学习</title>
+    <script>
+        jQuery(function($){
+            $("ul>li>a").click(function(){
+                $(this).next("ul").toggle().closest("li").siblings("li").children("ul").hide();
+            }).next("ul").hide();
+        });
+    </script>
+    {% import 'macros.html' as macros %}
+</head>
+<body>
+    <nav class="navbar nav_bar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+            </div>
+            <div class="nav navbar-left back-index">
+                <a href="{{ url_for('index') }}">首页</a>
+                <span style="margin-left: 1em;margin-right: 1em"></span>
+                <a href="{{ url_for('course') }}">课程</a>
+            </div>
+                <form class="navbar-form navbar-left" action="{{ url_for('search') }}">
+                    <div class="form-group search">
+                        <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                        <button type="submit" class="btn search_btn" value="">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="drop_down" style="padding-right: 1em">
+                        <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                    </li>
+                    <li class="dropdown drop_down">
+                        <a href="#" class="dropdown-toggle" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('logout') }}">退出</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('help') }}">帮助</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="course-navbar">
+        <div class="item-box">
+                <div class="course-item-box-img">
+                    <img alt="AIDS and I --艾滋病与我"
+                         src="{{ url_for('static', filename = course.courseImage) }}">
+                </div>
+                <div class="course-item-box-title">
+                    <span class="">{{ course.courseTitle }}</span>
+                </div>
+        </div>
+        <ul class="course-tab-list">
+            <li class="course-tab-list-item">
+                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
+            </li>
+            <li class="course-tab-list-item current">
+                <a href="{{ url_for('couInfo.resourceInfo', _external = True, courseId = course.courseId) }}">学习区</a>
+            </li>
+            <li class="course-tab-list-item">
+                <a href="{{ url_for('couInfo.discussAll', _external = True, courseId = course.courseId) }}">讨论区</a>
+            </li>
+        </ul>
+    </div>
+    <div class="resource-content-box">
+        <div  class="resource-content">
+            <h3>课件</h3>
+            <div class="chapter-list">
+                <ul style="list-style-type: none;">
+                    <li>
+                        {{ macros.showChap(bigChapters, course, pdf) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
