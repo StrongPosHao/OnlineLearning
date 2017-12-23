@@ -71,7 +71,7 @@ StudyProgress = db.Table('StudyProgress', db.Column('userName', db.Unicode(20), 
 class Comments(db.Model):
     __tablename__ = 'Comments'
     cmtId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    rep_cmtId = db.Column(db.Integer, db.ForeignKey('Comments.cmtId'), nullable=False)
+    rep_cmtId = db.Column(db.Integer, db.ForeignKey('Comments.cmtId'), nullable=True)
     userName = db.Column(db.Unicode(20), db.ForeignKey('User.userName'), nullable=False)
     chapId = db.Column(db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), nullable=True)
     courseId = db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), nullable=False)

@@ -125,14 +125,34 @@ a{
     font-size:1.7em;
 }
 
-/*@media screen and (max-width: 1080px) {*/
-    /*a{*/
-        /*font-size:4em;*/
-    /*}*/
-    /*.tip{*/
-        /*font-size:3.5em;*/
-    /*}*/
-    /*body{*/
-        /*font-size: 12px;*/
-    /*}*/
-/*}*/
+.po-input{
+    width: 54.8%;
+}
+
+.po-select{
+    width: 53.1%;
+    left: 47%;
+    z-index: 100;
+    top: -2.8em;
+    float: right;
+    position: relative;
+    height: auto;
+}
+
+.po-select select{
+    position: unset;
+    padding-left: 1px;
+    float: right;
+    padding-right: 1px;
+}
+
+@media screen and (max-width: 1080px) {
+    .po-select {
+        float: left;
+        left: 100%;
+        width: 27.5%;
+    }
+    .po-input{
+        width: 63%;
+    }
+}

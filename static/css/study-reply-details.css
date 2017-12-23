@@ -407,7 +407,7 @@ body{
     font-size: 0.75em;
     width: 45%;
     margin-left: 54%;
-    margin-top: 1em;
+    margin-top: 2.5em;
 }
 
 .reply-reply-num{
@@ -470,6 +470,8 @@ body{
 .add-reply-btn{
     position: relative;
     text-align: center;
+    margin-right: 2%;
+    float: right;
     border-radius: 0.2em;
     cursor: pointer;
     padding-bottom: 0.15em;
@@ -550,12 +552,6 @@ body{
     height: 8em;
 }
 
-.test{
-    position: relative;
-    width: 5%;
-    float: right;
-}
-
 .reply-box input{
     border-radius: 0.5em;
     float: right;
@@ -578,6 +574,42 @@ body{
 .comment-time{
     margin-left: 2%;
     font-size: 0.65em;
+}
+
+.the-comment{
+    width: 70%;
+    margin-left: 5%;
+    font-size: 1em;
+    border-style: solid;
+    border-bottom-width: 0.1em;
+    margin-bottom: 1.5em;
+    border-top-width: 0.1em;
+    border-right-width: 0.1em;
+    border-left-width: 0.1em;
+    background-color: #eeeeee;
+    border-color: whitesmoke;
+    border-radius: 0.5em;
+    height: auto;
+}
+
+.the-comment a{
+    font-size: 0.7em;
+    color: #0f0f0f;
+    margin-left: 0.5%;
+    line-height: 2.5em;
+    text-decoration: none;
+}
+
+.split{
+    background-color: rgba(0, 170, 0, 0.4);
+    font-size: 0.8em;
+    color: rgba(0, 170, 0, 0.4);
+    margin-left: 2%;
+    line-height: 2em;
+}
+
+.the-comment a:hover{
+    color: #00A000;
 }
 
 .reply-time{

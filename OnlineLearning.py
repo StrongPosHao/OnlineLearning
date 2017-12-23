@@ -10,6 +10,7 @@ from decorators import login_required
 from sysAdmin import sysAdmin
 from courseAdmin import courseAdmin
 from couInfo import couInfo
+from leaderAdmin import leader
 from hashlib import md5
 from flask_login import current_user
 import socket
@@ -22,6 +23,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 app.register_blueprint(sysAdmin, url_prefix = '/sysAdmin')
 app.register_blueprint(courseAdmin, url_prefix = '/courseAdmin')
 app.register_blueprint(couInfo, url_prefix = '/couInfo')
+app.register_blueprint(leader, url_prefix = '/leader')
 
 @app.route('/test/')
 def test():
@@ -46,6 +48,14 @@ def forVisitors():
     '''
     return render_template('index.html')
 
+@app.route('/admins/')
+def foradmins():
+    r'''
+    为管理员准备的登录入口
+    :return:
+    '''
+    return render_template('admin-login.html')
+
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     r'''
@@ -57,8 +67,10 @@ def login():
     else:
         userVerify = request.form.get('username')
         password = request.form.get('password')
+
         user = User.query.filter(or_(User.userEmail == userVerify, User.userName == userVerify, User.userPhone == userVerify),
                                      User.userPass == password).first()
+        print password
         if user:
             session['user_name'] = user.userName
             session.permanenet = True
@@ -92,23 +104,16 @@ def register():
         phone = request.form.get("phone")
         username = request.form.get("username")
         password1 = request.form.get("password1")
-        password2 = request.form.get("password2")
         signUpdate = datetime.now()
         lastLogin = datetime.now()
-        #email validation
-        user = User.query.filter(or_(User.userEmail == email, User.userPhone == phone)).first()
-        if user:
-            return u'The email address or phone number has already been registered, please change another E-mail address and try again!'
-        else:
-            # validate password and password2
-            if password1 != password2:
-                return u"The password is different from your first input, please check your input and try again! "
-            else:
-                user = User(userEmail=email, userName=username, userPass=password1, userPhone = phone, signUpDate = signUpdate, lastLogin = lastLogin, studyDuration = 0, frozenDuration = 0)
-                db.session.add(user)
-                db.session.commit()
-                # if user register successfully, redirect to log-in page.
-                return redirect(url_for('login'))
+        # validate password and password2
+        if (not (email and phone and username and password1)):
+            return redirect(url_for('register'))
+        user = User(userEmail=email, userName=username, userPass=password1, userPhone = phone, signUpDate = signUpdate, lastLogin = lastLogin, studyDuration = 0, frozenDuration = 0)
+        db.session.add(user)
+        db.session.commit()
+        # if user register successfully, redirect to log-in page.
+        return redirect(url_for('login'))
 
 @app.route('/forget/', methods=['GET', 'POST'])
 def forgetPassword():
@@ -137,7 +142,36 @@ def personalCenter():
     个人中心页面
     :return:
     '''
-    return render_template('personal_center.html')
+    commentCount = Comments.query.filter(Comments.userName == g.user.userName).all()
+    return render_template('personal_center.html', commentCount = len(commentCount))
+
+@app.route('/pcenter/discuss')
+def personalCenterDiscuss():
+    r'''
+    个人中心讨论页面
+    :return:
+    '''
+    comments = Comments.query.filter(Comments.userName == g.user.userName).order_by("-submitTime")
+    replyCountComments = []
+    for comment in comments:
+        replyCountComment = [comment, len(Comments.query.filter(Comments.rep_cmtId == comment.cmtId).all()),
+                             CourseInfo.query.filter(CourseInfo.courseId == comment.courseId).first().courseTitle]
+        replyCountComments.append(replyCountComment)
+    return render_template('personal_center-discuss.html', replyCountComments = replyCountComments, commentCount = len(comments))
+
+@app.route('/pcenter/reply')
+def personalCenterReply():
+    r'''
+    个人中心回复页面
+    :return:
+    '''
+    replys = Comments.query.filter(Comments.userName == g.user.userName, Comments.rep_cmtId).order_by("-submitTime")
+    detailedReplys = []
+    for reply in replys:
+        detailedReply = [reply, Comments.query.filter(Comments.cmtId == reply.rep_cmtId).first().cmtContent,
+                         CourseInfo.query.filter(CourseInfo.courseId == reply.courseId).first().courseTitle]
+        detailedReplys.append(detailedReply)
+    return render_template('personal_center-reply.html', detailedReplys = detailedReplys)
 
 @app.route('/setting/', methods=['GET', 'POST'])
 def setting():
@@ -220,15 +254,33 @@ def success():
     '''
     return render_template('success.html')
 
-@app.route('/search/', methods=['GET', 'POST'])
-def search():
+@app.route('/searchCourse/', methods=['GET', 'POST'])
+def searchCourse(typeId):
     r'''
-    搜索功能的接口页面
+    搜索课程功能的接口
     :return:
     '''
     courseName = request.args.get('course')
-    courses = CourseInfo.query.filter(CourseInfo.courseTitle == courseName).all()
+    courses = CourseInfo.query.filter(or_(CourseInfo.courseTitle == courseName, CourseInfo.typeId == typeId)).all()
     return render_template('course.html', courses = courses)
+
+@app.route('/searchCourse/', methods=['GET', 'POST'])
+def searchCourseByType(typeId):
+    r'''
+    通过课程类型搜索课程的接口
+    :param typeId:
+    :return:
+    '''
+
+
+
+@app.route('/searchUser/', methods = ['GET', 'POST'])
+def searchuser():
+    r'''
+    搜索用户的接口
+    :return:
+    '''
+    pass
 
 @app.route('/course/')
 def course():
@@ -238,44 +290,6 @@ def course():
     '''
     courses = CourseInfo.query.filter().all()
     return render_template('course.html', courses = courses)
-
-# @app.route('/video/<courseId>/<chapId>')
-# def video(courseId, chapId):
-#     r'''
-#     播放视频页面
-#     :param courseId:
-#     :param chapId:
-#     :return:
-#     '''
-#     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-#     video = CourseVideo.query.filter(CourseVideo.courseId == courseId, CourseVideo.chapId == chapId).first()
-#     pdf = CourseDoc.query.filter(CourseDoc.courseId == courseId, CourseDoc.chapId == chapId).first()
-#     return render_template('study-video2.html', video = video, course = course, pdf = pdf)
-#
-# @app.route('pdf/<courseId>/<chapId>')
-# def pdf(courseId, chapId):
-#     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-#     pdf = CourseDoc.query.filter(CourseDoc.courseId == courseId, CourseDoc.chapId == chapId).first()
-#     return render_template('')
-
-# @app.route('/discuss/<courseId>/<chapId>', methods = ['GET', 'POST'])
-# def discuss(courseId, chapId):
-#     r'''
-#     讨论区页面
-#     :param courseId:
-#     :param chapId:
-#     :return:
-#     '''
-#     if request.method == 'GET':
-#         comments = Comments.query.filter(Comments.courseId == courseId, Comments.chapId == chapId).all()
-#         return render_template('study-discuss.html', comments = comments)
-#     else:
-#         commentContent = request.form.get('commentArea')
-#         comment = Comments(userName = g.user.userName, chapId = chapId, cmtContent = commentContent, submitTime = datetime.now(), isVisible='11111', courseId = courseId)
-#         db.session.add(comment)
-#         db.session.commit()
-#         comments = Comments.query.filter(Comments.courseId == courseId, Comments.chapId == chapId).all()
-#         return render_template('study-discuss.html', comments = comments)
 
 @app.route('/help/')
 def help():
@@ -295,16 +309,9 @@ def courseStatics():
     课程统计页面 使用pyecharts
     :return:
     '''
-    return render_template('course-statics.html')
+    return render_template('course-statistics.html')
 
-@app.route('/userManage/')
-def manageUser():
-    r'''
-    用户管理页面
-    :return:
-    '''
-    users = User.query.filter().all()
-    return render_template('user-manage.html', users = users)
+
 
 @app.context_processor
 def my_context_processor():

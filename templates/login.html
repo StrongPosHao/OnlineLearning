@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,9 +39,11 @@
                         <div id="loginTip" class="tip" align="center"></div>
                     </div>
                     <input class="btn btn-large btn-login" type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"
-                           id="login"/>
+                           id="login">
                     <div class="small_link">
                         <a href="{{ url_for('forVisitors') }}">游客身份进入</a>
+                        <a> &nbsp;|&nbsp;</a>
+                        <a href="{{ url_for('foradmins') }}">我是管理员</a>
                     </div>
                 </form>
             </div>
@@ -50,126 +52,12 @@
 </div>
 </body>
 <script language="JavaScript">
-    var name_patten = new RegExp(/^[\u4E00-\u9FA5\uF900-\uFA2D\w-]{3,19}$/);
-    var email_patten = new RegExp(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,})+/);
-    var phone_patten = new RegExp(/^1[345678]\d{9}$/);
-    var pwd_patten = new RegExp(/^[_\w-]{6,29}$/);
-    var name_ok = false;
-    var email_ok = false;
-    var phone_ok = false;
-    var pwd_ok = true;
-    $(function(){
-        $("#username").on('input',function(e){
-            var username = $("input[id='username']").val();
-            var num=true;
-            var patten=true;
-            if((username.length>20||username.length<4)&&username.length>0){
-                num=false;
-            }
-            if(!name_patten.test(username)){
-                patten=false;
-            }
-            if(username.length<1){
-                num=false;
-            }
-            if(patten&&num){
-                $.post("http://119.29.203.44/tg/db_check/username.php",
-                    {
-                        username:username
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            name_ok=true;
-                        }
-                    });
-            }
-        });
-    });
-
-    $(function(){
-        $("#email").on('input',function(e){
-            var email = $("input[id='email']").val();
-            var patten=true;
-            var num=true;
-            if(!email_patten.test(email)){
-                patten=false;
-            }
-            if(email.length<1){
-                num=false;
-            }
-            if(patten&&num){
-                //alert(md5(username.val()));
-                $.post("http://119.29.203.44/tg/db_check/email.php",
-                    {
-                        email:email
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            email_ok=true;
-                        }
-                    });
-            }
-        });
-    });
-
-    $(function(){
-        $("#phone").on('input',function(e){
-            var phone = $("input[id='phone']").val();
-            var patten=true;
-            var num=true;
-            if(!phone_patten.test(phone)){
-                patten=false;
-            }
-            if(phone.length<1){
-                num=false;
-            }
-            if(patten&&num){
-                //alert(md5(username.val()));
-                $.post("http://119.29.203.44/tg/db_check/phone.php",
-                    {
-                        phone:phone
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            phone_ok=true;
-                        }
-                    });
-            }
-        });
-    });
-
-    $(function(){
-        $("#password").on('input',function(e){
-            var password = $("input[id='password']").val();
-            var num=true;
-            var patten=true;
-            if(!pwd_patten.test(password)){
-                patten=false;
-            }
-            if(password.length<1||password.length>30||password.length<7){
-                num=false;
-            }
-            if(patten&&num){
-                pwd_ok=true;
-                pwd_null=false;
-            }
-            else{
-                pwd_ok=false;
-            }
-        });
-    });
 
     var loginForm = document.getElementById('loginForm');
     $("#login").click(function () {
-
-        if((name_ok||email_ok||phone_ok)&&pwd_ok){
-            loginForm.submit();
-            window.location.href="index.html";
-        }
-        else{
-            $("#loginTip").css({"color":"red","padding-left":"4em"}).text("用户名或密码错误！");
-            return false;
-        }
+        document.getElementById("password").value = md5(document.getElementById("password").value);
+        loginForm.submit();
+        window.location.href="index.html";
     })
 </script>
 </html>

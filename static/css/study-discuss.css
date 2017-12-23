@@ -382,7 +382,10 @@ body{
     font-size: 1.2em;
 }
 
-
+.comment-time{
+    margin-left: 1%;
+    font-size: 1.2em;
+}
 
 @media screen and (max-width: 1080px) {
     .back-index {
@@ -392,7 +395,7 @@ body{
     }
 
     .search_btn {
-        width: 11%;
+        width: 12%;
         height: 26px;
     }
 
@@ -417,6 +420,42 @@ body{
         top: 6.5em;
     }
 
+    .comment-item {
+        font-size: 1.76em;
+    }
+
+    .comment-user {
+        font-size: 1.55em;
+    }
+
+    .comment-time {
+        font-size: 1.55em;
+    }
+
+    .btn-comment {
+        width: unset;
+        font-size: 0.7em;
+    }
+
+    .reply-num {
+        float: right;
+        margin-right: 3%;
+        font-size: 1.59em;
+    }
+
+    .reply {
+        float: right;
+         margin-right: 0;
+        font-size: 1.4em;
+    }
+
+    .comment-title {
+        font-size: 1.55em;
+    }
+
+    .comment-list-item {
+        border-bottom-width: 0.046em;
+    }
 }
 
 

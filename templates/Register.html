@@ -72,7 +72,7 @@
                         </div>
                         <div class="content-spin"></div>
                         <div class="register-spin" align="center">
-                            <input type="submit" class="btn btn-register" value="注&nbsp;&nbsp;&nbsp;&nbsp;册" id="submit">
+                            <input type="submit" class="btn btn-register" value="注&nbsp;&nbsp;&nbsp;&nbsp;册" id="btnSubmit">
                         </div>
                     </div>
                     <div class="small_link">
@@ -91,406 +91,124 @@
     var name_patten = new RegExp(/^[\u4E00-\u9FA5\uF900-\uFA2D\w-]{3,19}$/);
     var email_patten = new RegExp(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,})+/);
     var phone_patten = new RegExp(/^1[345678]\d{9}$/);
-    var pwd_patten = new RegExp(/^[_\w-]{6,29}$/);
-    var name_ok = false;
-    var email_ok = false;
-    var phone_ok = false;
-    var pwd_ok = false;
-    var pwd2_ok = false;
-    var name_null = true;
-    var email_null = true;
-    var phone_null = true;
-    var pwd_null = true;
-    var pwd2_null = true;
-    var password2 = $("input[id='password2']").val();
-    var password1 = $("input[id='password1']").val();
+    var name = '';
+    var email = '';
+    var phone = '';
+    var password = '';
+    var pass_repeat = '';
+
+    function changeTip(comp, compTip, info){
+        if (info.length === 0){
+            $(comp).css("border-color","green");
+            $(compTip).css({"color":"green"}).text("");
+            return true;
+        }else{
+            $(comp).css("border-color","red");
+            $(compTip).css({"color":"red"}).text(info);
+            return false;
+        }
+    }
+
+    function isNameValid(){
+        if(name.length<1)
+            return changeTip("#username", "#nameTip", "请输入用户名");
+        else if((name.length>20||name.length<4)&&name.length>0)
+            return changeTip("#username", "#nameTip", "用户名为4-20个字符");
+        else if(!name_patten.test(name))
+            return changeTip("#username", "#nameTip", "4-20个字符，不包含-和_以外的特殊字符和空格");
+        else {
+            $.post("http://119.29.203.44/tg/db_check/username.php", { username:name},
+                function(data,status){
+                    if(data==='Already existed.') return changeTip("#username", "#nameTip", "该用户名已被占用!");
+                    else return changeTip("#username", "#nameTip", "");
+                });
+            return true;
+        }
+    }
+
+    function isEmailValid(){
+        if(email.length<1)
+            return changeTip("#email", "#emailTip", "请输入邮箱");
+        else if(!email_patten.test(email))
+            return changeTip("#email", "#emailTip", "该邮箱格式有误！");
+        else {
+            $.post("http://119.29.203.44/tg/db_check/email.php", { email:email},
+                function(data,status){
+                    if(data==='Already existed.') return changeTip("#email", "#emailTip", "该邮箱已被占用!");
+                    else return changeTip("#email", "#emailTip", "");
+                });
+            return true;
+        }
+    }
+
+    function isPhoneValid(){
+        if(phone.length<1)
+            return changeTip("#phone", "#phoneTip", "请输入手机号(11位)");
+        else if(!phone_patten.test(phone))
+            return changeTip("#phone", "#phoneTip", "该手机号格式有误！");
+        else {
+            $.post("http://119.29.203.44/tg/db_check/phone.php", { email:email},
+                function(data,status){
+                    if(data==='Already existed.') return changeTip("#phone", "#phoneTip", "该手机号已被占用!");
+                    else return changeTip("#phone", "#phoneTip", "");
+                });
+            return true;
+        }
+    }
+
+    function isPwdValid(){
+        if(password.length < 7 || password.length > 30) return changeTip("#password1", "#passwordTip", "密码需要7-30个字符");
+        else return changeTip("#password1", "#passwordTip", "");
+    }
+
+    function isPwdRepeatValid(){
+        if (!isPwdValid()){
+            $("#password1").css("border-color", "red");
+            $("#password2").css("border-color", "red").text("请先确保上一栏的密码格式正确！");
+            return false;
+        }else if(password2.length === 0)
+            return changeTip("#password2", "#passwordTip2", "请再次输入密码！");
+        else if(password !== pass_repeat)
+            return changeTip("#password2", "#passwordTip2", "密码不一致！");
+        else
+            return changeTip("#password2", "#passwordTip2", "");
+    }
+
     $(function () {
         $("#username").on('input',function(e){
-            var username = $("input[id='username']").val();
-            var num=true;
-            var patten=true;
-            if((username.length>20||username.length<4)&&username.length>0){
-                $("#username").css("border-color","red");
-                $("#nameTip").css({"color":"red"}).text("用户名为4-20个字符");
-                num=false;
-            }
-            if(!name_patten.test(username)){
-                patten=false;
-                $("#username").css("border-color","red");
-                $("#nameTip").css({"color":"red"}).text("4-20个字符，不包含-和_以外的特殊字符和空格");
-            }
-            if(username.length<1){
-                num=false;
-                name_null=true;
-                $("#username").css("border-color","red");
-                $("#nameTip").css({"color":"red"}).text("请输入用户名");
-            }
-            if(username.length>0){
-                name_null=false;
-            }
-            if(patten&&num){
-                //alert(md5(username.val()));
-                $.post("http://119.29.203.44/tg/db_check/username.php",
-                    {
-                        username:username
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            $("#username").css("border-color","red");
-                            $("#nameTip").css({"color":"red"}).text("该用户名已被占用!");
-                        }
-                        else{
-                            $("#username").css("border-color","green");
-                            $("#nameTip").css({"color":"green"}).text("");
-                            name_ok=true;
-                        }
-                    });
-            }
+            name = document.getElementById('username').value;
+            isNameValid();
         });
         $("#email").on('input',function(e){
-            var email = $("input[id='email']").val();
-            var patten=true;
-            var num=true;
-            if(!email_patten.test(email)){
-                patten=false;
-                $("#email").css("border-color","red");
-                $("#emailTip").css({"color":"red"}).text("该邮箱格式有误！");
-            }
-            if(email.length<1){
-                $("#email").css("border-color","red");
-                $("#emailTip").css({"color":"red"}).text("请输入邮箱");
-                num=false;
-                email_null=true;
-            }
-            if(email.length>0){
-                email_null=false;
-            }
-            if(patten&&num){
-                //alert(md5(username.val()));
-                $.post("http://119.29.203.44/tg/db_check/email.php",
-                    {
-                        email:email
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            $("#email").css("border-color","red");
-                            $("#emailTip").css({"color":"red"}).text("该邮箱已被占用!");
-                        }
-                        else{
-                            $("#email").css("border-color","green");
-                            $("#emailTip").css({"color":"green"}).text("");
-                            email_ok=true;
-                        }
-                    });
-            }
+            email = document.getElementById('email').value;
+            isEmailValid();
         });
         $("#phone").on('input',function(e){
-            var phone = $("input[id='phone']").val();
-            var patten=true;
-            var num=true;
-            if(!phone_patten.test(phone)){
-                patten=false;
-                $("#phone").css("border-color","red");
-                $("#phoneTip").css({"color":"red"}).text("该手机号格式有误！");
-            }
-            if(phone.length<1){
-                $("#phone").css("border-color","red");
-                $("#phoneTip").css({"color":"red"}).text("请输入手机号(11位)");
-                num=false;
-                phone_null=true;
-            }
-            if(patten&&num){
-                //alert(md5(username.val()));
-                phone_null=false;
-                $.post("http://119.29.203.44/tg/db_check/phone.php",
-                    {
-                        phone:phone
-                    },
-                    function(data,status){
-                        if(data==='Already existed.'){
-                            $("#phone").css("border-color","red");
-                            $("#phoneTip").css({"color":"red"}).text("该手机号已被占用!");
-                        }
-                        else{
-                            $("#phone").css("border-color","green");
-                            $("#phoneTip").css({"color":"green"}).text("");
-                            phone_ok=true;
-                        }
-                    });
-            }
+            phone = document.getElementById('phone').value;
+            isPhoneValid();
         });
         $("#password1").on('input',function(e){
-            var password = $("input[id='password1']").val();
-            var num=true;
-            var patten=true;
-            if(!pwd_patten.test(password)){
-                patten=false;
-            }
-            if(password.length<1||password.length>30||password.length<7){
-                num=false;
-            }
-            if(password.length<1){
-                pwd_null=true;
-            }
-            if(patten&&num){
-                $("#password1").css("border-color","green");
-                $("#passwordTip").css({"color":"green"}).text("");
-                pwd_ok=true;
-                pwd_null=false;
-            }
-            else{
-                $("#password1").css("border-color","red");
-                $("#passwordTip").css({"color":"red"}).text("7-30个字符，不包含-和_以外的特殊字符");
-                pwd_ok=false;
-            }
+            password = document.getElementById('password1').value;
+            isPwdValid();
         });
-        $("#password2").blur('input',function (e) {
-            password2 = $("input[id='password2']").val();
-            password1 = $("input[id='password1']").val();
-            if(password2.length<1){
-                pwd2_null=true;
-                $("#password2").css("border-color","red").text("请再次输入密码！");
-            }
-            if(!(password1===""||password1===null)&&password1===password2&&pwd_ok){
-                $("#password2").css("border-color","green");
-                $("#passwordTip2").css({"color":"green"}).text("");
-                pwd2_ok=true;
-                pwd2_null=false;
-            }
-            if(!(password1===""||password1===null)&&!(password1===password2)&&pwd_ok){
-                pwd2_ok=false;
-                $("#password2").css("border-color","red");
-                $("#passwordTip2").css({"color":"red"}).text("密码不一致！");
-            }
-            if(password1===""||password1===null){
-                $("#password1").css("border-color","red");
-                $("#password2").css("border-color","red").text("请先确保上一栏的密码格式正确！");
-                pwd2_ok=false;
-            }
+        $("#password2").on('input',function (e) {
+            pass_repeat = document.getElementById('password2').value;
+            isPwdRepeatValid();
         })
     });
 
     var registerForm = document.getElementById('registerForm');
-    var register = document.getElementById('submit');
-    register.onclick=function () {
-        alert(name_ok&&email_ok&&phone_ok&&pwd_ok&&pwd2_ok);
-        if(name_ok&&email_ok&&phone_ok&&pwd_ok&&pwd2_ok){
-            password1.val(md5(password1));
-            alert(password1);
-            registerForm.submit();
-            window.location.replace("test.html");
-            window.navigate("test.html");
-        }
-        else{
-            if(name_null){
-                $("#nameTip").css("color","red").text("4-20个字符，不包含-和_以外的特殊字符");
-            }
-            if(!(name_ok||name_null)){
-                $("#username").css("border-color","red");
-            }
-            if(email_null){
-                $("#emailTip").css("color","red").text("请输入邮箱");
-            }
-            if(!(email_ok||email_null)){
-                $("#email").css("border-color","red");
-            }
-            if(phone_null){
-                $("#phoneTip").css("color","red").text("请输入手机号(11位)");
-            }
-            if(!(phone_ok||phone_null)){
-                $("#phone").css("border-color","red");
-            }
-            if(pwd_null){
-                $("#passwordTip").css("color","red").text("7-30个字符，不包含-和_以外的特殊字符");
-            }
-            if(!(pwd_ok||pwd_null)){
-                $("#password1").css("border-color","red");
-            }
-            if(pwd2_null){
-                $("#passwordTip2").css("color","red").text("请输入确认密码！");
-            }
-            if(!(pwd2_ok||pwd2_null)){
-                $("#password2").css("border-color","red");
-            }
-            return false;
-        }
+    var register = document.getElementById('btnSubmit');
+
+    registerForm.onsubmit = function() {
+        return isValidForm();
     };
-
-//    $(function(){
-//        $("#username").on('input',function(e){
-//            var username = $("input[id='username']").val();
-//            var num=true;
-//            var patten=true;
-//            if((username.length>20||username.length<4)&&username.length>0){
-//                $("#username").css("border-color","red");
-//                $("#nameTip").css({"color":"red"}).text("用户名为4-20个字符");
-//                num=false;
-//            }
-//            if(!name_patten.test(username)){
-//                patten=false;
-//                $("#username").css("border-color","red");
-//                $("#nameTip").css({"color":"red"}).text("4-20个字符，不包含-和_以外的特殊字符和空格");
-//            }
-//            if(username.length<1){
-//                num=false;
-//                name_null=true;
-//                $("#username").css("border-color","red");
-//                $("#nameTip").css({"color":"red"}).text("请输入用户名");
-//            }
-//            if(username.length>0){
-//                name_null=false;
-//            }
-//            if(patten&&num){
-//                //alert(md5(username.val()));
-//                $.post("http://119.29.203.44/tg/db_check/username.php",
-//                    {
-//                        username:username
-//                    },
-//                    function(data,status){
-//                        if(data==='Already existed.'){
-//                            $("#username").css("border-color","red");
-//                            $("#nameTip").css({"color":"red"}).text("该用户名已被占用!");
-//                        }
-//                        else{
-//                            $("#username").css("border-color","green");
-//                            $("#nameTip").css({"color":"green"}).text("");
-//                            name_ok=true;
-//                        }
-//                    });
-//            }
-//        });
-//    });
-//
-//    $(function(){
-//        $("#email").on('input',function(e){
-//            var email = $("input[id='email']").val();
-//            var patten=true;
-//            var num=true;
-//            if(!email_patten.test(email)){
-//                patten=false;
-//                $("#email").css("border-color","red");
-//                $("#emailTip").css({"color":"red"}).text("该邮箱格式有误！");
-//            }
-//            if(email.length<1){
-//                $("#email").css("border-color","red");
-//                $("#emailTip").css({"color":"red"}).text("请输入邮箱");
-//                num=false;
-//                email_null=true;
-//            }
-//            if(email.length>0){
-//                email_null=false;
-//            }
-//            if(patten&&num){
-//                //alert(md5(username.val()));
-//                $.post("http://119.29.203.44/tg/db_check/email.php",
-//                    {
-//                        email:email
-//                    },
-//                    function(data,status){
-//                        if(data==='Already existed.'){
-//                            $("#email").css("border-color","red");
-//                            $("#emailTip").css({"color":"red"}).text("该邮箱已被占用!");
-//                        }
-//                        else{
-//                            $("#email").css("border-color","green");
-//                            $("#emailTip").css({"color":"green"}).text("");
-//                            email_ok=true;
-//                        }
-//                    });
-//            }
-//        });
-//    });
-//
-//    $(function(){
-//        $("#phone").on('input',function(e){
-//            var phone = $("input[id='phone']").val();
-//            var patten=true;
-//            var num=true;
-//            if(!phone_patten.test(phone)){
-//                patten=false;
-//                $("#phone").css("border-color","red");
-//                $("#phoneTip").css({"color":"red"}).text("该手机号格式有误！");
-//            }
-//            if(phone.length<1){
-//                $("#phone").css("border-color","red");
-//                $("#phoneTip").css({"color":"red"}).text("请输入手机号(11位)");
-//                num=false;
-//                phone_null=true;
-//            }
-//            if(patten&&num){
-//                //alert(md5(username.val()));
-//                phone_null=false;
-//                $.post("http://119.29.203.44/tg/db_check/phone.php",
-//                    {
-//                        phone:phone
-//                    },
-//                    function(data,status){
-//                        if(data==='Already existed.'){
-//                            $("#phone").css("border-color","red");
-//                            $("#phoneTip").css({"color":"red"}).text("该手机号已被占用!");
-//                        }
-//                        else{
-//                            $("#phone").css("border-color","green");
-//                            $("#phoneTip").css({"color":"green"}).text("");
-//                            phone_ok=true;
-//                        }
-//                    });
-//            }
-//        });
-//    });
-//
-//    $(function(){
-//        $("#password1").on('input',function(e){
-//            var password = $("input[id='password1']").val();
-//            var num=true;
-//            var patten=true;
-//            if(!pwd_patten.test(password)){
-//                patten=false;
-//            }
-//            if(password.length<1||password.length>30||password.length<7){
-//                num=false;
-//            }
-//            if(password.length<1){
-//                pwd_null=true;
-//            }
-//            if(patten&&num){
-//                $("#password1").css("border-color","green");
-//                $("#passwordTip").css({"color":"green"}).text("");
-//                pwd_ok=true;
-//                pwd_null=false;
-//            }
-//            else{
-//                $("#password1").css("border-color","red");
-//                $("#passwordTip").css({"color":"red"}).text("7-30个字符，不包含-和_以外的特殊字符");
-//                pwd_ok=false;
-//            }
-//        });
-//        $("#password2").blur('input',function (e) {
-//            password2 = $("input[id='password2']").val();
-//            password1 = $("input[id='password1']").val();
-//            if(password2.length<1){
-//                pwd2_null=true;
-//                $("#password2").css("border-color","red").text("请再次输入密码！");
-//            }
-//            if(!(password1===""||password1===null)&&password1===password2&&pwd_ok){
-//                $("#password2").css("border-color","green");
-//                $("#password2Tip").css({"color":"green"}).text("");
-//                pwd2_ok=true;
-//                pwd2_null=false;
-//            }
-//            if(!(password1===""||password1===null)&&!(password1===password2)&&pwd_ok){
-//                pwd2_ok=false;
-//                $("#password2").css("border-color","red");
-//                $("#password2Tip").css({"color":"red"}).text("密码不一致！");
-//            }
-//            if(password1===""||password1===null){
-//                $("#password1").css("border-color","red");
-//                $("#password2").css("border-color","red").text("请先确保上一栏的密码格式正确！");
-//                pwd2_ok=false;
-//            }
-//        })
-//    });
-
-
+    function isValidForm(){
+        if(isNameValid() && isEmailValid() && isPhoneValid() && isPwdValid() && isPwdRepeatValid()){
+            document.getElementById('password1').value = md5(document.getElementById('password1').value);
+            document.getElementById('password2').value = md5(document.getElementById('password2').value);
+            return true;
+        }else return false;
+    }
 </script>
 </html>

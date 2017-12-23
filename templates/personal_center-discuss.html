@@ -34,7 +34,7 @@
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">
-                    <a href="personal_center.html" >个人中心</a>
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
                 </li>
                 <li class="dropdown drop_down">
                     <a href="#" class="dropdown-toggle" role="button"
@@ -43,11 +43,11 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ><a href="setting.html">设置</a></li>
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">帮助</a></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,7 +63,7 @@
         <div class="hi">Hi,</div>
 
         <div class="userName">
-            <span class="userName-data" id="name"> GrinXu </span> <!--从数据库获取用户名-->
+            <span class="userName-data" id="name"> {{ user.userName }} </span> <!--从数据库获取用户名-->
         </div>
 
         <div class="userComment">
@@ -72,7 +72,7 @@
 
         <!--从数据库获取该用户评论数-->
         <div>
-            <span class="comment-data" id="comment">10</span><!--从数据库获取该用户评论数-->
+            <span class="comment-data" id="comment">{{ commentCount }}</span><!--从数据库获取该用户评论数-->
         </div>
 
         <div class="commentImg">
@@ -86,7 +86,7 @@
 
         <!--从数据库获取该用户学习时长-->
         <div>
-            <span class="time-data" id="time">100</span> <!--从数据库获取该用户学习时长-->
+            <span class="time-data" id="time">{{ user.studyDuration }}</span> <!--从数据库获取该用户学习时长-->
         </div>
 
         <div class="timeImg">
@@ -99,20 +99,20 @@
     <div class="content-tab" align="center">
         <ul>
             <li>
-                <a href="personal_center.html" id="course-title" > 课程</a>
+                <a href="{{ url_for('personalCenter') }}" id="course-title" > 课程</a>
             </li>
             <li class="current">
-                <a id="comment-title">评论</a>
+                <a id="{{ url_for('personalCenterDiscuss') }}">评论</a>
             </li>
         </ul>
     </div>
     <div class="sub-comment-nav">
             <span>
-                <a style="color: #00aa00" href="personal_center-discuss.html">发表的评论</a>
+                <a style="color: #00aa00" href="{{ url_for('personalCenterDiscuss') }}">发表的评论</a>
             </span>
             <span style="margin-left: 1%;margin-right: 1%"> | </span>
             <span class="sub">
-                <a href="personal_center-reply.html">发表的回复</a>
+                <a href="{{ url_for('personalCenterReply') }}">发表的回复</a>
             </span>
     </div>
 </div>
@@ -120,70 +120,72 @@
     <div class="comment-content-box">
         <!--从数据库中获取该课程的所有评论-->
         <ul class="comment-list">
-            <li class="comment-list-item">
-                <!--评论时间-->
-                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
-                <span> | </span>
-                <!--评论的回复数-->
-                <span class="reply">回复</span><span class="reply-num">0</span>
-                <span> | </span>
-                <!--评论的课程名称(链接)-->
-                <a href="study-discuss.html" target="_blank">
-                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
-                </a>
-                <!--课程内容-->
-                <div class="comment-item">
-                    <a href="study-discuss-details.html" target="_blank">python好简单呐！</a>
-                </div>
-            </li>
-            <li class="comment-list-item">
-                <!--评论时间-->
-                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
-                <span> | </span>
-                <!--评论的回复数-->
-                <span class="reply">回复</span><span class="reply-num">0</span>
-                <span> | </span>
-                <!--评论的课程名称(链接)-->
-                <a href="study-discuss.html">
-                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
-                </a>
-                <!--课程内容-->
-                <div class="comment-item">
-                    <a href="study-discuss-details.html">python好简单呐！</a>
-                </div>
-            </li>
-            <li class="comment-list-item">
-                <!--评论时间-->
-                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
-                <span> | </span>
-                <!--评论的回复数-->
-                <span class="reply">回复</span><span class="reply-num">0</span>
-                <span> | </span>
-                <!--评论的课程名称(链接)-->
-                <a href="study-discuss.html">
-                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
-                </a>
-                <!--课程内容-->
-                <div class="comment-item">
-                    <a href="study-discuss-details.html">python好简单呐！</a>
-                </div>
-            </li>
-            <li class="comment-list-item">
-                <!--评论时间-->
-                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>
-                <span> | </span>
-                <!--评论的回复数-->
-                <span class="reply">回复</span><span class="reply-num">0</span>
-                <span> | </span>
-                <!--评论的课程名称(链接)-->
-                <a href="study-discuss.html">
-                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>
-                </a>
-                <!--课程内容-->
-                <div class="comment-item">
-                    <a href="study-discuss-details.html">python好简单呐！</a>
-                </div>
-            </li>
+            {% for comment in replyCountComments %}
+                <li class="comment-list-item">
+                    <!--评论时间-->
+                    <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">{{ comment[0].submitTime }}</span>发表</span>
+                    <span> | </span>
+                    <!--评论的回复数-->
+                    <span class="reply">回复</span><span class="reply-num">{{ comment[1] }}</span>
+                    <span> | </span>
+                    <!--评论的课程名称(链接)-->
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自&nbsp;&nbsp;</span>
+                    <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = comment[0].courseId) }}" target="_blank"><span style="margin-left: 0;font-size: 1.2em">{{ comment[2] }} </span>
+                    </a>
+                    <!--课程内容-->
+                    <div class="comment-item">
+                        <a href="study-discuss-details.html" target="_blank">{{ comment[0].cmtContent }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+{#            <li class="comment-list-item">#}
+{#                <!--评论时间-->#}
+{#                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的回复数-->#}
+{#                <span class="reply">回复</span><span class="reply-num">0</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的课程名称(链接)-->#}
+{#                <a href="study-discuss.html">#}
+{#                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>#}
+{#                </a>#}
+{#                <!--课程内容-->#}
+{#                <div class="comment-item">#}
+{#                    <a href="study-discuss-details.html">python好简单呐！</a>#}
+{#                </div>#}
+{#            </li>#}
+{#            <li class="comment-list-item">#}
+{#                <!--评论时间-->#}
+{#                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的回复数-->#}
+{#                <span class="reply">回复</span><span class="reply-num">0</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的课程名称(链接)-->#}
+{#                <a href="study-discuss.html">#}
+{#                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>#}
+{#                </a>#}
+{#                <!--课程内容-->#}
+{#                <div class="comment-item">#}
+{#                    <a href="study-discuss-details.html">python好简单呐！</a>#}
+{#                </div>#}
+{#            </li>#}
+{#            <li class="comment-list-item">#}
+{#                <!--评论时间-->#}
+{#                <span style="margin-left: 1%;font-size: 1.2em">于<span class="comment-time">2017年12月19日</span>发表</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的回复数-->#}
+{#                <span class="reply">回复</span><span class="reply-num">0</span>#}
+{#                <span> | </span>#}
+{#                <!--评论的课程名称(链接)-->#}
+{#                <a href="study-discuss.html">#}
+{#                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">Python基础 </span>#}
+{#                </a>#}
+{#                <!--课程内容-->#}
+{#                <div class="comment-item">#}
+{#                    <a href="study-discuss-details.html">python好简单呐！</a>#}
+{#                </div>#}
+{#            </li>#}
         </ul>
     </div>
 </div>

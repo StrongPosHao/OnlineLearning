@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap-theme.min.css') }}" type="text/css">
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap-theme.min.css') }}" type="text/css">
     <script language="JavaScript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-discuss-details.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-discuss.css') }}" type="text/css">
     <title>Online Learning|在线学习</title>
-    {% import 'macros.html' as macros %}
 </head>
 <body>
 <nav class="navbar nav_bar">
@@ -83,91 +83,41 @@
     <div class="course-content-container">
         <div class="course-content-box">
             <div class="discuss-title">
-                {% if chapter == None %}
-                    <a href="{{ url_for('couInfo.discussAll', _external = True, courseId = course.courseId) }}">讨论区</a>
-                {% else %}
-                    <a href="{{ url_for('couInfo.discuss', _external = True, courseId = course.courseId, chapId = chapter.chapId) }}">讨论区 > {{ chapter.chapName }}</a>
-                    <a href="{{ url_for('couInfo.chapCommentDetail', _external = True, courseId = course.courseId,
-                                chapId = chapter.chapId) }}">{{ chapter.chapterName }}</a> >
-                {% endif %}
-                <span style="margin-left: 1%;margin-right: 1%;color: #555566b5"> > </span>
-                <span>评论详情</span>
+                <a href="{{ url_for('couInfo.discussAll', _external =True, courseId = course.courseId) }}">讨论区</a> > <a
+                    href="{{ url_for('couInfo.resourceInfo', _external = True, courseId = course.courseId) }}">{{ chapName }}</a>
             </div>
-            <div class="comment-box input-box">
-                <div class="comment-item">
-                    <a>{{ comment.cmtContent }}</a>
-                </div>
-                <div class="add-comment-btn">
-                    <a>评论</a>
-                </div>
-                <!--评论人-->
-                <span class="comment-user">{{ comment.userName }}</span>
-                <!--评论时间-->
-                <span class="comment-time">于<span>{{ comment.submitTime }}</span>发表</span>
-                <!--评论的回复数-->
+            <div class="add-comment-box input-box">
+                <textarea form="add-comment-form" name="commentArea" title="发表评论" placeholder="发表评论" class="comment-text"></textarea>
+                <form id="add-comment-form" class="comment-form" method="post">
+                    <input class="btn btn-large btn-comment" type="submit" value="发&nbsp;&nbsp;&nbsp;&nbsp;表"
+                           id="submit"/>
+                </form>
             </div>
             <div class="all-comment-content">
                 <div class="comment-title">
-                    <!--从数据库获取该评论的回复数-->
-                    <span>{{ replyCount }}</span>
-                    条回复
+                    <span>全部讨论</span>
                 </div>
-                <div class="reply-content-box">
-                    <!--从数据库中获取该课程的所有回复-->
-                    <ul class="reply-list">
-                        {{ macros.showReply(replys, reReplys, comment) }}
+                <div class="comment-content-box">
+                    <!--从数据库中获取该课程的所有评论-->
+                    <ul class="comment-list">
+                        {% for comment in comments %}
+                            <li class="comment-list-item">
+                                <!--课程内容-->
+                                <div class="comment-item">
+                                    <a href="{{ url_for('couInfo.chapCommentDetail', _external = True, cmtId = comment.cmtId, courseId = comment.courseId, chapId = comment.chapId) }}">{{ comment.cmtContent }}</a>
+                                </div>
+                                <!--评论人-->
+                                <span class="comment-user">{{ comment.userName }}</span>
+                                <!--评论时间-->
+                                <span class="comment-time">于<span>{{ comment.submitTime }}</span>发表</span>
+                                <!--评论的回复数-->
+                                <span class="reply-num">0</span><span class="reply">回复 </span>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
-            </div>
-            <div class="add-comment-box input-box">
-                <textarea form="add-comment-form" title="发表评论" name="replyArea" placeholder="发表评论" class="comment-text"></textarea>
-                <form id="add-comment-form" class="comment-form" method="post">
-                    <input class="btn btn-large btn-comment" type="submit" value="发 表 回 复"
-                           id="submit"/>
-                </form>
             </div>
         </div>
     </div>
 </body>
-{#<script>#}
-{#    var i=0;#}
-{#    $("div").each(function(){#}
-{#        this.id = i;#}
-{#        i++;#}
-{#    });#}
-{#    $("form").each(function () {#}
-{#        this.id = i;#}
-{#        i++;#}
-{#    });#}
-{##}
-{#    $("textarea").each(function () {#}
-{#        // var j=$(this).index();#}
-{#        var pa=this.parentNode.id;#}
-{#        var id = $("#"+pa).find('.reply-form').attr("id");#}
-{#        // alert(id);#}
-{#        $(this).attr("form",id);#}
-{#        // var pa = $("#"+id).find('form').id;#}
-{#        // var pa = $("#"+id).nextSibling.id;#}
-{#        // alert(pa);#}
-{#        // alert($("#"+t).attr("form"));#}
-{#    });#}
-{##}
-{#    $(function () {#}
-{#        $(".add-reply-btn").click(function () {#}
-{#            var pa=this.parentNode.id;#}
-{#            // alert(pa);#}
-{#            $("#"+pa).find('.add-reply-box').css("display","block");#}
-{#        });#}
-{#        $(".back-reply-btn").click(function () {#}
-{#            var pa = this.closest('.add-reply-box').id;#}
-{#            // alert(pa);#}
-{#            $("#"+pa).css("display","none");#}
-{#        });#}
-{#        $(".btn-reply").click(function () {#}
-{#            var pa = this.closest('.reply-form').id;#}
-{#            // document.getElementById("#"+pa).submit();#}
-{#            $("#"+pa).submit();#}
-{#        });#}
-{#    })#}
-{#</script>#}
 </html>

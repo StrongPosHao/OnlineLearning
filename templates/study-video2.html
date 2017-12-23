@@ -70,13 +70,13 @@
         </div>
         <ul class="course-tab-list">
             <li class="course-tab-list-item">
-                <a href="{{ url_for('courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
+                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
             </li>
             <li class="course-tab-list-item current">
-                <a href="{{ url_for('resourceInfo',  _external = True, courseId = course.courseId) }}">学习区</a>
+                <a href="{{ url_for('couInfo.resourceInfo',  _external = True, courseId = course.courseId) }}">学习区</a>
             </li>
             <li class="course-tab-list-item">
-                <a href="{{ url_for('discuss',  _external = True, courseId = course.courseId) }}">讨论区</a>
+                <a href="{{ url_for('couInfo.discussAll',  _external = True, courseId = course.courseId) }}">讨论区</a>
             </li>
         </ul>
     </div>
@@ -87,7 +87,7 @@
         <div class="resource-video-box">
             <ul class="video-list">
                 <li title="视频" class="current">
-                    <a href="{{ url_for('video', _external = True, courseId = course.courseId, chapId = video.chapId) }}">  <!--刷新当前播放界面-->
+                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = video.chapId) }}">  <!--刷新当前播放界面-->
                         <span class="glyphicon glyphicon-play-circle l-icon"></span>
                     </a>
                 </li>
@@ -97,7 +97,7 @@
                     </a>
                 </li>
                 <li title="讨论">  <!--点击跳转到改章节的讨论区-->
-                    <a href="#">
+                    <a href="{{ url_for('couInfo.discuss', _external = True, courseId = course.courseId, chapId = video.chapId) }}">
                         <span class="glyphicon glyphicon-pencil l-icon"></span>
                     </a>
                 </li>

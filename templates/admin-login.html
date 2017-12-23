@@ -24,22 +24,17 @@
                 <h1>管理员登录</h1>
                 <form class="login-form" action="" method="post" name="loginForm">
 
-                    <div class="form-group input-box">
+                    <div class="form-group input-box po-input">
                     <label for="username">账 号</label>
-                    <div class="input-group">
                         <input type="text" class="form-control" id="username" name="username" placeholder="请输入账号"
                         maxlength="26" autofocus="autofocus">
-                        <!--<input type="text" class="form-control" aria-label="...">-->
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" id="actype" name="actype">请选择账户
-                                <span class="caret"></span></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="type-item"><a href="#">课程资料管理员</a></li>
-                                <li class="type-item"><a href="#">系统管理员</a></li>
-                            </ul>
+                        <div class="po-select">
+                            <select class="form-control">
+                                <option selected="selected">课程资料管理员</option>
+                                <option>系统管理员</option>
+                                <option>公司领导</option>
+                            </select>
                         </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
                     </div>
                     <div class="form-group input-box">
                         <label for="password">密 码</label>
