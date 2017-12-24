@@ -1,10 +1,10 @@
 #encoding: utf-8
 
-from flask import Flask, render_template, redirect, request,url_for, session, g
+from flask import Flask, render_template, redirect, request,url_for, session, g, flash
 import config
 from models import *
 from exts import db
-from sqlalchemy import or_
+from sqlalchemy import or_, not_
 from datetime import datetime, timedelta
 from decorators import login_required
 from sysAdmin import sysAdmin
@@ -48,13 +48,35 @@ def forVisitors():
     '''
     return render_template('index.html')
 
-@app.route('/admins/')
+@app.route('/admins/', methods = ['GET', 'POST'])
 def foradmins():
     r'''
     为管理员准备的登录入口
     :return:
     '''
-    return render_template('admin-login.html')
+    if request.method == 'GET':
+        return render_template('admin-login.html')
+    else:
+        adminVerify = request.form.get('adminName')
+        password = request.form.get('password')
+        adminType = request.form.get('adminType')
+        admin = Admin.query.filter(or_(Admin.adminEmail == adminVerify, Admin.adminName == adminVerify, Admin.adminPhone == adminVerify),
+                                  Admin.adminPass == password, Admin.adminType == adminType).first()
+        if admin:
+            session['admin_name'] = admin.adminName
+            session.permanenet = True
+            admin.lastLogin = datetime.now()
+            db.session.add(admin)
+            db.session.commit()
+            if admin.adminType == '1':
+                return redirect(url_for('sysAdmin.sysAdminPage'))
+            elif admin.adminType == '2':
+                return redirect(url_for('courseAdmin.courseAdminPage'))
+            else:
+                return redirect(url_for('leader.leaderPage'))
+        else:
+            flash(('用户名或密码错误，请检查您的输入后重试。').decode('utf-8'))
+            return redirect(url_for('foradmins'))
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -70,16 +92,20 @@ def login():
 
         user = User.query.filter(or_(User.userEmail == userVerify, User.userName == userVerify, User.userPhone == userVerify),
                                      User.userPass == password).first()
-        print password
         if user:
-            session['user_name'] = user.userName
-            session.permanenet = True
-            user.lastLogin = datetime.now()
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('index'))
+            if user.frozenDuration > 0:
+                flash(("您的账户因" + user.frozenReason.encode('utf-8') + "被冻结" + str(int(user.frozenDuration)) + "天. ").decode('utf-8'))
+                return redirect(url_for('login'))
+            else:
+                session['user_name'] = user.userName
+                session.permanenet = True
+                user.lastLogin = datetime.now()
+                db.session.add(user)
+                db.session.commit()
+                return redirect(url_for('index'))
         else:
-            return render_template('fail.html')
+            flash(('用户名或密码错误，请检查您的输入后重试。').decode('utf-8'))
+            return redirect(url_for('login'))
 
 @app.route('/logout/')
 def logout():
@@ -90,6 +116,14 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route('/adminLogout/')
+def adminLogout():
+    r'''
+    管理员注销页面
+    :return:
+    '''
+    session.clear()
+    return redirect(url_for('foradmins'))
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -143,7 +177,13 @@ def personalCenter():
     :return:
     '''
     commentCount = Comments.query.filter(Comments.userName == g.user.userName).all()
-    return render_template('personal_center.html', commentCount = len(commentCount))
+    courses = []
+    # enrolls = StudyProgress(userName = g.user.userName)
+    enrolls = g.user.courses.all()
+    for enroll in enrolls:
+        userCount = len(enroll.users.all())
+        courses.append([CourseInfo.query.filter(CourseInfo.courseId == enroll.courseId).first(), userCount])
+    return render_template('personal_center.html', commentCount = len(commentCount), courses = courses)
 
 @app.route('/pcenter/discuss')
 def personalCenterDiscuss():
@@ -151,13 +191,14 @@ def personalCenterDiscuss():
     个人中心讨论页面
     :return:
     '''
-    comments = Comments.query.filter(Comments.userName == g.user.userName).order_by("-submitTime")
+    comments = Comments.query.filter(Comments.userName == g.user.userName, Comments.rep_cmtId == None).order_by("-submitTime")
+    commentCount = len(Comments.query.filter(Comments.userName == g.user.userName).all())
     replyCountComments = []
     for comment in comments:
         replyCountComment = [comment, len(Comments.query.filter(Comments.rep_cmtId == comment.cmtId).all()),
                              CourseInfo.query.filter(CourseInfo.courseId == comment.courseId).first().courseTitle]
         replyCountComments.append(replyCountComment)
-    return render_template('personal_center-discuss.html', replyCountComments = replyCountComments, commentCount = len(comments))
+    return render_template('personal_center-discuss.html', replyCountComments = replyCountComments, commentCount = commentCount)
 
 @app.route('/pcenter/reply')
 def personalCenterReply():
@@ -165,13 +206,14 @@ def personalCenterReply():
     个人中心回复页面
     :return:
     '''
+    commentCount = len(Comments.query.filter(Comments.userName == g.user.userName).all())
     replys = Comments.query.filter(Comments.userName == g.user.userName, Comments.rep_cmtId).order_by("-submitTime")
     detailedReplys = []
     for reply in replys:
-        detailedReply = [reply, Comments.query.filter(Comments.cmtId == reply.rep_cmtId).first().cmtContent,
+        detailedReply = [reply, Comments.query.filter(Comments.cmtId == reply.rep_cmtId).first(),
                          CourseInfo.query.filter(CourseInfo.courseId == reply.courseId).first().courseTitle]
         detailedReplys.append(detailedReply)
-    return render_template('personal_center-reply.html', detailedReplys = detailedReplys)
+    return render_template('personal_center-reply.html', detailedReplys = detailedReplys, commentCount = commentCount)
 
 @app.route('/setting/', methods=['GET', 'POST'])
 def setting():
@@ -207,45 +249,6 @@ def setPassword():
             db.session.commit()
             return redirect(url_for('success'))
 
-# @app.route('/courseInfo/<courseId>')
-# def courseInfo(courseId):
-#     r'''
-#     课程信息页面，对应课程大纲
-#     :param courseId:
-#     :return:
-#     '''
-#     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-#     type = CourseType.query.filter(CourseType.typeId == course.typeId).first()
-#     chapters = ChapterInfo.query.filter(ChapterInfo.courseId == courseId).order_by('chapId')
-#     return render_template('study-abstract2.html', course = course, chapters = chapters, type = type.typeName)
-
-# @app.route('/resource/<courseId>')
-# def resourceInfo(courseId):
-#     r'''
-#     课程信息页面，对应学习区
-#     :param courseId:
-#     :return:
-#     '''
-#     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-#     chapters = ChapterInfo.query.filter(ChapterInfo.courseId == courseId).order_by('chapId').all()
-#     bigChapters = []
-#     bigChapter = []
-#     innerChapter = []
-#     chapId = '00001'
-#     i = 0
-#     for chapter in chapters:
-#         if chapter.chapId[:5] == chapId:
-#             bigChapter.append(chapter)
-#         else:
-#             chapId = chapter.chapId[:5]
-#             bigChapters.append(bigChapter)
-#             bigChapter = []
-#             bigChapter.append(chapter)
-#         if i == len(chapters) - 1:
-#             bigChapters.append(bigChapter)
-#         i += 1
-#     return render_template('study-resource2.html', course = course, bigChapters = bigChapters)
-
 @app.route('/success/', methods=['GET', 'POST'])
 def success():
     r'''
@@ -255,23 +258,23 @@ def success():
     return render_template('success.html')
 
 @app.route('/searchCourse/', methods=['GET', 'POST'])
-def searchCourse(typeId):
+def searchCourse():
     r'''
     搜索课程功能的接口
     :return:
     '''
-    courseName = request.args.get('course')
-    courses = CourseInfo.query.filter(or_(CourseInfo.courseTitle == courseName, CourseInfo.typeId == typeId)).all()
-    return render_template('course.html', courses = courses)
+    pass
 
-@app.route('/searchCourse/', methods=['GET', 'POST'])
+@app.route('/searchCourse/<typeId>', methods=['GET', 'POST'])
 def searchCourseByType(typeId):
     r'''
     通过课程类型搜索课程的接口
     :param typeId:
     :return:
     '''
-
+    courseName = request.args.get('course')
+    courses = CourseInfo.query.filter(or_(CourseInfo.courseTitle == courseName, CourseInfo.typeId == typeId)).all()
+    return render_template('course.html', courses = courses)
 
 
 @app.route('/searchUser/', methods = ['GET', 'POST'])
@@ -297,7 +300,7 @@ def help():
     帮助信息页面
     :return:
     '''
-    pass
+    return render_template('helper-0.html')
 
 @app.route('/leader/')
 def leaderPage():
@@ -311,25 +314,28 @@ def courseStatics():
     '''
     return render_template('course-statistics.html')
 
-
-
 @app.context_processor
 def my_context_processor():
     r'''
-    user的上下文处理器
+    上下文处理器
     :return:
     '''
     user_name = session.get('user_name')
+    admin_name = session.get('admin_name')
     if user_name:
         user = User.query.filter(User.userName == user_name).first()
         if user:
             return {'user': user}
+    elif admin_name:
+        admin = Admin.query.filter(Admin.adminName == admin_name).first()
+        if admin:
+            return {'admin' : admin}
     return {}
 
 @app.before_request
 def my_before_request():
     r'''
-    user的请求上下文处理器
+    请求上下文处理器
     :return:
     '''
     user_name = session.get('user_name')
@@ -337,6 +343,15 @@ def my_before_request():
         user = User.query.filter(User.userName == user_name).first()
         if user:
             g.user = user
+
+    admin_name = session.get('admin_name')
+    if admin_name:
+        admin = Admin.query.filter(Admin.adminName == admin_name).first()
+        if admin:
+            g.admin = admin
+
+
+
 
 if __name__ == '__main__':
     # app.run(host=socket.gethostbyname(socket.gethostname()), port=5000)

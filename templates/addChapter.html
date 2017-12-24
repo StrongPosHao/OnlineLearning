@@ -46,7 +46,7 @@
 
                 <ul class="nav">
                     <li>
-                        <a href="{{ url_for('courseAdmin.sysAdminPage') }}">
+                        <a href="{{ url_for('courseAdmin.courseAdminPage') }}">
                             <i class="pe-7s-user"></i>
                             <p>管理员信息</p>
                         </a>
@@ -88,11 +88,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                <a href="#">
-                                   AdministorName
+                                   {{ admin.adminName }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url_for('logout') }}">
+                                <a href="{{ url_for('adminLogout') }}">
                                     Log out
                                 </a>
                             </li>
@@ -123,20 +123,28 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>章节名</label>
-                                                <input type="text" name="chapName" class="form-control" placeholder="">
+                                                <input type="text" name="chapName" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">章节层级</label>
-                                                <input type="text" name="chapLayer" class="form-control" placeholder="">
+                                                <input type="text" name="chapLayer" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-9">
                                             <div class="form-group">
-                                                <label>视屏路径</label>
+                                                <label>课程名(disabled)</label>
+                                                <input type="text" disabled name="courseTitle" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label>视频路径</label>
                                                 <input type="text" name="videoPath" class="form-control" placeholder="">
                                             </div>
                                         </div>
@@ -144,19 +152,19 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>视屏名称</label>
+                                                <label>视频名称</label>
                                                 <input type="text" name="videoName" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label>视屏大小</label>
+                                                <label>视频大小</label>
                                                 <input type="text" name="videoSize" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label>视屏时长</label>
+                                                <label>视频时长</label>
                                                 <input type="text" name="videoDuration" class="form-control" placeholder="">
                                             </div>
                                         </div>
@@ -164,13 +172,13 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>视屏上传时间</label>
+                                                <label>视频上传时间</label>
                                                 <input type="text" name="videoUploadTime" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>视屏MD5码</label>
+                                                <label>视频MD5码</label>
                                                 <input type="text" name="videoMD5" class="form-control" placeholder="">
                                             </div>
                                         </div>

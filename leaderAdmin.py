@@ -2,18 +2,29 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, session, g
 from exts import db
-from pyecharts import Bar
-from models import CourseInfo
+from pyecharts import Bar, Pie
+from models import *
 
 leader = Blueprint('leader', __name__)
 
-@leader.route('/')
+@leader.route('/', methods = ['GET', 'POST'])
 def leaderPage():
     r'''
     公司领导页面
     :return:
     '''
-    return render_template('leader-page.html')
+    if request.method == 'GET':
+        return render_template('leader-page.html', admin = g.admin)
+    else:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        g.admin.adminName = name
+        g.admin.adminEmail = email
+        g.admin.adminPhone = phone
+        db.session.add(g.admin)
+        db.session.commit()
+        return redirect(url_for('leaderPage'))
 
 @leader.route('/statistics')
 def courseStatistics():
@@ -30,6 +41,13 @@ def courseStatistics():
     bar.add("courseType", attr, data)
 
     #用户学习课程待完成
-
-    return render_template("course-statistics.html", myechart1 = bar.render_embed())
+    courses = CourseInfo.query.filter().all()
+    attr2 = []
+    data2 = []
+    for course in courses:
+        attr2.append(course.courseTitle.encode('utf-8'))
+        data2.append(len(course.stds.all()))
+    pie = Pie()
+    pie.add("", attr2, data2, is_label_show=True, is_random=True)
+    return render_template("course-statistics.html", myechart1 = bar.render_embed(), myechart2 = pie.render_embed())
 

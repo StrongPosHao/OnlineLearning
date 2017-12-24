@@ -9,6 +9,10 @@ def md5_file(name):
     a_file.close()
     return m.hexdigest()
 
+def md5_string(string):
+    m = md5()
+    m.update(string)
+    return m.hexdigest()
+
 if __name__ == '__main__':
-    print md5_file('static/pdf/Thinking in Java.pdf')
-    print md5_file('static/pdf/ThinkinginJava.pdf')
+    print md5_string('1234567')

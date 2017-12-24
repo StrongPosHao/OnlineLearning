@@ -12,7 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../static/css/study-video.css" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-video.css') }}" type="text/css">
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Online Learning|在线学习</title>
 </head>
 <body>
@@ -22,9 +23,9 @@
                 <span class="navbar-brand index_title">Online Learning | 在线学习</span>
             </div>
             <div class="nav navbar-left back-index">
-                <a href="index.html">首页</a>
+                <a href="{{ url_for('index') }}">首页</a>
                 <span style="margin-left: 1em;margin-right: 1em"></span>
-                <a href="course.html">课程</a>
+                <a href="{{ url_for('course') }}">课程</a>
             </div>
                 <form class="navbar-form navbar-left">
                     <div class="form-group search">
@@ -37,7 +38,7 @@
             <div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="drop_down" style="padding-right: 1em">
-                        <a href="personal_center.html" >个人中心</a>
+                        <a href="{{ url_for('personalCenter') }}" >个人中心</a>
                     </li>
                     <li class="dropdown drop_down">
                         <a href="#" class="dropdown-toggle" role="button"
@@ -46,11 +47,11 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ><a href="setting.html">设置</a></li>
+                            <li ><a href="{{ url_for('setting') }}">设置</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">退出</a></li>
+                            <li><a href="{{ url_for('logout') }}">退出</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">帮助</a></li>
+                            <li><a href="{{ url_for('help') }}">帮助</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -60,37 +61,50 @@
     <div class="course-navbar">
         <div class="item-box">
                 <div class="course-item-box-img">
-                    <img alt="AIDS and I --艾滋病与我"
-                         src="../static/image/courtney-corlew-190987.jpg">
+                    <img alt="{{ course.courseTitle }}"
+                         src="{{ url_for('static', filename = course.courseImage) }}">
                 </div>
                 <div class="course-item-box-title">
-                    <span class="">AIDS and I --艾滋病与我</span>
+                    <span class="">{{ course.courseTitle }}</span>
                 </div>
         </div>
         <ul class="course-tab-list">
             <li class="course-tab-list-item">
-                <a href="study-abstract.html">授课大纲</a>
+                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
             </li>
             <li class="course-tab-list-item current">
-                <a href="study-resource.html">学习区</a>
+                <a href="{{ url_for('couInfo.resourceInfo',  _external = True, courseId = course.courseId) }}">学习区</a>
             </li>
             <li class="course-tab-list-item">
-                <a href="study-discuss.html">讨论区</a>
+                <a href="{{ url_for('couInfo.discussAll',  _external = True, courseId = course.courseId) }}">讨论区</a>
             </li>
         </ul>
     </div>
     <div class="resource-content-box">
         <div class="resource-content">
-            <h3 style="width: 90%;margin-left: 2%">AIDS and I --艾滋病与我</h3>
+            <h3 style="width: 100%">{{ course.courseTitle }}</h3>
         </div>
         <div class="resource-video-box">
+            <ul class="video-list">
+                <li title="视频" class="current">
+                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = video.chapId) }}">  <!--刷新当前播放界面-->
+                        <span class="glyphicon glyphicon-play-circle l-icon"></span>
+                    </a>
+                </li>
+                <li title="课件">   <!--点击下载课件-->
+                    <a href="{{ url_for('static', filename = pdf.filePath)}}" download="{{ pdf.filename }}">
+                        <span class="glyphicon glyphicon-file l-icon"></span>
+                    </a>
+                </li>
+                <li title="讨论">  <!--点击跳转到改章节的讨论区-->
+                    <a href="{{ url_for('couInfo.discuss', _external = True, courseId = course.courseId, chapId = video.chapId) }}">
+                        <span class="glyphicon glyphicon-pencil l-icon"></span>
+                    </a>
+                </li>
+            </ul>
             <div class="video-box" align="center">
-                <video width="60%" height="240" controls="controls" autoplay="autoplay">
-                    <source src="{{ url_for('static', filename = 'video/clannad18.mp4') }}" type="video/mp4">
-
-{#                    <object data="intro.mp4" width="60%" height="240">#}
-{#                        <embed width="60%" height="240" src="intro.swf">#}
-{#                    </object>#}
+                <video controls="controls" autoplay="autoplay">
+                    <source src="{{ url_for('static', filename = video.filePath) }}" type="video/mp4">
                 </video>
             </div>
 

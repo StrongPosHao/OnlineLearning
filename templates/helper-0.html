@@ -47,11 +47,11 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ><a href="../setting-id.html">设置</a></li>
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="helper-0.html">帮助</a></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
                     </ul>
                 </li>
             </ul>
@@ -65,7 +65,7 @@
     <div class="help-tab">
                         <ul class="help-tab-list">
                             <li class="help-tab-list-item current">
-                                <a href="helper-0.html">常见问题</a>
+                                <a href="{{ url_for('help') }}">常见问题</a>
                             </li>
                             <li class="help-tab-list-item">
                                 <a href="helper-1.html">学习区</a>

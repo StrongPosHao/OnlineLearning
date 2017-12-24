@@ -4,6 +4,12 @@ from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+StudyProgress = db.Table('StudyProgress', db.Column('userName', db.Unicode(20), db.ForeignKey('User.userName'), primary_key=True),
+                                          db.Column('chapId', db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), primary_key=True),
+                                          db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), primary_key=True),
+                                          db.Column('chapDuration', db.Float, nullable=False)
+                        )
+
 class User(db.Model):
     __tablename__ = 'User'
     userName = db.Column(db.Unicode(20), primary_key=True)
@@ -15,6 +21,8 @@ class User(db.Model):
     studyDuration = db.Column(db.Float, nullable=False)
     frozenDuration = db.Column(db.Float, nullable=False)
     frozenReason = db.Column(db.Text)
+    courses = db.relationship('ChapterInfo', secondary = StudyProgress, backref = db.backref('users', lazy = 'dynamic'), lazy = 'dynamic')
+    courseCount = db.relationship('CourseInfo', secondary = StudyProgress, backref = db.backref('stds', lazy = 'dynamic'), lazy = 'dynamic')
 
 class Admin(db.Model):
     __tablename__ = 'Admin'
@@ -61,12 +69,6 @@ class ChapterInfo(db.Model):
     courseId = db.Column(db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), primary_key=True,  nullable=False)
     chapName = db.Column(db.Unicode(64), nullable=False)
     chapLayer = db.Column(db.SmallInteger, nullable=False)
-
-StudyProgress = db.Table('StudyProgress', db.Column('userName', db.Unicode(20), db.ForeignKey('User.userName'), primary_key=True),
-                                          db.Column('chapId', db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), primary_key=True),
-                                          db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), primary_key=True),
-                                          db.Column('chapDuration', db.Float, nullable=False)
-                        )
 
 class Comments(db.Model):
     __tablename__ = 'Comments'

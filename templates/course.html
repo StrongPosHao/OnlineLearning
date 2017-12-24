@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script language="JavaScript" src="../static/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
@@ -24,7 +23,7 @@
         <div class="nav navbar-left back-index">
             <a href="index.html">首页</a>
         </div>
-        <form class="navbar-form navbar-left" action="{{ url_for('search') }}">
+        <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
             <div class="form-group search">
                 <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
                 <button type="submit" class="btn search_btn" value="">
@@ -153,7 +152,7 @@
                     <div class="course-items">
                         <div class="course-item-box">
                             <div class="item-box">
-                                <a href="{{ url_for('courseInfo', _external = True, courseId = courses[0].courseId) }}">
+                                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses[0].courseId) }}">
                                     <div class="course-item-box-img">
                                         <img alt="{{ courses[0].courseTitle }}"
                                              src="{{ url_for('static', filename=courses[0].courseImage) }}">

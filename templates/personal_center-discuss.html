@@ -19,7 +19,7 @@
             <span class="navbar-brand index_title">Online Learning | 在线学习</span>
         </div>
         <div class="nav navbar-left back-index">
-            <a href="index.html">首页</a>
+            <a href="{{ url_for('index') }}index.html">首页</a>
             <span style="margin-left: 1em;margin-right: 1em"></span>
             <a href="course.html">课程</a>
         </div>
@@ -134,7 +134,7 @@
                     </a>
                     <!--课程内容-->
                     <div class="comment-item">
-                        <a href="study-discuss-details.html" target="_blank">{{ comment[0].cmtContent }}</a>
+                        <a href="{{ url_for('couInfo.commentDetail', _external = True, cmtId = comment[0].cmtId, courseId = comment[0].courseId) }}" target="_blank">{{ comment[0].cmtContent }}</a>
                     </div>
                 </li>
             {% endfor %}

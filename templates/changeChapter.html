@@ -89,11 +89,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                <a href="#">
-                                   AdministorName
+                                   {{ admin.adminName }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url_for('logout') }}">
+                                <a href="{{ url_for('adminLogout') }}">
                                     Log out
                                 </a>
                             </li>
@@ -111,12 +111,20 @@
                                 <h4 class="title">编辑章节信息</h4>
                             </div>
                             <div class="content">
-                                <form id="courseInfo" method="post">
+                                <form id="courseInfo" enctype="multipart/form-data" method="post">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>章节ID (disabled)</label>
                                                 <input type="text" class="form-control" name="chapId" disabled placeholder="{{ chapter.chapId }}" value="{{ chapter.chapId }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>课程名 (disabled)</label>
+                                                <input type="text" class="form-control" name="chapId" disabled value="{{ course.courseTitle }}">
                                             </div>
                                         </div>
                                     </div>
@@ -139,88 +147,88 @@
                                             <div class="form-group">
                                                 <label>视频文件</label>
                                                 <span class="btn btn-info fileinput-button">
-                                                    <span>上传</span>
-                                                    <input type="file" name="filePath" class="form-control" placeholder="{{ video.filePath }}" value="{{ video.filePath }}">
+                                                    <span>上传文件</span>
+                                                    <input type="file" name="videoFile" class="form-control">
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>视频名称</label>
-                                                <input type="text" name="videoName" class="form-control" placeholder="{{ video.fileName }}" value="{{ video.fileName }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>视频大小(MB)</label>
-                                                <input type="text" name="videoSize" class="form-control" placeholder="{{ video.fileSize }}" value="{{ video.fileSize }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>视频时长</label>
-                                                <input type="text" name="videoDuration" class="form-control" placeholder="{{ video.videoDuration }}" value="{{ video.videoDuration }} s">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>视频上传时间</label>
-                                                <input type="text" name="videoPubTime" class="form-control" placeholder="{{ video.uploadTime }}" value="{{ video.uploadTime }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>视频MD5码</label>
-                                                <input type="text" name="videoMD5" class="form-control" placeholder="{{ video.MD5 }}" value="{{ video.MD5 }}">
-                                            </div>
-                                        </div>
-                                    </div>
+{#                                    <div class="row">#}
+{#                                        <div class="col-md-4">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>视频名称</label>#}
+{#                                                <input type="text" name="videoName" class="form-control" placeholder="{{ video.fileName }}" value="{{ video.fileName }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-md-2">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>视频大小(MB)</label>#}
+{#                                                <input type="text" name="videoSize" class="form-control" placeholder="{{ video.fileSize }}" value="{{ video.fileSize }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-md-2">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>视频时长</label>#}
+{#                                                <input type="text" name="videoDuration" class="form-control" placeholder="{{ video.videoDuration }}" value="{{ video.videoDuration }} s">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="row">#}
+{#                                        <div class="col-md-3">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>视频上传时间</label>#}
+{#                                                <input type="text" name="videoPubTime" class="form-control" placeholder="{{ video.uploadTime }}" value="{{ video.uploadTime }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-md-6">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>视频MD5码</label>#}
+{#                                                <input type="text" name="videoMD5" class="form-control" placeholder="{{ video.MD5 }}" value="{{ video.MD5 }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
 
                                     <div class="row">
                                         <div class="col-md-9">
                                             <div class="form-group">
                                                 <label>PDF文件</label>
                                                     <span class="btn btn-info fileinput-button">
-                                                        <span>上传</span>
-                                                        <input type="file" name="pdfPath" class="form-control" placeholder="{{ pdf.filePath }}" value="{{ pdf.filePath }}">
+                                                        <span>上传文件</span>
+                                                        <input type="file" name="pdfFile" class="form-control">
                                                     </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>PDF文档名称</label>
-                                                <input type="text" name="pdfName" class="form-control" placeholder="{{ pdf.fileName }}" value="{{ pdf.fileName }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>PDF大小(MB)</label>
-                                                <input type="text" name="pdfSize" class="form-control" placeholder="{{ pdf.fileSize }}" value="{{ pdf.fileSize }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>PDF上传时间</label>
-                                                <input type="text" name="pdfPubTime" class="form-control" placeholder="{{ pdf.uploadTime }}" value="{{ pdf.uploadTime }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>PDF MD5码</label>
-                                                <input type="text" name="pdfMD5" class="form-control" placeholder="{{ pdf.MD5 }}" value="{{ pdf.MD5 }}">
-                                            </div>
-                                        </div>
-                                    </div>
+{#                                    <div class="row">#}
+{#                                        <div class="col-md-4">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>PDF文档名称</label>#}
+{#                                                <input type="text" name="pdfName" class="form-control" placeholder="{{ pdf.fileName }}" value="{{ pdf.pdfName }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-md-2">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>PDF大小(MB)</label>#}
+{#                                                <input type="text" name="pdfSize" class="form-control" placeholder="{{ pdf.fileSize }}" value="{{ pdf.fileSize }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-md-4">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>PDF上传时间</label>#}
+{#                                                <input type="text" name="pdfPubTime" class="form-control" placeholder="{{ pdf.uploadTime }}" value="{{ pdf.uploadTime }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="row">#}
+{#                                        <div class="col-md-6">#}
+{#                                            <div class="form-group">#}
+{#                                                <label>PDF MD5码</label>#}
+{#                                                <input type="text" name="pdfMD5" class="form-control" placeholder="{{ pdf.MD5 }}" value="{{ pdf.MD5 }}">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
 
-
+{#                                      <input type="submit" value="upload">#}
                                     <button type="submit" class="btn btn-info btn-fill pull-left">更新章节信息</button>
                                     <div class="clearfix"></div>
                                 </form>

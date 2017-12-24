@@ -87,11 +87,11 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                            <a href="#">
-                               AdministorName
+                               {{ admin.adminName }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('logout') }}">
+                            <a href="{{ url_for('adminLogout') }}">
                                 Log out
                             </a>
                         </li>

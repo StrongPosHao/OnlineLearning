@@ -420,7 +420,7 @@ body{
 }
 
 .comment-text{
-    width: 90%;
+    width: 88%;
     padding-left: 1%;
     margin-top: 2em;
     font-size: 0.8em;
@@ -440,7 +440,7 @@ body{
     float: right;
     color: ghostwhite;
     font-size: 0.688em;
-    margin-right: 6.5%;
+    margin-right: 8.6%;
 }
 
 .add-comment-box label{
@@ -471,8 +471,10 @@ body{
     position: relative;
     text-align: center;
     border-radius: 0.2em;
+    float: right;
     cursor: pointer;
     padding-bottom: 0.15em;
+    top: -1.8em;
 }
 
 .add-reply-btn a{
@@ -524,12 +526,13 @@ body{
 }
 
 .btn-reply{
-    margin-top: 0.73em;
+    margin-top: 0.65em;
     margin-left: 3%;
     margin-bottom:1em;
     width: 5%;
     font-size: 0.3em;
     border-radius: 0.2em;
+    line-height: 1.35;
     background-color:rgba(221,130,98, 0.8);
     color: whitesmoke;
     padding: 5.4px 0;
@@ -542,18 +545,18 @@ body{
 }
 
 .reply-text{
-    width: 60%;
+    width: 62%;
     padding-left: 1%;
     font-size: 0.8em;
+    top: -1em;
     margin-left: 39%;
+        position: relative;
     border-radius: 0.5em;
     height: 8em;
 }
 
 .test{
     position: relative;
-    width: 5%;
-    float: right;
 }
 
 .reply-box input{
@@ -561,7 +564,6 @@ body{
     float: right;
     color: ghostwhite;
     font-size: 1.3em;
-    margin-right: 1.1%;
 }
 
 .reply-form{
@@ -583,6 +585,11 @@ body{
 .reply-time{
     margin-left: 2%;
     font-size: 1.15em;
+}
+
+.user-time-div{
+    position: relative;
+
 }
 
 @media screen and (max-width: 1080px) {
@@ -706,6 +713,17 @@ body{
         font-size: 1.5em;
     }
 
+    .add-reply-btn a {
+        font-size: 0.741em;
+    }
+
+    .reply-text{
+    top: -2em;
+}
+
+    .reply-form {
+        margin-top: -2em;
+    }
 }
 
 

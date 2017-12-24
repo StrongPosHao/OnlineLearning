@@ -12,7 +12,7 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/study-discuss-details.css') }}" type="text/css">
     <title>Online Learning|在线学习</title>
-    {% import 'macros.html' as macros %}
+    {% import 'macros2.html' as macros %}
 </head>
 <body>
 <nav class="navbar nav_bar">
@@ -87,8 +87,8 @@
                     <a href="{{ url_for('couInfo.discussAll', _external = True, courseId = course.courseId) }}">讨论区</a>
                 {% else %}
                     <a href="{{ url_for('couInfo.discuss', _external = True, courseId = course.courseId, chapId = chapter.chapId) }}">讨论区 > {{ chapter.chapName }}</a>
-                    <a href="{{ url_for('couInfo.chapCommentDetail', _external = True, courseId = course.courseId,
-                                chapId = chapter.chapId) }}">{{ chapter.chapterName }}</a> >
+{#                    <a href="{{ url_for('couInfo.chapCommentDetail', _external = True, courseId = course.courseId,#}
+{#                                chapId = chapter.chapId) }}">{{ chapter.chapName }}</a> >#}
                 {% endif %}
                 <span style="margin-left: 1%;margin-right: 1%;color: #555566b5"> > </span>
                 <span>评论详情</span>
@@ -98,7 +98,7 @@
                     <a>{{ comment.cmtContent }}</a>
                 </div>
                 <div class="add-comment-btn">
-                    <a>评论</a>
+                    <a href="#goto">评论</a>
                 </div>
 
                 <!--评论人-->
@@ -121,8 +121,8 @@
                 </div>
             </div>
             <div class="add-comment-box input-box">
-                <textarea form="add-comment-form" title="发表评论" name="replyArea" placeholder="发表评论" class="comment-text"></textarea>
-                <form id="add-comment-form" class="comment-form" method="post">
+                <textarea id="goto" title="发表评论" name="replyArea" placeholder="发表评论" class="comment-text"></textarea>
+                <form class="comment-form" method="post">
                     <input class="btn btn-large btn-comment" type="submit" value="发 表 回 复"
                            id="submit"/>
                 </form>
@@ -132,19 +132,22 @@
 </body>
 <script>
     var i=0;
+
     $("div").each(function(){
         this.id = i;
         i++;
     });
+
     $("form").each(function () {
         this.id = i;
         i++;
     });
 
+
     $("textarea").each(function () {
         // var j=$(this).index();
         var pa=this.parentNode.id;
-        var id = $("#"+pa).find('.reply-form').attr("id");
+        var id = $("#"+pa).find('form').attr("id");
         // alert(id);
         $(this).attr("form",id);
         // var pa = $("#"+id).find('form').id;

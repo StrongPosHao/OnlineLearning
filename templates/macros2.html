@@ -1,0 +1,114 @@
+<!--用来展示章节-->
+{% macro showChap(chapters, course, pdf) %}
+    {% for bigChapter in chapters %}
+        {% for oneChapter in bigChapter %}
+            {% if oneChapter.chapLayer == 1 %}
+                <li>
+                    <a>
+                        <div class="li-back">
+                            <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                            <span style="letter-spacing: 3px">
+                                {{ oneChapter.chapName }}
+                            </span>
+                        </div>
+                    </a>
+                    <ul class="sub">
+                        {% for oneChapter1 in bigChapter %}
+                            {% if oneChapter1.chapLayer == 2 %}
+                                <li>
+                                    <a>
+                                        <div class="li-back2">
+                                            <span style="padding-left: 1.5%;margin-right: 1%"> > </span>
+                                            <span style="letter-spacing: 3px">
+                                                {{ oneChapter1.chapName }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <ul class="sub2">
+                                        {% for oneChapter2 in bigChapter %}
+                                            {% if oneChapter2.chapLayer == 3 and oneChapter2.chapId[5:11] == oneChapter1.chapId[5:11]%}
+                                                <li>
+                                                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = oneChapter2.chapId)}}">
+                                                        {{ oneChapter2.chapName }}
+                                                    </a>
+                                                    <a href="#">
+                                                        <span class="glyphicon glyphicon-file a-icon" title="教学课件/文档"></span>
+                                                    </a>
+                                                    <a href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = oneChapter2.chapId)}}">
+                                                        <span class="glyphicon glyphicon-film a-icon" title="教学视频"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endmacro %}
+
+<!--用来展示评论回复-->
+{% macro showReply(replys, reReplays, review) %}
+    {% for reply in replys %}
+        <li class="reply-list-item">
+            <!--课程内容-->
+            <div class="reply-item">
+                <span>{{ reply.cmtContent }}</span>
+            </div>
+        <div class="user-time-div">
+            <!--评论人-->
+            <span class="reply-user">{{ reply.userName }}</span>
+            <!--评论时间-->
+            <span style="margin-left: 3%;font-size: 1.15em">于{{ reply.submitTime }}发表</span>
+        </div>
+
+            <div class="test">
+                <div class="add-reply-btn">
+                    <a>评论</a>
+                </div>
+                <div class="add-reply-box reply-box">
+                    <textarea title="发表评论" name="{{ reply.cmtId }}" class="reply-text" autofocus></textarea>
+                    <form class="reply-form" method="post">
+                        <input class="btn btn-large btn-reply" type="submit" value="评论"/>
+                        <div class="back-reply-btn">
+                            <a>取消</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% for reReply in reReplays %}
+                {% if reReply[0].cmtId != reply.cmtId and reReply[-1].cmtId == reply.cmtId%}
+                    <div class="reply-reply">
+                        <ul class="reply-reply-list">
+                            {% for oneReReply in reReply[:-1] %}
+                                <li class="reply-reply-list-item">
+                                    <!--课程内容-->
+                                    <div class="reply-reply-item">
+                                        {% if oneReReply.chapId %}
+                                            <a href="{{ url_for('couInfo.replyDetail', _external = True, cmtId = oneReReply.cmtId, reviewId = review.cmtId,
+                                                courseId = oneReReply.courseId, chapId = oneReReply.chapId) }}">
+                                                <span>{{ oneReReply.cmtContent }}</span></a>
+                                        {% else %}
+                                        <a href="{{ url_for('couInfo.replyDetailAll', _external = True, cmtId = oneReReply.cmtId,
+                                                    courseId = oneReReply.courseId, reviewId = review.cmtId) }}">{{ oneReReply.cmtContent }}</a>
+                                        {% endif %}
+
+                                    </div>
+                                    <!--评论人-->
+                                    <span class="reply-reply-user">{{ oneReReply.userName }}</span>
+                                    <!--评论时间-->
+                                    <span style="margin-left: 3%;font-size: 1.15em">
+                                        于<span>{{ oneReReply.submitTime }}</span>发表</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </li>
+    {% endfor %}
+{% endmacro %}

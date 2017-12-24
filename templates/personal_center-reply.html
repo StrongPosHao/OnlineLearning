@@ -19,9 +19,9 @@
             <span class="navbar-brand index_title">Online Learning | 在线学习</span>
         </div>
         <div class="nav navbar-left back-index">
-            <a href="index.html">首页</a>
+            <a href="{{ url_for('index') }}">首页</a>
             <span style="margin-left: 1em;margin-right: 1em"></span>
-            <a href="course.html">课程</a>
+            <a href="{{ url_for('course') }}">课程</a>
         </div>
         <form class="navbar-form navbar-left">
             <div class="form-group search">
@@ -34,7 +34,7 @@
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">
-                    <a href="personal_center.html" >个人中心</a>
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
                 </li>
                 <li class="dropdown drop_down">
                     <a href="#" class="dropdown-toggle" role="button"
@@ -43,11 +43,11 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ><a href="setting.html">设置</a></li>
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">帮助</a></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,7 +63,7 @@
         <div class="hi">Hi,</div>
 
         <div class="userName">
-            <span class="userName-data" id="name"> GrinXu </span> <!--从数据库获取用户名-->
+            <span class="userName-data" id="name"> {{ user.userName }} </span> <!--从数据库获取用户名-->
         </div>
 
         <div class="userComment">
@@ -72,7 +72,7 @@
 
         <!--从数据库获取该用户评论数-->
         <div>
-            <span class="comment-data" id="comment">10</span><!--从数据库获取该用户评论数-->
+            <span class="comment-data" id="comment">{{ commentCount }}</span><!--从数据库获取该用户评论数-->
         </div>
 
         <div class="commentImg">
@@ -86,7 +86,7 @@
 
         <!--从数据库获取该用户学习时长-->
         <div>
-            <span class="time-data" id="time">100</span> <!--从数据库获取该用户学习时长-->
+            <span class="time-data" id="time">{{ user.studyDuration }}</span> <!--从数据库获取该用户学习时长-->
         </div>
 
         <div class="timeImg">
@@ -99,7 +99,7 @@
     <div class="content-tab" align="center">
         <ul>
             <li>
-                <a href="personal_center.html" id="course-title" > 课程</a>
+                <a href="{{ url_for('course') }}" id="course-title" > 课程</a>
             </li>
             <li class="current">
                 <a id="comment-title">评论</a>
@@ -125,21 +125,23 @@
                 <li class="comment-list-item">
                     <!--课程内容-->
                     <div class="comment-item">
-                        <a href="study-discuss-details.html" target="_blank">{{ reply[0].cmtContent }}</a>
+                        <a href="{{ url_for('couInfo.replyDetailAll', _external = True, cmtId = reply[0].cmtId,
+                                    courseId = reply[0].courseId, reviewId = reply[1].cmtId) }}" target="_blank">{{ reply[0].cmtContent }}</a>
                     </div>
                     <div class="the-comment">
                         <span class="split">|</span>
                         <!--该条回复的评论详情页-->
-                        <a href="study-discuss-details.html">
-                            {{ reply[1] }}
+                        <a href="{{ url_for('couInfo.replyDetailAll', _external = True, cmtId = reply[1].cmtId,
+                                    courseId = reply[0].courseId, reviewId = reply[1].cmtId) }}">
+                            {{ reply[1].cmtContent }}
                         </a>
                     </div>
                     <!--评论时间-->
                     <span style="margin-left: 2%;font-size: 1.2em">于<span class="comment-time">{{ reply[0].submitTime }}</span>发表</span>
                     <span> | </span>
                     <!--评论的课程名称(链接)-->
-                    <a href="study-discuss.html" target="_blank">
-                        <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><span style="margin-left: 0;font-size: 1.2em">{{ reply[2] }} </span>
+                    <span style="margin-left: 0.5%;font-size: 1.2em">来自</span><a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = reply[0].courseId) }}"
+                                                 target="_blank"><span style="margin-left: 0;font-size: 1.2em">{{ reply[2] }} </span>
                     </a>
                 </li>
             {% endfor %}

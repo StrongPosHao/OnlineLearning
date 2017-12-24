@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/css/study-abstract.css" type="text/css">
     <title>Online Learning|在线学习</title>
 </head>
@@ -69,22 +70,40 @@
         </div>
         <ul class="course-tab-list">
             <li class="course-tab-list-item current">
-                <a href="study-abstract.html">授课大纲</a>
+                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course.courseId) }}">授课大纲</a>
             </li>
             <li class="course-tab-list-item">
-                <a href="study-resource.html">学习区</a>
+                <a href="{{ url_for('couInfo.resourceInfo', _external = True, courseId = course.courseId) }}">学习区</a>
             </li>
             <li class="course-tab-list-item">
-                <a href="study-discuss.html">讨论区</a>
+                <a href="{{ url_for('couInfo.discussAll', _external = True, courseId = course.courseId) }}">讨论区</a>
             </li>
         </ul>
     </div>
     <div class="course-content-box">
+        <div class="course-teach">
+            <h3>课程信息</h3>
+            <div class="course-info">
+                <label for="teacher">授课老师:</label>
+                <!--授课老师-->
+                <span id="teacher">{{ course.courseTeacher }}</span>
+            </div>
+
+            <div class="course-info">
+                <label for="teach-time">开课时间:</label>
+                <!--开课时间-->
+                <span id="teach-time">{{ course.coursePubTime }}</span>
+            </div>
+
+            <div class="course-info">
+                <label for="teach-cate">课程分类:</label>
+                <!--课程分类-->
+                <span id="teach-cate">{{ type }}</span>
+            </div>
+        </div>
         <div class="course-abstract">
             <h3>课程概述</h3>
             <p>
-                {{ course.courseTeacher }}
-                {{ course.coursePubTime }}
                 {{ course.courseAbstract }}
             </p>
         </div>

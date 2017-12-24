@@ -126,22 +126,30 @@ a{
 }
 
 .po-input{
-    width: 54.8%;
+    width: 80%;
+    height: auto;
+    position: relative;
+}
+
+.po-input-user{
+    width: 67%;
+    position: relative;
 }
 
 .po-select{
-    width: 53.1%;
-    left: 47%;
     z-index: 100;
-    top: -2.8em;
     float: right;
     position: relative;
     height: auto;
+    top: -2.5em;
+    padding: 0;
 }
 
 .po-select select{
-    position: unset;
+    position: relative;
     padding-left: 1px;
+    height: 34px;
+    border-radius: 0.5em;
     float: right;
     padding-right: 1px;
 }
@@ -154,5 +162,8 @@ a{
     }
     .po-input{
         width: 63%;
+    }
+    .po-input-user {
+        width: 100%;
     }
 }

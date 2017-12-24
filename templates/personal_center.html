@@ -108,42 +108,26 @@
     </div>
     <div class="course-container-item">
         <div class="course-items">
-            <div class="course-item-box">
-                <div class="item-box">
-                    <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                        <div class="course-item-box-img">
-                            <img alt="C#"
-                                 src="../static/image/courtney-corlew-190987.jpg">
-                        </div>
-                        <div class="course-item-box-title">
-                            <span class="">C#</span>
-                        </div>
-                        <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
-                                    </span>
-                        </div>
-                    </a>
+            {% for course in courses %}
+                <div class="course-item-box">
+                    <div class="item-box">
+                        <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course[0].courseId) }}" target="_blank" class="course-item-box-a">
+                            <div class="course-item-box-img">
+                                <img alt="{{ course[0].courseTitle }}"
+                                     src="{{ url_for('static', filename = course[0].courseImage) }}">
+                            </div>
+                            <div class="course-item-box-title">
+                                <span class="">{{ course[0].courseTitle }}</span>
+                            </div>
+                            <div class="course-item-box-visit">
+                                        <span class="course-item-box-visit-num">
+                                            <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ course[1] }}
+                                        </span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="course-item-box">
-                <div class="item-box">
-                    <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                        <div class="course-item-box-img">
-                            <img alt="C++"
-                                 src="../static/image/marius-masalar-132751.jpg">
-                        </div>
-                        <div class="course-item-box-title">
-                            <span class="">C语言</span>
-                        </div>
-                        <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
-                                    </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

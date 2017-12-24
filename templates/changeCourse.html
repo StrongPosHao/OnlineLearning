@@ -88,11 +88,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                <a href="#">
-                                   AdministorName
+                                   {{ admin.adminName }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url_for('logout') }}">
+                                <a href="{{ url_for('adminLogout') }}">
                                     Log out
                                 </a>
                             </li>
@@ -123,7 +123,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>课程名</label>
-                                                <input type="text" class="form-control" placeholder="{{ course.courseTitle }}" value="{{ course.courseTitle }}">
+                                                <input type="text" name="title" class="form-control" placeholder="{{ course.courseTitle }}" value="{{ course.courseTitle }}">
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">课程类别</label>
-                                                <input type="text" class="form-control" placeholder="{{ course.typeId }}" value="{{ course.typeId }}">
+                                                <input type="text" name="type" class="form-control" placeholder="" value="{{ type }}">
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>授课教师</label>
-                                                <input type="text" class="form-control" placeholder="{{ course.courseTeacher }}" value="{{ course.courseTeacher }}">
+                                                <input type="text" name="teacher" class="form-control" placeholder="{{ course.courseTeacher }}" value="{{ course.courseTeacher }}">
                                             </div>
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>开课时间</label>
-                                                <input type="text" class="form-control" placeholder="{{ course.coursePubTime }}" value="{{ course.coursePubTime }}">
+                                                <input type="text" name="pubTime" class="form-control" placeholder="{{ course.coursePubTime }}" value="{{ course.coursePubTime }}">
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                                             <div class="form-group">
                                                 <label>课程摘要</label>
                                                 <textarea id="abstractArea" form="courseInfo" title="修改课程摘要"
-                                                          name="修改课程摘要" cols="90" rows="20" wrap="hard" ></textarea>
+                                                          name="abstract" cols="90" rows="20" wrap="hard" ></textarea>
                                             </div>
                                         </div>
                                     </div>

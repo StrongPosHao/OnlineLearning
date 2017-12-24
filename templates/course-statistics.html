@@ -83,11 +83,11 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                            <a href="#">
-                               AdministorName
+                               {{ admin.adminName }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('logout') }}">
+                            <a href="{{ url_for('adminLogout') }}">
                                 Log out
                             </a>
                         </li>
@@ -103,9 +103,36 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
+                                <h4 class="title">课程数量统计</h4>
+                                <p class="category">基于课程类型统计</p>
                                     {{ myechart1|safe }}
+                            </div>
+                            <div class="content">
+
+
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Bounce
+                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">选课人数统计</h4>
+                                <p class="category">基于每门课程的选课人数统计</p>
+                                    {{ myechart2|safe }}
                             </div>
                             <div class="content">
 

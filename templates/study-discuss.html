@@ -104,7 +104,12 @@
                             <li class="comment-list-item">
                                 <!--课程内容-->
                                 <div class="comment-item">
-                                    <a href="{{ url_for('couInfo.commentDetail', _external = True, cmtId = comment[0].cmtId, courseId = comment[0].courseId) }}">{{ comment[0].cmtContent }}</a>
+                                    {% if comment[0].chapId %}
+                                        <a href="{{ url_for('couInfo.chapCommentDetail', _external = True, cmtId = comment[0].cmtId,
+                                                    courseId = comment[0].courseId, chapId = comment[0].chapId) }}">{{ comment[0].cmtContent }}</a>
+                                    {% else %}
+                                        <a href="{{ url_for('couInfo.commentDetail', _external = True, cmtId = comment[0].cmtId, courseId = comment[0].courseId) }}">{{ comment[0].cmtContent }}</a>
+                                    {% endif %}
                                 </div>
                                 <!--评论人-->
                                 <span class="comment-user">{{ comment[0].userName }}</span>
