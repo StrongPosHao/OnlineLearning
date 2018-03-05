@@ -25,14 +25,14 @@
             <span style="margin-left: 1em;margin-right: 1em"></span>
             <a href="{{ url_for('course') }}">课程</a>
         </div>
-        <form class="navbar-form navbar-left">
-            <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
-                <button type="submit" class="btn search_btn" value="">
+            <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
+                <div class="form-group search">
+                    <input type="text" class="form-control" placeholder="搜索感兴趣的课程" name="course" style="width: 300px">
+                    <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-            </div>
-        </form>
+                    </button>
+                </div>
+            </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">

@@ -170,6 +170,7 @@ body{
     color: rgba(0, 0, 50,0.9);
     font-size: 1.4em;
     position: absolute;
+    text-align: center;
     /*line-height: 22px;*/
 }
 

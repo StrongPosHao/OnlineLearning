@@ -32,13 +32,14 @@ def courseStatistics():
     课程统计页面，使用pyecharts
     :return:
     '''
-    attr = [u'计算机', u'经济管理', u'软件工程']
-    computer = CourseInfo.query.filter(CourseInfo.typeId == 1).all()
-    economic = CourseInfo.query.filter(CourseInfo.typeId == 2).all()
-    se = CourseInfo.query.filter(CourseInfo.typeId == 11).all()
-    data = [len(computer), len(economic), len(se)]
-    bar = Bar('Course statistics', "Based on course type.")
-    bar.add("courseType", attr, data)
+    types = CourseType.query.filter().all()
+    attr = []
+    data = []
+    for type in types:
+        attr.append(type.typeName)
+        data.append(len(CourseInfo.query.filter(CourseInfo.typeId == type.typeId).all()))
+    bar = Bar()
+    bar.add("courseType", attr, data, is_random=True)
 
     #用户学习课程待完成
     courses = CourseInfo.query.filter().all()

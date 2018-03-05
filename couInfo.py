@@ -2,12 +2,14 @@
 
 from flask import Blueprint, redirect, render_template, url_for, request, g,session, flash
 from exts import db
-from models import ChapterInfo, CourseType, CourseInfo, CourseVideo, CourseDoc, Comments, User
+from models import *
 from datetime import datetime
+from decorators import login_required
 
 couInfo = Blueprint('couInfo', __name__, static_folder='static')
 
 @couInfo.route('/<courseId>')
+@login_required
 def courseInfo(courseId):
     r'''
     课程信息页面，对应课程大纲
@@ -15,9 +17,27 @@ def courseInfo(courseId):
     :return:
     '''
     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-    type = CourseType.query.filter(CourseType.typeId == course.typeId).first()
     chapters = ChapterInfo.query.filter(ChapterInfo.courseId == courseId).order_by('chapId')
-    return render_template('study-abstract.html', course = course, chapters = chapters, type = type.typeName)
+    type = CourseType.query.filter(CourseType.typeId == course.typeId).first().typeName
+    flag = False
+    for std in course.stds.all():
+        if std.userName == g.user.userName:
+            flag = True
+    return render_template('study-abstract.html', course = course, chapters = chapters, type = type, flag = flag)
+
+@couInfo.route('/choose/<courseId>')
+def chooseCourse(courseId):
+    r'''
+    选课功能
+    :param courseId:
+    :return:
+    '''
+    course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
+    g.user.courseCount.append(course)
+
+    db.session.add(g.user)
+    db.session.commit()
+    return redirect(url_for('couInfo.resourceInfo', _external=True, courseId = courseId))
 
 @couInfo.route('/resource/<courseId>')
 def resourceInfo(courseId):
@@ -68,21 +88,20 @@ def discuss(courseId, chapId):
     :return:
     '''
     course = CourseInfo.query.filter(CourseInfo.courseId == courseId).first()
-    comments = Comments.query.filter(Comments.courseId == courseId, Comments.rep_cmtId == None).order_by("-submitTime") #查找出最顶级的评论并按时间倒序排序
-    chapter = ChapterInfo.query.filter(ChapterInfo.chapId == chapId).first()
+    comments = Comments.query.filter(Comments.courseId == courseId, Comments.rep_cmtId == None, Comments.chapId != None).order_by("-submitTime") #查找出最顶级的评论并按时间倒序排序
+    chapter = ChapterInfo.query.filter(ChapterInfo.courseId == courseId, ChapterInfo.chapId == chapId).first()
     replyCountComments = []
     for comment in comments:
         replyCountComment = [comment, len(Comments.query.filter(Comments.rep_cmtId == comment.cmtId).all())]            #评论以及回复数绑定
         replyCountComments.append(replyCountComment)
     if request.method == 'GET':
-        return render_template('study-discuss.html', replyCountComments = replyCountComments, course = course, chapName = chapter.chapName)
+        return render_template('study-discuss-chapter.html', replyCountComments = replyCountComments, course = course, chapter = chapter, comments = comments)
     else:
         commentContent = request.form.get('commentArea')
         if commentContent:
-            comment = Comments(userName = g.user.userName, chapId = chapId, cmtContent = commentContent, submitTime = datetime.now(), isVisible='11111', courseId = courseId)
+            comment = Comments(userName = g.user.userName, chapId = chapId, cmtContent = commentContent, submitTime = datetime.now(), courseId = courseId)
             db.session.add(comment)
             db.session.commit()
-            comments = Comments.query.filter(Comments.courseId == courseId, Comments.chapId == chapId).order_by("-submitTime")
         return redirect(url_for('couInfo.discuss', _external=True, courseId=courseId, chapId=chapId))
 
 @couInfo.route('/discuss/<courseId>', methods = ['GET', 'POST'])
@@ -102,8 +121,12 @@ def discussAll(courseId):
         return render_template('study-discuss.html', replyCountComments = replyCountComments, course = course)
     else:
         commentContent = request.form.get('commentArea')
+        commentContent.replace('fuck', '****')
+        commentContent.replace('shit', '****')
+        commentContent.replace('motherfucker', '****')
+        commentContent.replace('WTF', '***')
         if commentContent:
-            comment = Comments(userName = g.user.userName, cmtContent = commentContent, submitTime = datetime.now(), isVisible='11111', courseId = courseId)
+            comment = Comments(userName = g.user.userName, cmtContent = commentContent, submitTime = datetime.now(), courseId = courseId)
             db.session.add(comment)
             db.session.commit()
         return redirect(url_for('couInfo.discussAll', _external=True, courseId=courseId))
@@ -129,7 +152,7 @@ def commentDetail(cmtId, courseId):
     else:
         replyContent = request.form.get('replyArea')
         if replyContent:
-            replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), isVisible='11111', courseId = courseId, rep_cmtId=cmtId)
+            replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), courseId = courseId, rep_cmtId=cmtId)
             db.session.add(replyComment)
             db.session.commit()
 
@@ -137,7 +160,7 @@ def commentDetail(cmtId, courseId):
             content = request.form.get(str(reply.cmtId))
             if content:
                 reReplyComment = Comments(userName = g.user.userName, cmtContent=content, submitTime=datetime.now(),
-                                         isVisible='11111', courseId = courseId, rep_cmtId=reply.cmtId)
+                                          courseId = courseId, rep_cmtId=reply.cmtId)
                 db.session.add(reReplyComment)
                 db.session.commit()
                 return redirect(url_for('couInfo.commentDetail', _external=True, cmtId = cmtId, courseId = courseId))
@@ -168,7 +191,7 @@ def chapCommentDetail(cmtId, courseId, chapId):
         replyContent = request.form.get('replyArea')
         if replyContent:
             replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(),
-                                    isVisible='11111', courseId = courseId, rep_cmtId=cmtId)
+                                    courseId = courseId, rep_cmtId=cmtId)
             db.session.add(replyComment)
             db.session.commit()
 
@@ -176,7 +199,7 @@ def chapCommentDetail(cmtId, courseId, chapId):
             content = request.form.get(str(reply.cmtId))
             if content:
                 reReplyComment = Comments(userName = g.user.userName, cmtContent=content, submitTime=datetime.now(),
-                                         isVisible='11111', courseId = courseId, rep_cmtId=reply.cmtId)
+                                         courseId = courseId, rep_cmtId=reply.cmtId)
                 db.session.add(reReplyComment)
                 db.session.commit()
                 return redirect(url_for('couInfo.chapCommentDetail', _external=True, cmtId = cmtId, courseId = courseId, chapId = chapId))
@@ -205,7 +228,7 @@ def replyDetailAll(cmtId, courseId, reviewId):
         return render_template('study-reply-details.html', comment = comment, replys = replys, replyCount = len(replys), reReplys = reReplys, review = review, course = course)
     else:
         replyContent = request.form.get('replyArea')
-        replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), isVisible='11111', courseId = courseId)
+        replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), courseId = courseId)
         db.session.add(replyComment)
         db.session.commit()
     return redirect(url_for('replyDetailAll', _external=True, courseId = courseId, reviewId = reviewId))
@@ -234,7 +257,7 @@ def replyDetail(cmtId, courseId, chapId, reviewId):
         return render_template('study-reply-details.html', comment = comment, replys = replys, replyCount = len(replys), reReplys = reReplys, review = review, chapter = chapter, course = course)
     else:
         replyContent = request.form.get('replyArea')
-        replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), isVisible='11111', courseId = courseId, chapId = chapId)
+        replyComment = Comments(userName=g.user.userName, cmtContent=replyContent, submitTime=datetime.now(), courseId = courseId, chapId = chapId)
         db.session.add(replyComment)
         db.session.commit()
     return redirect(url_for('replyDetail'))

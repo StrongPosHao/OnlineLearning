@@ -9,7 +9,6 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-
     <!-- Bootstrap core CSS     -->
     <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet" />
 
@@ -54,7 +53,13 @@
                     <li  class="active">
                         <a href="{{ url_for('sysAdmin.freezeUser', _external = True, userName = user.userName) }}">
                             <i class="pe-7s-news-paper"></i>
-                            <p>冻结用户</p>
+                            <p>用户管理</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('sysAdmin.manageType', _external = True, userName = user.userName) }}">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>课程类别管理</p>
                         </a>
                     </li>
                 </ul>
@@ -120,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>邮箱</label>
                                                 <input type="text" class="form-control" disabled placeholder="{{ user.userEmail }}" value="{{ user.userEmail }}">

@@ -1,0 +1,400 @@
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", 微软雅黑, Tahoma, Helvetica, Arial, 宋体, sans-serif;
+}
+
+body{
+    background-color: #eee;
+}
+
+.nav_bar{
+    background-color: rgba(36,41,46,0.85);
+    width: 100%;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.navbar-form{
+    width: 28%;
+}
+
+.index_title{
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.3);
+}
+
+.back-index{
+    font-size: 1.43em;
+    padding-left: 3em;
+    padding-top: 0.6em;
+}
+
+.back-index a{
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+}
+
+.back-index a:hover{
+    color: rgba(255,255,255,0.2);
+}
+
+.search{
+    position: relative;
+    left: 15%;
+    width: 100%;
+    /*float:right;*/
+}
+
+.search input{
+    background-color: #3f4448;
+    color: #ffffff;
+    border-style: none;
+}
+
+.search input::placeholder{
+    color: rgba(255,255,255,0.55);
+}
+
+.search_btn{
+    width: 11%;
+    height: 32px;
+}
+
+.drop_down{
+    padding-right: 2.6em;
+}
+
+.drop_down a{
+    color:#ffffff;
+}
+
+.drop_down a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #333;
+    border-color: #333;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #333;
+}
+
+.category{
+    color: rgba(255,255,255,0.7);
+    font-size: 1.4em;
+    text-align: center;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.category a{
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    word-break: keep-all;
+}
+
+.category span{
+    border:1px solid #ffffff;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-right:20px;
+}
+
+.category a:focus{
+    background-color: #333;
+}
+
+.nav>li>a:hover{
+    background-color: #333;
+}
+
+.course-body{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: 0;
+    min-width: 0;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+}
+
+.course-bar{
+    float: left;
+    width: 94%;
+    margin-left: 6%;
+    margin-top:2em;
+    /*position: relative;*/
+    font-size: 1.4em;
+    margin-bottom: 0.5em;
+}
+
+.course-bar a{
+    color: #0f0f0f;
+    text-decoration: none;
+    font-size: 1.15em;
+}
+
+.course-bar a:hover{
+    color: #00A000;
+}
+
+.course-bar-span{
+    color: grey;
+    font-size: 1em;
+}
+
+.course-category{
+    width: 80%;
+    height: auto;
+    background-color: rgba(248,248,255,0.9);
+    margin-top: 7em;
+    margin-left: 6%;
+    font-size: 1em;
+    line-height: 2.5em;
+    padding-top: 1.9em;
+    list-style-type: none;
+    overflow: hidden;
+    /*position: relative;*/
+}
+
+.course-category ul{
+    margin-bottom: 0;
+    width: 100%;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.course-category li{
+    width: 15%;
+    max-width: 20%;
+    float: left;
+    /*margin-right: 0.5em;*/
+    margin-bottom: 1.5em;
+    font-size: 1.2em;
+}
+
+.course-category a{
+    color: #0f0f0f;
+    text-decoration: none;
+    font-size: 1.15em;
+}
+
+.course-category a:hover{
+    color: #00A000;
+}
+
+.navbar-icon{
+    font-size: 0.78em;
+}
+
+/*.blank{*/
+    /*width: 100%;*/
+    /*height:5em;*/
+/*}*/
+
+/*.course-index{*/
+    /*width: 100%;*/
+    /*height: auto;*/
+    /*position: relative;*/
+    /*clear: none;*/
+    /*display: block;*/
+    /*color: black;*/
+    /*font-size: 1em;*/
+/*}*/
+
+/*.course-index a:hover{*/
+    /*color: #00A000;*/
+/*}*/
+
+.course-container{
+    width: 100%;
+    height: auto;
+    /*position: relative;*/
+    clear: none;
+    color: black;
+    /*margin-top: 0;*/
+    /*margin-bottom: 0;*/
+    /*margin-right: auto;*/
+    /*margin-left: auto;*/
+    font-size: 1em;
+}
+
+.course-container-item{
+    width: 100%;
+    height: auto;
+    z-index: 0;
+    top: 15em;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    /*position: absolute;*/
+}
+
+.course-items{
+    left: 6.1%;
+    top: 4.5em;
+    width: 89%;
+    height: auto;
+    z-index: 0;
+    /*margin: 0 0 0 -8px;*/
+    /*padding: 0 0 0 8px;*/
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.course-item-box{
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+.item-box{
+    left: 0;
+    top: 0;
+    width: 28%;
+    height: 300px;
+    z-index: 0;
+    margin-top: 0;
+    margin-bottom: 6em;
+    margin-left: 0;
+    margin-right: 4em;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+
+.course-item-box-a{
+    display: inline-block;
+    width: 100%;
+    height: 300px;
+}
+
+.course-item-box-img{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 210px;
+    z-index: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    position: absolute;
+    overflow: hidden;
+
+}
+
+.course-item-box-img img{
+    width: 374px;
+    height: 210px;
+}
+
+.course-item-box-title{
+    /*left: 12px;*/
+    top: 9em;
+    /*width: 100%;*/
+    width: auto;
+    /*height: 22px;*/
+    z-index: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1.8em;
+    position: absolute;
+    margin-left: 0.6em;
+    /*line-height: 22px;*/
+}
+
+.course-item-box-visit{
+    /*left: 150px;*/
+    top: 270px;
+    width: 97%;
+    height: 17px;
+    z-index: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1.05em;
+    position: relative;
+    line-height: 17px;
+    float: right;
+    margin-right: 0.6em;
+}
+
+.course-item-box-visit-num{
+    line-height: 17px;
+    display: inline-block;
+    width: 100%;
+    font-size: 1.2em;
+    color: rgb(153, 153, 153);
+    text-align: right;
+    vertical-align: middle;
+}
+
+.course-item-box-visit-icon{
+    margin-right: 0.6em;
+    font-size: 0.8em;
+}
+
+.current{
+    background-color: #00A000;
+    color: white;
+}
+
+.current a span{
+    color: white;
+}
+
+.sub-category{
+    width: 80%;
+    height: auto;
+    background-color: rgba(248,248,255,0.5);
+    margin-left: 6%;
+    font-size: 1em;
+    line-height: 1em;
+    padding-top: 1.9em;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.sub-category ul{
+    margin-bottom: 0;
+    width: 100%;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.sub-category li{
+    width: auto;
+    max-width: 20%;
+    float: left;
+    margin-right: 2em;
+    margin-bottom: 1.5em;
+    font-size: 1em;
+}
+
+.sub-category a{
+    color: #0f0f0f;
+    text-decoration: none;
+    font-size: 1.11em;
+}
+
+.sub-category a:hover{
+    color: #00A000;
+}
+
+

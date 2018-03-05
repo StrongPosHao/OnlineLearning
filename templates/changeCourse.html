@@ -23,6 +23,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{{ url_for('static', filename = 'css/demo.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/course-manage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/changeChapter.css') }}">
 
 
     <!--     Fonts and icons     -->
@@ -110,7 +111,7 @@
                                 <h4 class="title">编辑课程信息</h4>
                             </div>
                             <div class="content">
-                                <form id="courseInfo" method="post">
+                                <form id="courseInfo" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
@@ -150,6 +151,18 @@
                                             <div class="form-group">
                                                 <label>开课时间</label>
                                                 <input type="text" name="pubTime" class="form-control" placeholder="{{ course.coursePubTime }}" value="{{ course.coursePubTime }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label>课程图片</label>
+                                                <span class="btn btn-info fileinput-button">
+                                                    <span>上传文件</span>
+                                                    <input type="file" name="imageFile" class="form-control">
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

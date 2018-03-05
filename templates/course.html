@@ -21,11 +21,11 @@
             <span class="navbar-brand index_title">Online Learning | 在线学习</span>
         </div>
         <div class="nav navbar-left back-index">
-            <a href="index.html">首页</a>
+            <a href="{{ url_for('index') }}">首页</a>
         </div>
         <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
             <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <input type="text" name="course" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
                 <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
@@ -58,10 +58,10 @@
         <div class="course-bar">
             <a href="{{ url_for('index') }}">首页</a>
             <span> > </span>
-            <span class="course-bar-span">全部课程</span>
+            <a href="{{ url_for('course') }}"><span class="course-bar-span">全部课程</span></a>
         </div>
         <div class="course-category">
-            <ul class="course-navbar" >
+            <ul class="course-navbar">
                 <li>
                     <a href="{{ url_for('course') }}">
                         <span class="course-navbar-name">
@@ -70,105 +70,107 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            计算机
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            经济管理
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            外语
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            艺术设计
-                        </span>
-                    </a>
-                </li>
-                <li>
-                <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            文学历史
-                        </span>
-                </a>
-            </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            心理学
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            生命科学
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            哲学
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="course.html">
-                        <span class="course-navbar-name">
-                            <span class="glyphicon glyphicon-tag navbar-icon"></span>
-                            法学
-                        </span>
-                    </a>
-                </li>
+                {% for type in types %}
+                    <li>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = type.typeId) }}">
+                            <span class="course-navbar-name">
+                                <span class="glyphicon glyphicon-tag navbar-icon"></span>
+                                {{ type.typeName }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            经济管理#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            外语#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            艺术设计#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            文学历史#}
+{#                        </span>#}
+{#                </a>#}
+{#            </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            心理学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            生命科学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            哲学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            法学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
             </ul>
-
         </div>
         <div class="blank"></div>
         <div class="course-index">
             <div class="course-container">
                 <div class="course-container-item">
                     <div class="course-items">
-                        <div class="course-item-box">
-                            <div class="item-box">
-                                <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses[0].courseId) }}">
-                                    <div class="course-item-box-img">
-                                        <img alt="{{ courses[0].courseTitle }}"
-                                             src="{{ url_for('static', filename=courses[0].courseImage) }}">
-                                    </div>
-                                    <div class="course-item-box-title">
-                                        <span class="">{{ courses[0].courseTitle }}</span>
-                                    </div>
-                                    <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
-                                    </span>
-                                    </div>
-                                </a>
+                        {% for course in courses %}
+                            <div class="course-item-box">
+                                <div class="item-box">
+                                    <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course[0].courseId) }}">
+                                        <div class="course-item-box-img">
+                                            <img alt="{{ course[0].courseTitle }}"
+                                                 src="{{ url_for('static', filename=course[0].courseImage) }}">
+                                        </div>
+                                        <div class="course-item-box-title">
+                                            <span class="">{{ course[0].courseTitle }}</span>
+                                        </div>
+                                        <div class="course-item-box-visit">
+                                        <span class="course-item-box-visit-num">
+                                            <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ course[1] }}
+                                        </span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

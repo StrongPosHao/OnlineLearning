@@ -25,14 +25,14 @@
             <span style="margin-left: 1em;margin-right: 1em"></span>
             <a href="{{ url_for('course') }}">课程</a>
         </div>
-        <form class="navbar-form navbar-left">
-            <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
-                <button type="submit" class="btn search_btn" value="">
+            <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
+                <div class="form-group search">
+                    <input type="text" class="form-control" placeholder="搜索感兴趣的课程" name="course" style="width: 300px">
+                    <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-            </div>
-        </form>
+                    </button>
+                </div>
+            </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">
@@ -84,7 +84,7 @@
         <div class="course-content-box">
             <div class="discuss-title">
                 <a href="{{ url_for('couInfo.discussAll', _external =True, courseId = course.courseId) }}">讨论区</a> > <a
-                    href="{{ url_for('couInfo.resourceInfo', _external = True, courseId = course.courseId) }}">{{ chapName }}</a>
+                    href="{{ url_for('couInfo.video', _external = True, courseId = course.courseId, chapId = chapter.chapId) }}">{{ chapter.chapName }}</a>
             </div>
             <div class="add-comment-box input-box">
                 <textarea form="add-comment-form" name="commentArea" title="发表评论" placeholder="发表评论" class="comment-text"></textarea>

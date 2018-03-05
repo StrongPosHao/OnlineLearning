@@ -4,10 +4,8 @@ from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-StudyProgress = db.Table('StudyProgress', db.Column('userName', db.Unicode(20), db.ForeignKey('User.userName'), primary_key=True),
-                                          db.Column('chapId', db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), primary_key=True),
-                                          db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), primary_key=True),
-                                          db.Column('chapDuration', db.Float, nullable=False)
+Enroll = db.Table('Enroll', db.Column('userName', db.Unicode(20), db.ForeignKey('User.userName'), primary_key=True),
+                            db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), primary_key=True),
                         )
 
 class User(db.Model):
@@ -21,8 +19,7 @@ class User(db.Model):
     studyDuration = db.Column(db.Float, nullable=False)
     frozenDuration = db.Column(db.Float, nullable=False)
     frozenReason = db.Column(db.Text)
-    courses = db.relationship('ChapterInfo', secondary = StudyProgress, backref = db.backref('users', lazy = 'dynamic'), lazy = 'dynamic')
-    courseCount = db.relationship('CourseInfo', secondary = StudyProgress, backref = db.backref('stds', lazy = 'dynamic'), lazy = 'dynamic')
+    courseCount = db.relationship('CourseInfo', secondary = Enroll, backref = db.backref('stds', lazy = 'dynamic'), lazy = 'dynamic')
 
 class Admin(db.Model):
     __tablename__ = 'Admin'
@@ -55,7 +52,7 @@ class CourseInfo(db.Model):
     courseTeacher = db.Column(db.Unicode(20), nullable=False)
     coursePubTime = db.Column(db.DateTime, nullable=False)
     courseAbstract = db.Column(db.Text, nullable=False)
-    courseImage = db.Column(db.Unicode(256), nullable=False, unique=True)
+    courseImage = db.Column(db.Unicode(256), nullable=False)
 
 class CourseType(db.Model):
     __tablename__ = 'CourseType'
@@ -79,14 +76,13 @@ class Comments(db.Model):
     courseId = db.Column('courseId', db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), nullable=False)
     cmtContent = db.Column(db.Text, nullable=False)
     submitTime = db.Column(db.DateTime, nullable=False)
-    isVisible = db.Column(db.CHAR(5), nullable=False)
 
 class CourseRsc(db.Model):
     __tablename__ = 'CourseRsc'
     MD5 = db.Column(db.CHAR(40), primary_key=True)
     chapId = db.Column(db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), nullable=False)
     courseId = db.Column(db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), nullable=False)
-    fileName = db.Column(db.Unicode(64), nullable=False)
+    fileName = db.Column(db.Unicode(256), nullable=False)
     filePath = db.Column(db.Unicode(256), nullable=False)
     fileSize = db.Column(db.Integer, nullable=False)
     uploadTime = db.Column(db.DateTime, nullable=False)
@@ -98,7 +94,7 @@ class CourseDoc(db.Model):
     MD5 = db.Column(db.CHAR(40), primary_key=True)
     chapId = db.Column(db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), nullable=False)
     courseId = db.Column(db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), nullable=False)
-    fileName = db.Column(db.Unicode(64), nullable=False)
+    fileName = db.Column(db.Unicode(256), nullable=False)
     filePath = db.Column(db.Unicode(256), nullable=False)
     fileSize = db.Column(db.Integer, nullable=False)
     uploadTime = db.Column(db.DateTime, nullable=False)
@@ -110,10 +106,9 @@ class CourseVideo(db.Model):
     MD5 = db.Column(db.CHAR(40), primary_key=True)
     chapId = db.Column(db.CHAR(15), db.ForeignKey('ChapterInfo.chapId'), nullable=False)
     courseId = db.Column(db.CHAR(8), db.ForeignKey('CourseInfo.courseId'), nullable=False)
-    fileName = db.Column(db.Unicode(64), nullable=False)
+    fileName = db.Column(db.Unicode(256), nullable=False)
     filePath = db.Column(db.Unicode(256), nullable=False)
     fileSize = db.Column(db.Integer, nullable=False)
     uploadTime = db.Column(db.DateTime, nullable=False)
     fileExt = db.Column(db.CHAR(4), nullable=False)
     isDoc = db.Column(db.Boolean, nullable=False)
-    videoDuration = db.Column(db.Integer, nullable=False)

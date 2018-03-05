@@ -166,6 +166,7 @@ body{
     top: 9.5em;
     width: 97%;
     /*height: 22px;*/
+    text-align: center;
     z-index: 0;
     color: rgba(0, 0, 50,0.9);
     font-size: 1.4em;

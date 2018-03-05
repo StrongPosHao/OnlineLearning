@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 from flask import Blueprint, render_template, request, redirect, url_for, session, g
-from models import User, Admin
+from models import User, Admin, CourseType, CourseInfo
 from exts import db
 
 sysAdmin = Blueprint('sysAdmin', __name__)
@@ -52,6 +52,55 @@ def freezeUser(userName):
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('sysAdmin.manageUser'))
+
+@sysAdmin.route('/typeManage/')
+def manageType():
+    r'''
+    课程类型管理页面
+    :return:
+    '''
+    types = CourseType.query.filter().all()
+    detailTypes = []
+    for type in types:
+        courseCount = len(CourseInfo.query.filter(CourseInfo.typeId == type.typeId).all())
+        parentType = CourseType.query.filter(CourseType.typeId == type.Cou_typeId).first().typeName
+        detailTypes.append([type, courseCount, parentType])
+    return render_template('courseType-manage.html', types = detailTypes)
+
+@sysAdmin.route('/changeType/<typeId>', methods = ['GET', 'POST'] )
+def modifyCourseType(typeId):
+    r'''
+    类别信息修改页面
+    :return:
+    '''
+    type = CourseType.query.filter(CourseType.typeId == typeId).first()
+    courseCount = len(CourseInfo.query.filter(CourseInfo.typeId == type.typeId).all())
+    parentType = CourseType.query.filter(CourseType.typeId == type.Cou_typeId).first().typeName
+    if request.method == 'POST':
+        typeName = request.form.get('typeName')
+        typeId = int(request.form.get('typeId'))
+        parentTypeId = CourseType.query.filter(CourseType.typeName == request.form.get('parentType')).first().typeId
+        type.Cou_typeId = parentTypeId
+        type.typeName = typeName
+        db.session.add(type)
+        db.session.commit()
+    return render_template('modifyCourseType.html', type = type, courseCount = courseCount, parentType = parentType)
+
+@sysAdmin.route('/addCourseType', methods = ['GET', 'POST'])
+def addCourseType():
+    r'''
+    新增课程类型页面
+    :return:
+    '''
+    if request.method == 'GET':
+        return render_template('addCourseType.html')
+    else:
+        typeName = request.form.get('typeName')
+        parentTypeId = CourseType.query.filter(CourseType.typeName == request.form.get('parentType')).first().typeId
+        type = CourseType(typeName = typeName, Cou_typeId = parentTypeId)
+        db.session.add(type)
+        db.session.commit()
+    return redirect(url_for('sysAdmin.manageType'))
 
 @sysAdmin.context_processor
 def my_context_processor():

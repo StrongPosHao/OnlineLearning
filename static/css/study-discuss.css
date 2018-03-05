@@ -154,6 +154,7 @@ body{
 .course-item-box-title{
     margin-left: 1.2%;
     margin-top: 1.2em;
+    text-align: center;
     width: 97%;
     z-index: 0;
     color: rgba(0, 0, 50,0.9);

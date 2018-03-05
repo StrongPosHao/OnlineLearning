@@ -61,7 +61,7 @@
     <div class="course-navbar">
         <div class="item-box">
                 <div class="course-item-box-img">
-                    <img alt="AIDS and I --艾滋病与我"
+                    <img alt="{{ course.courseName }}"
                          src="{{ url_for('static', filename=course.courseImage) }}">
                 </div>
                 <div class="course-item-box-title">
@@ -100,6 +100,15 @@
                 <!--课程分类-->
                 <span id="teach-cate">{{ type }}</span>
             </div>
+            {% if flag %}
+                <div class="btn  btn-add-course">
+                    <a href="{{ url_for('couInfo.resourceInfo', _external = True, courseId = course.courseId) }}">开始学习</a>
+                </div>
+            {% else %}
+                <div class="btn  btn-start-course">
+                    <a href="{{ url_for('couInfo.chooseCourse', _external = True, courseId = course.courseId) }}">立即参加</a>
+                </div>
+            {% endif %}
         </div>
         <div class="course-abstract">
             <h3>课程概述</h3>

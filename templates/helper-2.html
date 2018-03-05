@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/helper.css" type="text/css">
+    <script language="JavaScript" src="../../static/js/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>帮助中心|Online Learning</title>
+    <script>
+        jQuery(function($){
+            $("ul>li>a").click(function(){
+                $(this).next("ul").toggle().closest("li").siblings("li").children("ul").hide();
+            }).next("ul").hide();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="{{ url_for('course') }}">课程</a>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="help-title" align="center">
+    <span class="glyphicon glyphicon-bell"></span>
+    Sometimes you just need a little help!
+</div>
+<div class="help-tab">
+    <ul class="help-tab-list">
+        <li class="help-tab-list-item">
+            <a href="{{ url_for('help') }}">常见问题</a>
+        </li>
+        <li class="help-tab-list-item">
+            <a href="{{ url_for('help1') }}">学习区</a>
+        </li>
+        <li class="help-tab-list-item current">
+            <a href="{{ url_for('help2') }}">讨论区</a>
+        </li>
+    </ul>
+</div>
+<div class="help-content">
+    <div class="question-list">
+        <ul style="list-style-type: none;">
+            <li>
+                <a>
+                    <div class="li-back">
+                        <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                        <span style="letter-spacing: 3px">讨论区使用规则</span>
+                    </div>
+                </a>
+                <ul class="sub">
+                    <li>
+                        亲爱的会员用户们，为了提高讨论区体验，共同创造文明有价值的讨论区，希望大家能熟知以下公约内容：
+
+                        1 先搜索后提问，提问前先搜索总讨论区，确定没有人提过相似问题后再发起新帖，避免发内容重复的贴。
+                        2 提问应该与本课程相关，请不要在讨论区中发无意义的水帖。如对平台有疑问，请查看网站的帮助页面中的常见问题，仍有疑问时再可通过我们的邮箱联系我们。
+                        3 注重发帖、回复、评论的质量，提好问题，做好回答，希望同学们能共同努力提高讨论区的质量和价值。
+                        4 广告消息、侮辱性内容、违法性内容等将被删除，如情节严重、屡劝不改我们将不得以对相应账号进行禁言，希望大家能自觉维护讨论区和谐。
+                        5 以文明开放的心态对待知识，学术问题上向有各家之说，我们鼓励大家能以开放的心态听取学术上不同的声音，支持各抒己见，在讨论激荡中获得学习上的进步，但希望不要出现偏离学术讨论范畴的人身攻击及过激偏执的言论。
+
+                        最后，感谢用户们能耐心读完这份公约，希望大家能在讨论区有良好的体验，对学习有所帮助！
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <div class="li-back">
+                        <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                        <span style="letter-spacing: 3px">如何追踪我发表过或者回复过的主题？</span>
+                    </div>
+                </a>
+                <ul class="sub">
+                    <li>
+                        在登录以后，进入个人中心页面，点击讨论，便可以查看与你有关的讨论。
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

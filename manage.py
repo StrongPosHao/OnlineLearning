@@ -4,7 +4,7 @@ from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
 from OnlineLearning import app
 from exts import db
-from models import User, Admin, AdminLog, CourseInfo, ChapterInfo, CourseType, Comments, CourseDoc, CourseRsc, CourseVideo, StudyProgress, UserLog
+from models import *
 
 manager = Manager(app)
 

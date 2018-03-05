@@ -125,11 +125,13 @@
                                             <tr>
                                                 <td>{{ chapter.chapId }}</td>
                                                 <td>{{ chapter.courseId }}</td>
-                                                <td>高等数学</td>
+                                                <td>{{ courseTitle }}</td>
                                                 <td>{{ chapter.chapName }}</td>
                                                 <td>{{ chapter.chapLayer }}</td>
-                                                <td><a href="{{ url_for('courseAdmin.changeChapterInfo', _external = True, courseId = chapter.courseId, chapterId = chapter.chapId) }}"><button class="btn btn-primary">修改</button></a></td>
-                                                <td><a href="#"><button class="btn btn-danger">删除</button></a></td>
+                                                <td><a href="{{ url_for('courseAdmin.changeChapterInfo', _external = True, courseId = chapter.courseId, chapterId = chapter.chapId) }}">
+                                                    <button class="btn btn-primary">修改</button></a></td>
+                                                <td><a href="{{ url_for('courseAdmin.deleteChapter', _external = True, courseId = chapter.courseId, chapterId = chapter.chapId) }}">
+                                                    <button class="btn btn-danger">删除</button></a></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

@@ -27,9 +27,14 @@
         <div class="navbar-header">
             <span class="navbar-brand index_title">Online Learning | 在线学习</span>
         </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="{{ url_for('course') }}">课程</a>
+        </div>
         <form class="navbar-form navbar-left">
             <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 300px">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
                 <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
@@ -38,7 +43,7 @@
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">
-                    <a href="../personal_center.html" >个人中心</a>
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
                 </li>
                 <li class="dropdown drop_down">
                     <a href="#" class="dropdown-toggle" role="button"
@@ -68,10 +73,10 @@
                                 <a href="{{ url_for('help') }}">常见问题</a>
                             </li>
                             <li class="help-tab-list-item">
-                                <a href="helper-1.html">学习区</a>
+                                <a href="{{ url_for('help1') }}">学习区</a>
                             </li>
                             <li class="help-tab-list-item">
-                                <a href="helper-2.html">讨论区</a>
+                                <a href="{{ url_for('help2') }}">讨论区</a>
                             </li>
                         </ul>
                     </div>

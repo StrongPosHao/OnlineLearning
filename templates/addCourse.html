@@ -23,6 +23,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{{ url_for('static', filename = 'css/demo.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/course-manage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/changeChapter.css') }}">
 
 
     <!--     Fonts and icons     -->
@@ -110,9 +111,9 @@
                                 <h4 class="title">新增课程信息</h4>
                             </div>
                             <div class="content">
-                                <form id="courseInfo" method="post">
+                                <form id="courseInfo" method="post" enctype="multipart/form-data">
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>课程ID</label>
                                                 <input type="text" name="courseId" class="form-control" placeholder="">
@@ -120,7 +121,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>课程名</label>
                                                 <input type="text" name="courseName" class="form-control" placeholder="">
@@ -128,7 +129,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">课程类别</label>
                                                 <input type="text" name="type" class="form-control" placeholder="">
@@ -146,7 +147,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>开课时间</label>
                                                 <input type="text" name="coursePubTime" class="form-control" placeholder="">
@@ -154,10 +155,13 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-md-9">
                                             <div class="form-group">
-                                                <label>课程图片(路径)</label>
-                                                <input type="file" name="courseImage" class="form-control" placeholder="">
+                                                <label>课程图片</label>
+                                                <span class="btn btn-info fileinput-button">
+                                                    <span>上传文件</span>
+                                                    <input type="file" name="imageFile" class="form-control">
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

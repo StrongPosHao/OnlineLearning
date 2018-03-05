@@ -19,13 +19,13 @@
             <span class="navbar-brand index_title">Online Learning | 在线学习</span>
         </div>
         <div class="nav navbar-left back-index">
-            <a href="{{ url_for('index') }}index.html">首页</a>
+            <a href="{{ url_for('index') }}">首页</a>
             <span style="margin-left: 1em;margin-right: 1em"></span>
-            <a href="course.html">课程</a>
+            <a href="{{ url_for('course') }}">课程</a>
         </div>
         <form class="navbar-form navbar-left">
             <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <input type="text" name="course" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
                 <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>

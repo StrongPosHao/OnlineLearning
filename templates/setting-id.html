@@ -23,14 +23,14 @@
             <span style="margin-left: 1em;margin-right: 1em"></span>
             <a href="{{ url_for('course') }}">课程</a>
         </div>
-        <form class="navbar-form navbar-left">
-            <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
-                <button type="submit" class="btn search_btn" value="">
+            <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
+                <div class="form-group search">
+                    <input type="text" class="form-control" placeholder="搜索感兴趣的课程" name="course" style="width: 300px">
+                    <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-            </div>
-        </form>
+                    </button>
+                </div>
+            </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="drop_down" style="padding-right: 1em">
@@ -78,7 +78,7 @@
                             <span style="margin-top: 4em;font-size: 1.2em">
                                 <label id="name-label" class="setting-label">用户名</label>
                             </span>
-                            <input type="text" class="input-box" id="username"
+                            <input type="text" class="input-box" id="username" name="username"
                                    value="{{ user.userName }}" title="用户名"><!--value值为当前登录的用户名-->
                             <span id="nameTip" class="tip"></span>
                         </div>
@@ -86,7 +86,7 @@
                             <span style="margin-top: 4em;font-size: 1.2em">
                                 <label id="email-label" class="setting-label">邮箱</label>
                             </span>
-                            <input type="text" class="input-email" id="email" value="{{ user.userEmail }}" title="当前邮箱">
+                            <input type="text" class="input-email" id="email" value="{{ user.userEmail }}" title="当前邮箱" name="email">
                             <!--value值为当前登录的邮箱-->
                             <span id="emailTip" class="tip"></span>
                         </div>
@@ -94,7 +94,7 @@
                             <span style="margin-top: 4em;font-size: 1.2em">
                                 <label id="phone-label" class="setting-label">手机号</label>
                             </span>
-                            <input type="text" class="input-box" id="phone" value="{{ user.userPhone }}" title="当前手机号">
+                            <input type="text" class="input-box" id="phone" value="{{ user.userPhone }}" title="当前手机号" name="phone">
                             <!--value值为当前登录的手机号-->
                             <span id="phoneTip" class="tip"></span>
                         </div>
@@ -250,7 +250,7 @@
     var setting_userInfo_form = document.getElementById('setting-userInfo-form');
     var submit = document.getElementById('submit');
     submit.onclick=function () {
-        alert(name_ok&&email_ok&&phone_ok);
+        alert("修改成功");
         if(name_ok&&email_ok&&phone_ok){
             setting_userInfo_form.submit();
             window.location.replace("test.html");

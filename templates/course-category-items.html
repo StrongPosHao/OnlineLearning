@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="JavaScript" src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/course-category-items.css" type="text/css">
+    <title>课程|Online Learning|在线学习</title>
+</head>
+<body>
+    <nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+        </div>
+        <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
+            <div class="form-group search">
+                <input type="text" name="course" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="course-body">
+        <div class="course-bar">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span> > </span>
+            <a class="course-bar-span" href="{{ url_for('course') }}">全部课程</a>
+            <span> > </span>
+            <span class="course-bar-span">{{ typeName }}</span>
+        </div>
+        <div class="course-category">
+            <ul class="course-navbar">
+                <li>
+                    <a href="{{ url_for('course') }}">
+                        <span class="course-navbar-name">
+                            <span class="glyphicon glyphicon-th-large navbar-icon"></span>
+                            全部
+                        </span>
+                    </a>
+                </li>
+                {% for type in types %}
+                    <li>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = type.typeId) }}">
+                            <span class="course-navbar-name">
+                                <span class="glyphicon glyphicon-tag navbar-icon"></span>
+                                {{ type.typeName }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            经济管理#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            外语#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            艺术设计#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            文学历史#}
+{#                        </span>#}
+{#                </a>#}
+{#            </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            心理学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            生命科学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            哲学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="course.html">#}
+{#                        <span class="course-navbar-name">#}
+{#                            <span class="glyphicon glyphicon-tag navbar-icon"></span>#}
+{#                            法学#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        </div>
+        <div class="sub-category">
+            <ul class="sub-cate-navbar">
+                <li>
+                    <a href="{{ url_for('course') }}">
+                        <span class="sub-navbar-name">
+                            全部
+                        </span>
+                    </a>
+                </li>
+                {% for subType in subTypes %}
+                    <li>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = subType.typeId) }}">
+                            <span class="sub-navbar-name">
+                                {{ subType.typeName }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+{#                <li>#}
+{#                    <a href="{{ url_for('course') }}">#}
+{#                        <span class="sub-navbar-name">#}
+{#                            编程语言#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ url_for('course') }}">#}
+{#                        <span class="sub-navbar-name">#}
+{#                            软件工程#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ url_for('course') }}">#}
+{#                        <span class="sub-navbar-name">#}
+{#                            数据库与数据结构#}
+{#                        </span>#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        </div>
+        <div class="blank"></div>
+        <div class="course-index">
+            <div class="course-container">
+                <div class="course-container-item">
+                    <div class="course-items">
+                        {% for course in courses %}
+                            <div class="course-item-box">
+                                <div class="item-box">
+                                    <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = course[0].courseId) }}">
+                                        <div class="course-item-box-img">
+                                            <img alt="{{ course[0].courseTitle }}"
+                                                 src="{{ url_for('static', filename=course[0].courseImage) }}">
+                                        </div>
+                                        <div class="course-item-box-title">
+                                            <span class="">{{ course[0].courseTitle }}</span>
+                                        </div>
+                                        <div class="course-item-box-visit">
+                                        <span class="course-item-box-visit-num">
+                                            <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ course[1] }}
+                                        </span>
+                                        </div>
+                                    </a>
+                                </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

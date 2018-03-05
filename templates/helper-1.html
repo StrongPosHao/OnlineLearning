@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../../static/css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/helper.css" type="text/css">
+    <script language="JavaScript" src="../../static/js/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>帮助中心|Online Learning</title>
+    <script>
+        jQuery(function($){
+            $("ul>li>a").click(function(){
+                $(this).next("ul").toggle().closest("li").siblings("li").children("ul").hide();
+            }).next("ul").hide();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar nav_bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand index_title">Online Learning | 在线学习</span>
+        </div>
+        <div class="nav navbar-left back-index">
+            <a href="{{ url_for('index') }}">首页</a>
+            <span style="margin-left: 1em;margin-right: 1em"></span>
+            <a href="{{ url_for('course') }}">课程</a>
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group search">
+                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
+                <button type="submit" class="btn search_btn" value="">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="drop_down" style="padding-right: 1em">
+                    <a href="{{ url_for('personalCenter') }}" >个人中心</a>
+                </li>
+                <li class="dropdown drop_down">
+                    <a href="#" class="dropdown-toggle" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="{{ url_for('setting') }}">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">退出</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('help') }}">帮助</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="help-title" align="center">
+    <span class="glyphicon glyphicon-bell"></span>
+    Sometimes you just need a little help!
+</div>
+<div class="help-tab">
+    <ul class="help-tab-list">
+        <li class="help-tab-list-item">
+            <a href="{{ url_for('help') }}">常见问题</a>
+        </li>
+        <li class="help-tab-list-item current">
+            <a href="{{ url_for('help1') }}">学习区</a>
+        </li>
+        <li class="help-tab-list-item">
+            <a href="{{ url_for('help2') }}">讨论区</a>
+        </li>
+    </ul>
+</div>
+<div class="help-content">
+    <div class="question-list">
+        <ul style="list-style-type: none;">
+            <li>
+                <a>
+                    <div class="li-back">
+                        <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                        <span style="letter-spacing: 3px">课件中出现错误信息？</span>
+                    </div>
+                </a>
+                <ul class="sub">
+                    <li>
+                        请在讨论区中的课程内容讨论区发帖指出，帮助老师和其他用户了解问题。
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <div class="li-back">
+                        <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                        <span style="letter-spacing: 3px">选择的课程没有出现在课程列表中怎么办？</span>
+                    </div>
+                </a>
+                <ul class="sub">
+                    <li>
+                        1.请确保你使用了正确的账号（用户名/邮箱/手机号）登录；
+                        2.确认你已成功添加了该课程；
+                        如果完成上述检查后问题仍存在，请联系我们（**@163.com）。
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <div class="li-back">
+                        <span class="glyphicon glyphicon-menu-down list-icon"></span>
+                        <span style="letter-spacing: 3px">如何退出一门课程？</span>
+                    </div>
+                </a>
+                <ul class="sub">
+                    <li>
+                        登录以后在你的个人中心里的课程选择取消收藏该课程。
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

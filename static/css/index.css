@@ -311,6 +311,8 @@ body{
     line-height: 20px;
 }
 
+
+
 .person-img{
     left: 37.2%;
     top: 14%;
@@ -563,6 +565,11 @@ body{
     position: relative;
     background-color: rgb(255, 255, 255);
     float: left;
+}
+
+.person-center a{
+    color: white;
+    text-decoration: none;
 }
 
 

@@ -78,7 +78,7 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <form action="" class="searchInput">
-                                <input type="text" class="form-control">
+                                <input type="text" name="course" class="form-control">
                                 <button type="submit" class="navbar-btn btn btn-default">Submit</button>
                             </form>
                         </li>
@@ -123,22 +123,21 @@
                                     <tbody>
                                         {% for course in courses %}
                                             <tr>
-                                                <td>{{ course.courseId }}</td>
-                                                <td>{{ course.courseTitle }}</td>
-                                                <td>{{ course.typeId }}</td>
-                                                <td>{{ course.courseTeacher }}</td>
-                                                <td>{{ course.coursePubTime }}</td>
-                                                <td><a href="{{ url_for('courseAdmin.changeCourseInfo', _external = True, courseId = course.courseId) }}">
+                                                <td>{{ course[0].courseId }}</td>
+                                                <td>{{ course[0].courseTitle }}</td>
+                                                <td>{{ course[1] }}</td>
+                                                <td>{{ course[0].courseTeacher }}</td>
+                                                <td>{{ course[0].coursePubTime }}</td>
+                                                <td><a href="{{ url_for('courseAdmin.changeCourseInfo', _external = True, courseId = course[0].courseId) }}">
                                                     <button class="btn btn-primary">修改课程信息</button></a></td>
-                                                <td><a href="{{ url_for('courseAdmin.manageChapter', _external = True, courseId = course.courseId) }}">
-                                                    <button class="btn btn-primary">修改章节信息</button>
-                                                </a>
-                                                </td>
+                                                <td><a href="{{ url_for('courseAdmin.manageChapter', _external = True, courseId = course[0].courseId) }}">
+                                                    <button class="btn btn-primary">修改章节信息</button></a></td>
+                                                <td><a href="{{ url_for('courseAdmin.deleteCourse', _external = True, courseId = course[0].courseId) }}"><button class="btn btn-danger">删除此课程</button></a></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
-                                <span class="newClass"><a href="{{ url_for('courseAdmin.addCourse') }}"><button class="btn btn-danger">新增课程</button></a></span>
+                                <span class="newClass"><a href="{{ url_for('courseAdmin.addCourse') }}"><button class="btn btn-warning">新增课程</button></a></span>
 
                             </div>
                         </div>

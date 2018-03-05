@@ -11,9 +11,11 @@ from sysAdmin import sysAdmin
 from courseAdmin import courseAdmin
 from couInfo import couInfo
 from leaderAdmin import leader
-from hashlib import md5
 from flask_login import current_user
 import socket
+import jieba
+from md5 import *
+
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -38,7 +40,18 @@ def index():
     r'''
     主页页面
     '''
-    return render_template('index.html')
+    types = CourseType.query.filter().all()
+    subTypes1 = CourseType.query.filter(CourseType.Cou_typeId == types[0].typeId).all()
+    subTypes2 = CourseType.query.filter(CourseType.Cou_typeId == types[1].typeId).all()
+    coursesTemp1 = CourseInfo.query.filter(CourseInfo.typeId == types[0].typeId).all()
+    coursesTemp2 = CourseInfo.query.filter(CourseInfo.typeId == types[1].typeId).all()
+    courses1 = []
+    courses2 = []
+    for course in coursesTemp1:
+        courses1.append([course, len(course.stds.all())])
+    for course in coursesTemp2:
+        courses2.append([course, len(course.stds.all())])
+    return render_template('index.html', types = types, subTypes1 = subTypes1[1:], subTypes2 = subTypes2[1:], courses1 = courses1, courses2 = courses2)
 
 @app.route('/visitors/')
 def forVisitors():
@@ -46,7 +59,18 @@ def forVisitors():
     为游客准备的主页页面入口
     :return:
     '''
-    return render_template('index.html')
+    types = CourseType.query.filter().all()
+    subTypes1 = CourseType.query.filter(CourseType.Cou_typeId == types[0].typeId).all()
+    subTypes2 = CourseType.query.filter(CourseType.Cou_typeId == types[1].typeId).all()
+    coursesTemp1 = CourseInfo.query.filter(CourseInfo.typeId == types[0].typeId).all()
+    coursesTemp2 = CourseInfo.query.filter(CourseInfo.typeId == types[1].typeId).all()
+    courses1 = []
+    courses2 = []
+    for course in coursesTemp1:
+        courses1.append([course, len(course.stds.all())])
+    for course in coursesTemp2:
+        courses2.append([course, len(course.stds.all())])
+    return render_template('index.html', types = types, subTypes1 = subTypes1[1:], subTypes2 = subTypes2[1:], courses1 = courses1, courses2 = courses2)
 
 @app.route('/admins/', methods = ['GET', 'POST'])
 def foradmins():
@@ -171,6 +195,7 @@ def forgetPassword():
             return "该用户不存在！请检查您所输入的邮箱和手机号是否正确。"
 
 @app.route('/pcenter/')
+@login_required
 def personalCenter():
     r'''
     个人中心页面
@@ -179,13 +204,14 @@ def personalCenter():
     commentCount = Comments.query.filter(Comments.userName == g.user.userName).all()
     courses = []
     # enrolls = StudyProgress(userName = g.user.userName)
-    enrolls = g.user.courses.all()
+    enrolls = g.user.courseCount.all()
     for enroll in enrolls:
-        userCount = len(enroll.users.all())
+        userCount = len(enroll.stds.all())
         courses.append([CourseInfo.query.filter(CourseInfo.courseId == enroll.courseId).first(), userCount])
     return render_template('personal_center.html', commentCount = len(commentCount), courses = courses)
 
 @app.route('/pcenter/discuss')
+@login_required
 def personalCenterDiscuss():
     r'''
     个人中心讨论页面
@@ -201,6 +227,7 @@ def personalCenterDiscuss():
     return render_template('personal_center-discuss.html', replyCountComments = replyCountComments, commentCount = commentCount)
 
 @app.route('/pcenter/reply')
+@login_required
 def personalCenterReply():
     r'''
     个人中心回复页面
@@ -216,18 +243,27 @@ def personalCenterReply():
     return render_template('personal_center-reply.html', detailedReplys = detailedReplys, commentCount = commentCount)
 
 @app.route('/setting/', methods=['GET', 'POST'])
+@login_required
 def setting():
     r'''
     个人信息设置页面
     :return:
     '''
-    username = request.form.get('username')
-    email = request.form.get('email')
-    phone =request.form.get('phone')
-    user = User.query.filter(User.userPhone == phone)
-    return render_template('setting-id.html')
+    if request.method == 'GET':
+        return render_template('setting-id.html')
+    else:
+        username = request.form.get('username')
+        email = request.form.get('email')
+        phone =request.form.get('phone')
+        g.user.userName = username
+        g.user.userEmail = email
+        g.user.userPhone = phone
+        db.session.add(g.user)
+        db.session.commit()
+    return redirect(url_for('setting'))
 
 @app.route('/setpassword/', methods=['GET', 'POST'])
+@login_required
 def setPassword():
     r'''
     修改密码页面
@@ -245,7 +281,6 @@ def setPassword():
         elif newPassword1 != newPassword2:
             return '新密码两次输入不一致，请检查后再输入！'
         else:
-            user.userPass = newPassword1
             db.session.commit()
             return redirect(url_for('success'))
 
@@ -263,7 +298,18 @@ def searchCourse():
     搜索课程功能的接口
     :return:
     '''
-    pass
+    courseName = request.args.get('course')
+    seg_list = jieba.cut_for_search(courseName)
+    types = CourseType.query.filter(CourseType.typeId == CourseType.Cou_typeId).all()
+    courses1 = []
+    for seg in  seg_list:
+        course = CourseInfo.query.filter(CourseInfo.courseTitle.contains(seg)).all()
+        courses1 = list(set(courses1 + course))
+        courses1.reverse()
+    courses = []
+    for c in courses1:
+        courses.append([c, len(c.stds.all())])
+    return render_template('course.html', types = types, courses = courses)
 
 @app.route('/searchCourse/<typeId>', methods=['GET', 'POST'])
 def searchCourseByType(typeId):
@@ -291,16 +337,62 @@ def course():
     显示对应课程信息的页面
     :return:
     '''
-    courses = CourseInfo.query.filter().all()
-    return render_template('course.html', courses = courses)
+    types = CourseType.query.filter(CourseType.typeId == CourseType.Cou_typeId).all()
+    courses1 = CourseInfo.query.filter().all()
+    courses = []
+    for course in courses1:
+        courses.append([course, len(course.stds.all())])
+    return render_template('course.html', types = types, courses = courses)
 
-@app.route('/help/')
+@app.route('/course/<typeId>')
+def subCourse(typeId):
+    r'''
+    显示出子类型
+    :return:
+    '''
+    typeName = CourseType.query.filter(CourseType.typeId == typeId).first().typeName
+    types = CourseType.query.filter(CourseType.typeId == CourseType.Cou_typeId).all()
+    subTypes = CourseType.query.filter(CourseType.Cou_typeId == typeId).all()
+    courses1 = CourseInfo.query.filter(CourseInfo.typeId == typeId).all()
+    courses = []
+    for course in courses1:
+        courses.append([course, len(course.stds.all())])
+    return render_template('course-category-items.html', types = types, subTypes = subTypes[1:], courses = courses, typeName = typeName)
+
+# @app.route('/courseAll/<typeId>')
+# def courseAll(typeId):
+#     type = CourseType.query.filter(CourseType.typeId == typeId).first()
+#     types = CourseType.query.filter(CourseType.typeId == CourseType.Cou_typeId).all()
+#     courses1 = CourseInfo.query.filter(or_(CourseInfo.typeId == typeId, CourseType.typeId == type.Cou_typeId)).all()
+#     subTypes = CourseType.query.filter(CourseType.Cou_typeId == typeId).all()
+#     courses = []
+#     for course in courses1:
+#         courses.append([course, len(course.stds.all())])
+#     return render_template('course-category-items.html', types = types, subTypes = subTypes[1:], coures = courses, typeName = type.typeName)
+
+@app.route('/help')
 def help():
     r'''
     帮助信息页面
     :return:
     '''
     return render_template('helper-0.html')
+
+@app.route('/help1')
+def help1():
+    r'''
+    help1.html
+    :return:
+    '''
+    return render_template('helper-1.html')
+
+@app.route('/help2')
+def help2():
+    r'''
+    help2.html
+    :return:
+    '''
+    return render_template('helper-2.html')
 
 @app.route('/leader/')
 def leaderPage():
@@ -355,5 +447,7 @@ def my_before_request():
 
 if __name__ == '__main__':
     # app.run(host=socket.gethostbyname(socket.gethostname()), port=5000)
+    # from werkzeug.contrib.fixers import ProxyFix
+    # app.wsgi_app = ProxyFix(app.wsgi_app)
     app.run(debug=True)
     # app.run(host="0.0.0.0", port=5000)

@@ -63,37 +63,37 @@
                 <!--从数据库选前六个分类-->
                 <!--用户点击时，跳转到对应的页面-->
                 <div class="cateItem-container">
-                    <a href="category/computer.html">
-                        <div class="cateItem-txt">计算机</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[0].typeId) }}">
+                        <div class="cateItem-txt">{{ types[0].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a>
-                        <div class="cateItem-txt">经济管理</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[1].typeId) }}">
+                        <div class="cateItem-txt">{{ types[1].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a href="#">
-                        <div class="cateItem-txt">外语</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[2].typeId) }}">
+                        <div class="cateItem-txt">{{ types[2].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a href="#">
-                        <div class="cateItem-txt">艺术设计</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[3].typeId) }}">
+                        <div class="cateItem-txt">{{ types[3].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a href="#">
-                        <div class="cateItem-txt">文学历史</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[4].typeId) }}">
+                        <div class="cateItem-txt">{{ types[5].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a href="#">
-                        <div class="cateItem-txt">心理学</div>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[5].typeId) }}">
+                        <div class="cateItem-txt">{{ types[6].typeName }}</div>
                     </a>
                 </div>
                 <div class="cateItem-container" style="margin-top: 0.5em">
-                    <a href="category/course.html">
+                    <a href="{{ url_for('course') }}">
                         <div class="cateItem-txt">更多</div>
                     </a>
                 </div>
@@ -156,29 +156,29 @@
         <div class="course-container">
             <div class="course-container-item">
                 <div class="course-item-cateName">
-                    <a href="#" target="_blank">
-                        <span class="cateName-span">计算机</span>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[0].typeId) }}" target="_blank">
+                        <span class="cateName-span">{{ types[0].typeName }}</span>
                     </a>
                 </div>
                 <div class="course-item-subCate">
                     <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">计算机基础</span>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = subTypes1[0].typeId) }}" target="_blank">
+                            <span class="subCate-span">{{ subTypes1[0].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">编程语言</span>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = subTypes1[1].typeId) }}" target="_blank">
+                            <span class="subCate-span">{{ subTypes1[1].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">数据库与数据结构</span>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = subTypes1[2].typeId) }}" target="_blank">
+                            <span class="subCate-span">{{ subTypes1[2].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">软件工程</span>
+                        <a href="{{ url_for('subCourse', _external = True, typeId = subTypes1[3].typeId) }}" target="_blank">
+                            <span class="subCate-span">{{ subTypes1[3].typeName }}</span>
                         </a>
                     </div>
                 </div>
@@ -186,17 +186,17 @@
                     <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
                     <div class="course-item-box">
                         <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                            <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses1[0][0].courseId) }}" target="_blank" class="course-item-box-a">
                                 <div class="course-item-box-img">
-                                    <img alt="C#"
-                                         src="../static/image/courtney-corlew-190987.jpg">
+                                    <img alt="{{ courses1[0][0].courseTitle }}"
+                                         src="{{ url_for('static', filename = 'image/courtney-corlew-190987.jpg') }}">
                                 </div>
                                 <div class="course-item-box-title">
-                                    <span class="">C#</span>
+                                    <span class="">{{ courses1[0][0].courseTitle }}</span>
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ courses1[0][1] }}
                                     </span>
                                 </div>
                             </a>
@@ -204,17 +204,17 @@
                     </div>
                     <div class="course-item-box">
                         <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                            <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses1[1][0].courseId) }}" target="_blank" class="course-item-box-a">
                                 <div class="course-item-box-img">
-                                    <img alt="C++"
-                                         src="../static/image/marius-masalar-132751.jpg">
+                                    <img alt="{{ courses1[1][0].courseTitle }}"
+                                         src="{{ url_for('static', filename = courses1[1][0].courseImage) }}">
                                 </div>
                                 <div class="course-item-box-title">
-                                    <span class="">C语言</span>
+                                    <span class="">{{ courses1[1][0].courseTitle }}</span>
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ courses1[1][1] }}
                                     </span>
                                 </div>
                             </a>
@@ -222,17 +222,17 @@
                     </div>
                     <div class="course-item-box">
                         <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                            <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses1[2][0].courseId) }}" target="_blank" class="course-item-box-a">
                                 <div class="course-item-box-img">
-                                    <img alt="C++"
-                                         src="../static/image/benjamin-dada-323461.jpg">
+                                    <img alt="{{ courses1[2][0].courseTitle }}"
+                                         src="{{ url_for('static', filename = courses1[2][0].courseImage) }}">
                                 </div>
                                 <div class="course-item-box-title">
-                                    <span class="">精通Python</span>
+                                    <span class="">{{ courses1[2][0].courseTitle }}</span>
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ courses1[2][1] }}
                                     </span>
                                 </div>
                             </a>
@@ -240,17 +240,17 @@
                     </div>
                     <div class="course-item-box">
                         <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
+                            <a href="{{ url_for('couInfo.courseInfo', _external = True, courseId = courses1[3][0].courseId) }}" target="_blank" class="course-item-box-a">
                                 <div class="course-item-box-img">
-                                    <img alt="C++"
-                                         src="../static/image/猎户座星云.jpg">
+                                    <img alt="{{ courses1[3][0].courseTitle }}"
+                                         src="{{ url_for('static', filename = courses1[3][0].courseImage) }}">
                                 </div>
                                 <div class="course-item-box-title">
-                                    <span class="">Java从入门到放弃</span>
+                                    <span class="">{{ courses1[3][0].courseTitle }}</span>
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>{{ courses1[3][1] }}
                                     </span>
                                 </div>
                             </a>
@@ -260,29 +260,29 @@
             </div>
             <div class="course-container-item">
                 <div class="course-item-cateName">
-                    <a href="#" target="_blank">
-                        <span class="cateName-span">经济管理</span>
+                    <a href="{{ url_for('subCourse', _external = True, typeId = types[1].typeId) }}" target="_blank">
+                        <span class="cateName-span">{{ types[1].typeName }}</span>
                     </a>
                 </div>
                 <div class="course-item-subCate">
                     <div class="subCate-div">
                         <a href="#" target="_blank">
-                            <span class="subCate-span">工商管理</span>
+                            <span class="subCate-span">{{ subTypes2[0].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
                         <a href="#" target="_blank">
-                            <span class="subCate-span">电子商务</span>
+                            <span class="subCate-span">{{ subTypes2[1].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
                         <a href="#" target="_blank">
-                            <span class="subCate-span">经济学</span>
+                            <span class="subCate-span">{{ subTypes2[2].typeName }}</span>
                         </a>
                     </div>
                     <div class="subCate-div">
                         <a href="#" target="_blank">
-                            <span class="subCate-span">创业</span>
+                            <span class="subCate-span">{{ subTypes2[3].typeName }}</span>
                         </a>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>2
                                     </span>
                                 </div>
                             </a>
@@ -318,7 +318,7 @@
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>1
                                     </span>
                                 </div>
                             </a>
@@ -336,7 +336,7 @@
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>2
                                     </span>
                                 </div>
                             </a>
@@ -354,222 +354,222 @@
                                 </div>
                                 <div class="course-item-box-visit">
                                     <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
+                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>3
                                     </span>
                                 </div>
                             </a>
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <div class="course-container-item">
-                <div class="course-item-cateName">
-                    <a href="#" target="_blank">
-                        <span class="cateName-span">艺术设计</span>
-                    </a>
-                </div>
-                <div class="course-item-subCate">
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">艺术</span>
-                        </a>
-                    </div>
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">建筑</span>
-                        </a>
-                    </div>
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">设计</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="course-items">
-                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="中国古代建筑艺术"
-                                         src="../static/image/courtney-corlew-190987.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">中国古代建筑艺术</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="艺术导论"
-                                         src="../static/image/marius-masalar-132751.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">艺术导论</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="电影鉴赏"
-                                         src="../static/image/benjamin-dada-323461.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">电影鉴赏</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="摄影基础"
-                                         src="../static/image/猎户座星云.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">摄影基础</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="course-container-item">
-                <div class="course-item-cateName">
-                    <a href="#" target="_blank">
-                        <span class="cateName-span">生命科学</span>
-                    </a>
-                </div>
-                <div class="course-item-subCate">
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">健康</span>
-                        </a>
-                    </div>
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">医学</span>
-                        </a>
-                    </div>
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">环境</span>
-                        </a>
-                    </div>
-                    <div class="subCate-div">
-                        <a href="#" target="_blank">
-                            <span class="subCate-span">生物</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="course-items">
-                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="AIDS and I --艾滋病与我"
-                                         src="../static/image/courtney-corlew-190987.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">AIDS and I --艾滋病与我</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="植物学"
-                                         src="../static/image/marius-masalar-132751.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">植物学</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="急救常识"
-                                         src="../static/image/benjamin-dada-323461.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">急救常识</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="course-item-box">
-                        <div class="item-box">
-                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">
-                                <div class="course-item-box-img">
-                                    <img alt="运动与健康"
-                                         src="../static/image/猎户座星云.jpg">
-                                </div>
-                                <div class="course-item-box-title">
-                                    <span class="">运动与健康</span>
-                                </div>
-                                <div class="course-item-box-visit">
-                                    <span class="course-item-box-visit-num">
-                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+{##}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="course-container-item">#}
+{#                <div class="course-item-cateName">#}
+{#                    <a href="#" target="_blank">#}
+{#                        <span class="cateName-span">艺术设计</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="course-item-subCate">#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">艺术</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">建筑</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">设计</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="course-items">#}
+{#                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="中国古代建筑艺术"#}
+{#                                         src="../static/image/courtney-corlew-190987.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">中国古代建筑艺术</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="艺术导论"#}
+{#                                         src="../static/image/marius-masalar-132751.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">艺术导论</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="电影鉴赏"#}
+{#                                         src="../static/image/benjamin-dada-323461.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">电影鉴赏</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="摄影基础"#}
+{#                                         src="../static/image/猎户座星云.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">摄影基础</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="course-container-item">#}
+{#                <div class="course-item-cateName">#}
+{#                    <a href="#" target="_blank">#}
+{#                        <span class="cateName-span">生命科学</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="course-item-subCate">#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">健康</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">医学</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">环境</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="subCate-div">#}
+{#                        <a href="#" target="_blank">#}
+{#                            <span class="subCate-span">生物</span>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="course-items">#}
+{#                    <!--用户点视频，跳转到该视频的授课大纲页面study-abstract.html-->#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="AIDS and I --艾滋病与我"#}
+{#                                         src="../static/image/courtney-corlew-190987.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">AIDS and I --艾滋病与我</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="植物学"#}
+{#                                         src="../static/image/marius-masalar-132751.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">植物学</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="急救常识"#}
+{#                                         src="../static/image/benjamin-dada-323461.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">急救常识</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>20100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="course-item-box">#}
+{#                        <div class="item-box">#}
+{#                            <a href="study-abstract.html" target="_blank" class="course-item-box-a">#}
+{#                                <div class="course-item-box-img">#}
+{#                                    <img alt="运动与健康"#}
+{#                                         src="../static/image/猎户座星云.jpg">#}
+{#                                </div>#}
+{#                                <div class="course-item-box-title">#}
+{#                                    <span class="">运动与健康</span>#}
+{#                                </div>#}
+{#                                <div class="course-item-box-visit">#}
+{#                                    <span class="course-item-box-visit-num">#}
+{#                                        <span class="glyphicon glyphicon-user course-item-box-visit-icon"></span>100#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
 
                 </div>
             </div>
         </div>
-    </div>
+
 </body>
 <script>
     $(document).ready(function () {

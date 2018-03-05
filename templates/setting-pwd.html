@@ -24,12 +24,14 @@
             <a href="{{ url_for('course') }}">课程</a>
         </div>
         <form class="navbar-form navbar-left">
-            <div class="form-group search">
-                <input type="text" class="form-control" placeholder="搜索感兴趣的课程" style="width: 80%">
-                <button type="submit" class="btn search_btn" value="">
+            <form class="navbar-form navbar-left" action="{{ url_for('searchCourse') }}">
+                <div class="form-group search">
+                    <input type="text" class="form-control" placeholder="搜索感兴趣的课程" name="course" style="width: 300px">
+                    <button type="submit" class="btn search_btn" value="">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-            </div>
+                    </button>
+                </div>
+            </form>
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
@@ -105,116 +107,116 @@
     </div>
 </div>
 </body>
-<script language="JavaScript">
-    var pwd_patten = new RegExp(/^[_\w-]{6,29}$/);
-    var old_pwd_ok = true;
-    var new_pwd_ok = false;
-    var new_pwd2_ok = false;
-    var new_pwd_null = true;
-    var old_pwd_null = true;
-    var new_pwd2_null = true;
-    $(function(){
-        $("#old-pwd").blur('input',function(e){
-            var old_pwd = $("input[id='old-pwd']").val();
-            var patten=true;
-            var num=true;
-            if(!pwd_patten.test(old_pwd)){
-                patten=false;
-            }
-            if(old_pwd.length<1){
-                $("#old-pwd").css("border-color","red");
-                $("#old-pwd-tip").css({"color":"red"}).text("请输入原密码");
-                num=false;
-                old_pwd_null=true;
-            }
-            if(old_pwd.length>0){
-                old_pwd_null=false;
-            }
-        });
-    });
-
-    $(function () {
-        $("#new-pwd").on('input',function(e){
-            var password = $("input[id='new-pwd']").val();
-            var num=true;
-            var patten=true;
-            if(!pwd_patten.test(password)){
-                patten=false;
-            }
-            if(password.length<1||password.length>30||password.length<7){
-                num=false;
-            }
-            if(password.length<1){
-                new_pwd_null=true;
-            }
-            if(patten&&num){
-                $("#new-pwd").css("border-color","green");
-                $("#new-pwd-tip").css({"color":"green"}).text("");
-                new_pwd_ok=true;
-                new_pwd_null=false;
-            }
-            else{
-                $("#new-pwd").css("border-color","red");
-                $("#new-pwd-tip").css({"color":"red"}).text("7-30个字符，不包含-和_以外的特殊字符和空格");
-                new_pwd_ok=false;
-            }
-        });
-
-        $("#new-pwd2").blur('input',function (e) {
-            var password2 = $("input[id='new-pwd2']").val();
-            var password1 = $("input[id='new-pwd']").val();
-            if(password2.length<1){
-                new_pwd2_null=true;
-                $("#new-pwd2").css("border-color","red").text("请再次输入密码！");
-            }
-            if(!(password1===""||password1===null)&&password1===password2&&new_pwd_ok){
-                $("#new-pwd2").css("border-color","green");
-                $("#new-pwd2-tip").css({"color":"green"}).text("");
-                new_pwd2_ok=true;
-                new_pwd2_null=false;
-            }
-            if(!(password1===""||password1===null)&&!(password1===password2)&&new_pwd_ok){
-                new_pwd2_ok=false;
-                $("#new-pwd2").css("border-color","red");
-                $("#new-pwd2-tip").css({"color":"red"}).text("密码不一致！");
-            }
-            if(password1===""||password1===null){
-                $("#new-pwd").css("border-color","red");
-                $("#new-pwd2-tip").css("border-color","red").text("请先确保上一栏的密码格式正确！");
-                new_pwd2_ok=false;
-            }
-        });
-    });
-
-    var changeForm = document.getElementById('setting-pwd-form');
-    var submit = document.getElementById('submit');
-    submit.onclick=function () {
-        if(old_pwd_ok&&new_pwd_ok&&new_pwd2_ok){
-            changeForm.submit();
-        }
-        else{
-            if(old_pwd_null){
-                $("#old-pwd-tip").css("color","red").text("请输入原密码");
-            }
-            if(!(old_pwd_ok||old_pwd_null)){
-                $("#old-pwd").css("border-color","red");
-            }
-            if(new_pwd_null){
-                $("#new-pwd-tip").css("color","red").text("7-30个字符，不包含-和_以外的特殊字符");
-            }
-            if(!(new_pwd_ok||new_pwd_null)){
-                $("#new-pwd").css("border-color","red");
-            }
-            if(new_pwd2_null){
-                $("#new-pwd2-tip").css("color","red").text("请输入确认密码！");
-            }
-            if(!(new_pwd2_ok||new_pwd2_null)){
-                $("#new-pwd2").css("border-color","red");
-            }
-            $("#submitTip").css({"color":"red","padding-left":"4.8em"}).text("新密码设置失败！");
-            return false;
-        }
-    };
-
-</script>
+{#<script language="JavaScript">#}
+{#    var pwd_patten = new RegExp(/^[_\w-]{6,29}$/);#}
+{#    var old_pwd_ok = true;#}
+{#    var new_pwd_ok = false;#}
+{#    var new_pwd2_ok = false;#}
+{#    var new_pwd_null = true;#}
+{#    var old_pwd_null = true;#}
+{#    var new_pwd2_null = true;#}
+{#    $(function(){#}
+{#        $("#old-pwd").blur('input',function(e){#}
+{#            var old_pwd = $("input[id='old-pwd']").val();#}
+{#            var patten=true;#}
+{#            var num=true;#}
+{#            if(!pwd_patten.test(old_pwd)){#}
+{#                patten=false;#}
+{#            }#}
+{#            if(old_pwd.length<1){#}
+{#                $("#old-pwd").css("border-color","red");#}
+{#                $("#old-pwd-tip").css({"color":"red"}).text("请输入原密码");#}
+{#                num=false;#}
+{#                old_pwd_null=true;#}
+{#            }#}
+{#            if(old_pwd.length>0){#}
+{#                old_pwd_null=false;#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#    $(function () {#}
+{#        $("#new-pwd").on('input',function(e){#}
+{#            var password = $("input[id='new-pwd']").val();#}
+{#            var num=true;#}
+{#            var patten=true;#}
+{#            if(!pwd_patten.test(password)){#}
+{#                patten=false;#}
+{#            }#}
+{#            if(password.length<1||password.length>30||password.length<7){#}
+{#                num=false;#}
+{#            }#}
+{#            if(password.length<1){#}
+{#                new_pwd_null=true;#}
+{#            }#}
+{#            if(patten&&num){#}
+{#                $("#new-pwd").css("border-color","green");#}
+{#                $("#new-pwd-tip").css({"color":"green"}).text("");#}
+{#                new_pwd_ok=true;#}
+{#                new_pwd_null=false;#}
+{#            }#}
+{#            else{#}
+{#                $("#new-pwd").css("border-color","red");#}
+{#                $("#new-pwd-tip").css({"color":"red"}).text("7-30个字符，不包含-和_以外的特殊字符和空格");#}
+{#                new_pwd_ok=false;#}
+{#            }#}
+{#        });#}
+{##}
+{#        $("#new-pwd2").blur('input',function (e) {#}
+{#            var password2 = $("input[id='new-pwd2']").val();#}
+{#            var password1 = $("input[id='new-pwd']").val();#}
+{#            if(password2.length<1){#}
+{#                new_pwd2_null=true;#}
+{#                $("#new-pwd2").css("border-color","red").text("请再次输入密码！");#}
+{#            }#}
+{#            if(!(password1===""||password1===null)&&password1===password2&&new_pwd_ok){#}
+{#                $("#new-pwd2").css("border-color","green");#}
+{#                $("#new-pwd2-tip").css({"color":"green"}).text("");#}
+{#                new_pwd2_ok=true;#}
+{#                new_pwd2_null=false;#}
+{#            }#}
+{#            if(!(password1===""||password1===null)&&!(password1===password2)&&new_pwd_ok){#}
+{#                new_pwd2_ok=false;#}
+{#                $("#new-pwd2").css("border-color","red");#}
+{#                $("#new-pwd2-tip").css({"color":"red"}).text("密码不一致！");#}
+{#            }#}
+{#            if(password1===""||password1===null){#}
+{#                $("#new-pwd").css("border-color","red");#}
+{#                $("#new-pwd2-tip").css("border-color","red").text("请先确保上一栏的密码格式正确！");#}
+{#                new_pwd2_ok=false;#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#    var changeForm = document.getElementById('setting-pwd-form');#}
+{#    var submit = document.getElementById('submit');#}
+{#    submit.onclick=function () {#}
+{#        if(old_pwd_ok&&new_pwd_ok&&new_pwd2_ok){#}
+{#            changeForm.submit();#}
+{#        }#}
+{#        else{#}
+{#            if(old_pwd_null){#}
+{#                $("#old-pwd-tip").css("color","red").text("请输入原密码");#}
+{#            }#}
+{#            if(!(old_pwd_ok||old_pwd_null)){#}
+{#                $("#old-pwd").css("border-color","red");#}
+{#            }#}
+{#            if(new_pwd_null){#}
+{#                $("#new-pwd-tip").css("color","red").text("7-30个字符，不包含-和_以外的特殊字符");#}
+{#            }#}
+{#            if(!(new_pwd_ok||new_pwd_null)){#}
+{#                $("#new-pwd").css("border-color","red");#}
+{#            }#}
+{#            if(new_pwd2_null){#}
+{#                $("#new-pwd2-tip").css("color","red").text("请输入确认密码！");#}
+{#            }#}
+{#            if(!(new_pwd2_ok||new_pwd2_null)){#}
+{#                $("#new-pwd2").css("border-color","red");#}
+{#            }#}
+{#            $("#submitTip").css({"color":"red","padding-left":"4.8em"}).text("新密码设置失败！");#}
+{#            return false;#}
+{#        }#}
+{#    };#}
+{##}
+{#</script>#}
 </html>

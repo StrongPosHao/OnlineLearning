@@ -160,15 +160,14 @@ body{
 }
 
 .course-item-box-title{
-    left: 1.5%;
+        left: 1.5%;
     top: 9.5em;
+    text-align: center;
     width: 97%;
-    /*height: 22px;*/
     z-index: 0;
     color: rgba(0, 0, 50,0.9);
-    font-size: 1.4em;
+    font-size: 1.5em;
     position: absolute;
-    /*line-height: 22px;*/
 }
 
 .course-tab-list{
@@ -300,6 +299,57 @@ h3 {
     font-size: 1.2em;
     padding-bottom: 0.4em;
 }
+
+.btn-add-course{
+    position: relative;
+    width: 12%;
+    text-align: center;
+    margin-right: 2%;
+    line-height: 2.8em;
+    font-size: 1em;
+    float: right;
+    letter-spacing: 0.2em;
+    border-radius: 1em;
+    background-color: #e1987e;
+    padding-bottom: 0.15em;
+    top: -4em;
+}
+
+.btn-add-course a{
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.btn-add-course a:hover{
+    color: rgba(255,255,255,1);
+}
+
+.btn-start-course{
+    position: relative;
+    width: 12%;
+    text-align: center;
+    margin-right: 2%;
+    line-height: 2.8em;
+    font-size: 1em;
+    float: right;
+    letter-spacing: 0.2em;
+    border-radius: 1em;
+    background-color: #00A000;
+    padding-bottom: 0.15em;
+    top: -4em;
+}
+
+.btn-start-course a{
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.btn-start-course a:hover{
+    color: rgba(255,255,255,1);
+}
+
 
 
 
